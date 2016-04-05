@@ -422,9 +422,11 @@ Public Class frFacturaAlbaran
         linea = 1
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
         conexionmy.Open()
-        Dim cmdAlb As New MySqlCommand
-        Dim cmd As New MySqlCommand
-        cmd.CommandType = System.Data.CommandType.Text
+        Dim conexionmy2 As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy2.Open()
+        Dim cmdAlb As New MySqlCommand()
+        'Dim cmd As New MySqlCommand
+        'cmd.CommandType = System.Data.CommandType.Text
 
         Dim rdrAlb As MySqlDataReader
         cmdAlb = New MySqlCommand("SELECT * FROM albaran_linea WHERE num_albaran = '" & nAlba & "'", conexionmy)
@@ -433,19 +435,28 @@ Public Class frFacturaAlbaran
         cmdAlb.CommandType = CommandType.Text
         cmdAlb.Connection = conexionmy
         rdrAlb = cmdAlb.ExecuteReader
-        rdrAlb.Read()
+        'rdrAlb.Read()
         If rdrAlb.HasRows Then
             Do While rdrAlb.Read()
 
                 linea = linea + 1
+                Dim vCantidad As String = Replace(rdrAlb("cantidad").ToString, ",", ".")
+                Dim vAncho As String = Replace(rdrAlb("ancho_largo").ToString, ",", ".")
+                Dim vMl As String = Replace(rdrAlb("m2_ml").ToString, ",", ".")
+                Dim vPrecio As String = Replace(rdrAlb("precio").ToString, ",", ".")
+                Dim vDescuento As String = Replace(rdrAlb("descuento").ToString, ",", ".")
+                Dim vIva As String = Replace(rdrAlb("ivalinea").ToString, ",", ".")
+                Dim vImporte As String = Replace(rdrAlb("importe").ToString, ",", ".")
+                Dim vTotal As String = Replace(rdrAlb("totalinea").ToString, ",", ".")
                 Dim cmdLinea As New MySqlCommand
                 cmdLinea.CommandType = System.Data.CommandType.Text
-                cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, totalinea, linea, lote) VALUES (" + txNumero.Text + " , '" + rdrAlb("codigo") + "' , '" + rdrAlb("descripcion") + "', '" + rdrAlb("cantidad") + "', '" + rdrAlb("cantidad") + "', '" + rdrAlb("ancho_largo") + "', '" + rdrAlb("m2_ml") + "', '" + rdrAlb("precio") + "', '" + rdrAlb("descuento") + "', '" + rdrAlb("ivalinea") + "', '" + rdrAlb("totalinea") + "', '" + linea + "', '" + rdrAlb("lote") + "')"
-                cmdLinea.Connection = conexionmy
+                cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, linea, lote) VALUES (" + txNumero.Text + " , '" + rdrAlb("codigo") + "' , '" + rdrAlb("descripcion") + "', '" + vCantidad + "' , '" + vAncho + "', '" + vMl + "', '" + vPrecio + "', '" + vDescuento + "', '" + vIva + "', '" + vImporte + "', '" + vTotal + "', '" + linea.ToString + "', '" + rdrAlb("lote") + "')"
+                cmdLinea.Connection = conexionmy2
                 cmdLinea.ExecuteNonQuery()
 
             Loop
         End If
+        conexionmy.Close()
 
     End Sub
 End Class

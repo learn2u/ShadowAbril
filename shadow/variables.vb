@@ -8,6 +8,9 @@
     Public vRecargo As Decimal
     Public vLotes As String
     Public vReLote As String
+    Public vUser As String
+    Public vContra As String
+    Public vRol As String
     Public newMdiAlbaran As New frAlbaran()
     Public newMdiPresupuesto As New frPresupuestos()
     Public newMdiPedido As New frPedido()

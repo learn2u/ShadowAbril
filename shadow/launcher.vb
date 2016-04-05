@@ -21,24 +21,7 @@ Public Class launcher
         formArti = "N"
         formCli = "N"
 
-        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
-        conexionmy.Open()
-        Dim cmd As New MySqlCommand
-
-        Dim rdr As MySqlDataReader
-
-        cmd = New MySqlCommand("SELECT recargo FROM configuracion", conexionmy)
-
-        cmd.CommandType = CommandType.Text
-        cmd.Connection = conexionmy
-        rdr = cmd.ExecuteReader
-
-
-        rdr.Read()
-
-        vRecargo = rdr("recargo")
-
-        conexionmy.Close()
+        login.Show()
 
     End Sub
 
@@ -237,5 +220,9 @@ Public Class launcher
             newMdiGasto.Dock = DockStyle.Fill
             newMdiGasto.Show()
         End If
+    End Sub
+
+    Private Sub LoginUsuariosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoginUsuariosToolStripMenuItem.Click
+        login.Show()
     End Sub
 End Class

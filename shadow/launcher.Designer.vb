@@ -41,6 +41,7 @@ Partial Class launcher
         Me.ArtículosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ADMINISTRACIÓNToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoginUsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -55,7 +56,7 @@ Partial Class launcher
         '
         'EmpresaToolStripMenuItem
         '
-        Me.EmpresaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfiguraciónEmpresaToolStripMenuItem, Me.ConfiguraciónMySQLToolStripMenuItem})
+        Me.EmpresaToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConfiguraciónEmpresaToolStripMenuItem, Me.ConfiguraciónMySQLToolStripMenuItem, Me.LoginUsuariosToolStripMenuItem})
         Me.EmpresaToolStripMenuItem.Name = "EmpresaToolStripMenuItem"
         Me.EmpresaToolStripMenuItem.Size = New System.Drawing.Size(70, 20)
         Me.EmpresaToolStripMenuItem.Text = "EMPRESA"
@@ -157,8 +158,14 @@ Partial Class launcher
         'GastosToolStripMenuItem
         '
         Me.GastosToolStripMenuItem.Name = "GastosToolStripMenuItem"
-        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GastosToolStripMenuItem.Text = "Gastos"
+        '
+        'LoginUsuariosToolStripMenuItem
+        '
+        Me.LoginUsuariosToolStripMenuItem.Name = "LoginUsuariosToolStripMenuItem"
+        Me.LoginUsuariosToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.LoginUsuariosToolStripMenuItem.Text = "Login Usuarios"
         '
         'launcher
         '
@@ -200,4 +207,5 @@ Partial Class launcher
     Friend WithEvents ArtículosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ADMINISTRACIÓNToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GastosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LoginUsuariosToolStripMenuItem As ToolStripMenuItem
 End Class

@@ -21,7 +21,10 @@ Public Class launcher
         formArti = "N"
         formCli = "N"
 
-        login.Show()
+        'login.Show()
+        Panel1.Show()
+        txIp.Text = vServidor
+        txUser.Focus()
 
     End Sub
 
@@ -223,6 +226,63 @@ Public Class launcher
     End Sub
 
     Private Sub LoginUsuariosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoginUsuariosToolStripMenuItem.Click
-        login.Show()
+        'login.Show()
+        Panel1.Show()
+    End Sub
+
+    Private Sub txCancelar_Click(sender As Object, e As EventArgs) Handles txCancelar.Click
+        Panel1.Hide()
+
+    End Sub
+    Private Sub cargoRecargo()
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim cmd As New MySqlCommand
+
+        Dim rdr As MySqlDataReader
+
+        cmd = New MySqlCommand("SELECT recargo FROM configuracion", conexionmy)
+
+        cmd.CommandType = CommandType.Text
+        cmd.Connection = conexionmy
+        rdr = cmd.ExecuteReader
+
+
+        rdr.Read()
+
+        vRecargo = rdr("recargo")
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub btConectar_Click(sender As Object, e As EventArgs) Handles btConectar.Click
+        vServidor = txIp.Text
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim cmd As New MySqlCommand
+
+        Dim rdr As MySqlDataReader
+
+        cmd = New MySqlCommand("SELECT * FROM usuarios WHERE usuario = '" + txUser.Text + "' AND password = '" + txContra.Text + "'", conexionmy)
+
+        cmd.CommandType = CommandType.Text
+        cmd.Connection = conexionmy
+        rdr = cmd.ExecuteReader
+
+
+        rdr.Read()
+        If rdr.HasRows Then
+            vUser = rdr("usuario")
+            vContra = rdr("password")
+            vRol = rdr("rol")
+            MsgBox("El login de usuario a sido correcto")
+            Panel1.Hide()
+        Else
+            MsgBox("El usuario no está registrado en la base de datos. Inténtalo otra vez")
+            Exit Sub
+        End If
+
+        conexionmy.Close()
+        cargoRecargo()
     End Sub
 End Class

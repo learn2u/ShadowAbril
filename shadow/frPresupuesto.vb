@@ -13,6 +13,8 @@ Public Class frPresupuestos
     Public Shared editNumber As String = "N"
     Public Shared numero_impresion As Integer
     Public Shared codigo_cliente_impresion As Integer
+    Public Shared id_agente_impresion As Integer
+    Public Shared id_usuario_impresion As Integer
 
 
 
@@ -2436,6 +2438,8 @@ Public Class frPresupuestos
     Private Sub cmdImprimir_Click(sender As Object, e As EventArgs) Handles cmdImprimir.Click
         numero_impresion = CInt(txtNumpres.Text)
         codigo_cliente_impresion = CInt(txNumcli.Text)
+        id_agente_impresion = CInt(txAgente.Text)
+        id_usuario_impresion = CInt(txUsuario.Text)
         tabPresupuestos.SelectedIndex = 2
 
         'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.clientes' Puede moverla o quitarla según sea necesario.
@@ -2444,6 +2448,10 @@ Public Class frPresupuestos
         Me.presupuesto_cabTableAdapter.Fill(Me.dsPresupuesto.presupuesto_cab, numero_impresion)
         'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_linea' Puede moverla o quitarla según sea necesario.
         Me.presupuesto_lineaTableAdapter.Fill(Me.dsPresupuesto.presupuesto_linea, numero_impresion)
+
+        Me.agentesTableAdapter.Fill(Me.dsPresupuesto.agentes, id_agente_impresion)
+
+        Me.usuariosTableAdapter.Fill(Me.dsPresupuesto.usuarios, id_usuario_impresion)
 
         Me.ReportViewer1.RefreshReport()
     End Sub

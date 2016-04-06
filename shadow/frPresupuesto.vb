@@ -2129,10 +2129,10 @@ Public Class frPresupuestos
                     dgLineasPres1.Focus()
                     dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
-                    newLinea = "N"
                 End If
             End If
         End If
+        newLinea = "N"
     End Sub
 
     Private Sub dgLineasPres2_KeyDown(sender As Object, e As KeyEventArgs) Handles dgLineasPres2.KeyDown
@@ -2169,10 +2169,6 @@ Public Class frPresupuestos
             End If
         End If
         newLinea = "N"
-    End Sub
-
-    Private Sub dgLineasPres2_KeyPress(sender As Object, e As KeyPressEventArgs) Handles dgLineasPres2.KeyPress
-
     End Sub
 
     Private Sub cmdDuplicar_Click(sender As Object, e As EventArgs) Handles cmdDuplicar.Click
@@ -2314,6 +2310,10 @@ Public Class frPresupuestos
         Me.presupuesto_lineaTableAdapter.Fill(Me.dsPresupuesto.presupuesto_linea, numero_impresion)
 
         Me.ReportViewer1.RefreshReport()
+    End Sub
+
+    Private Sub dgLineasPres1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellContentClick
+
     End Sub
 End Class
 

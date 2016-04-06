@@ -1928,4 +1928,86 @@ Public Class frAlbaran
             conexionmy.Close()
         End If
     End Sub
+
+    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
+
+    End Sub
+
+    Private Sub dgLineasPres1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellContentClick
+
+    End Sub
+
+    Private Sub dgLineasPres1_KeyDown(sender As Object, e As KeyEventArgs) Handles dgLineasPres1.KeyDown
+        If e.KeyCode = Keys.Down And dgLineasPres1.CurrentRow.Index = dgLineasPres1.RowCount - 1 Then
+            newLinea = "S"
+        If txNumcli.Text = "" Then
+            MsgBox("Antes de añadir líneas al albarán es necesario seleccionar un cliente")
+            formCli = "A"
+            frVerClientes.Show()
+        Else
+                If flagEdit = "N" Then
+                    If dgLineasPres1.RowCount = 0 Then
+                        lineas = 0
+                    End If
+                    For Each row As DataGridViewRow In dgLineasPres1.Rows
+                        If row.Cells(3).Value Is Nothing Then
+                            MsgBox("No se pueden añadir líneas nuevas hasta completar las lineas anteriores. Introduzca una descripción")
+                            Exit Sub
+                        End If
+                    Next
+                    lineas = lineas + 1
+                    dgLineasPres1.Rows.Add()
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(9).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(10).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(11).Value = ""
+                    dgLineasPres1.Focus()
+                    dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
+                End If
+            End If
+        End If
+        newLinea = "N"
+    End Sub
+
+    Private Sub dgLineasPres2_KeyDown(sender As Object, e As KeyEventArgs) Handles dgLineasPres2.KeyDown
+        If e.KeyCode = Keys.Down And dgLineasPres2.CurrentRow.Index = dgLineasPres2.RowCount - 1 Then
+            newLinea = "S"
+            If txNumcli.Text = "" Then
+                MsgBox("Antes de añadir líneas al albarán es necesario seleccionar un cliente")
+                formCli = "A"
+                frVerClientes.Show()
+            Else
+                If dgLineasPres2.RowCount = 0 Then
+                    lineas = 0
+                End If
+                For Each row As DataGridViewRow In dgLineasPres2.Rows
+                    If row.Cells(3).Value Is Nothing Then
+                        MsgBox("No se pueden añadir líneas nuevas hasta completar las lineas anteriores. Introduzca una descripción")
+                        Exit Sub
+                    End If
+                Next
+                lineas = lineas + 1
+                dgLineasPres2.Rows.Add()
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = 0
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = 0
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = ""
+                dgLineasPres2.Focus()
+                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
+                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
+            End If
+        End If
+        newLinea = "N"
+    End Sub
 End Class

@@ -44,6 +44,10 @@ Partial Class frPresupuestos
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dsPresupuesto = New shadow.dsPresupuesto()
+        Me.presupuesto_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.presupuesto_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -160,13 +164,13 @@ Partial Class frPresupuestos
         Me.txtNumpres = New System.Windows.Forms.TextBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.dsPresupuesto = New shadow.dsPresupuesto()
-        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.clientesTableAdapter = New shadow.dsPresupuestoTableAdapters.clientesTableAdapter()
-        Me.presupuesto_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.presupuesto_cabTableAdapter = New shadow.dsPresupuestoTableAdapters.presupuesto_cabTableAdapter()
-        Me.presupuesto_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.presupuesto_lineaTableAdapter = New shadow.dsPresupuestoTableAdapters.presupuesto_lineaTableAdapter()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPresupuestos.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -183,11 +187,27 @@ Partial Class frPresupuestos
         Me.Panel3.SuspendLayout()
         Me.tsBotones.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'dsPresupuesto
+        '
+        Me.dsPresupuesto.DataSetName = "dsPresupuesto"
+        Me.dsPresupuesto.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'presupuesto_cabBindingSource
+        '
+        Me.presupuesto_cabBindingSource.DataMember = "presupuesto_cab"
+        Me.presupuesto_cabBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'presupuesto_lineaBindingSource
+        '
+        Me.presupuesto_lineaBindingSource.DataMember = "presupuesto_linea"
+        Me.presupuesto_lineaBindingSource.DataSource = Me.dsPresupuesto
         '
         'tabPresupuestos
         '
@@ -1383,33 +1403,13 @@ Partial Class frPresupuestos
         Me.ReportViewer1.Size = New System.Drawing.Size(1315, 629)
         Me.ReportViewer1.TabIndex = 0
         '
-        'dsPresupuesto
-        '
-        Me.dsPresupuesto.DataSetName = "dsPresupuesto"
-        Me.dsPresupuesto.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'clientesBindingSource
-        '
-        Me.clientesBindingSource.DataMember = "clientes"
-        Me.clientesBindingSource.DataSource = Me.dsPresupuesto
-        '
         'clientesTableAdapter
         '
         Me.clientesTableAdapter.ClearBeforeFill = True
         '
-        'presupuesto_cabBindingSource
-        '
-        Me.presupuesto_cabBindingSource.DataMember = "presupuesto_cab"
-        Me.presupuesto_cabBindingSource.DataSource = Me.dsPresupuesto
-        '
         'presupuesto_cabTableAdapter
         '
         Me.presupuesto_cabTableAdapter.ClearBeforeFill = True
-        '
-        'presupuesto_lineaBindingSource
-        '
-        Me.presupuesto_lineaBindingSource.DataMember = "presupuesto_linea"
-        Me.presupuesto_lineaBindingSource.DataSource = Me.dsPresupuesto
         '
         'presupuesto_lineaTableAdapter
         '
@@ -1426,6 +1426,10 @@ Partial Class frPresupuestos
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PRESUPUESTO"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPresupuestos.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
@@ -1447,10 +1451,6 @@ Partial Class frPresupuestos
         Me.tsBotones.ResumeLayout(False)
         Me.tsBotones.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
-        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

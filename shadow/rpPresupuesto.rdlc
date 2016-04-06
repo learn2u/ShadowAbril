@@ -9,7 +9,7 @@
               <Width>2.33151cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>8.46103cm</Width>
+              <Width>6.54367cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.07949cm</Width>
@@ -21,13 +21,16 @@
               <Width>1.32378cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.59174cm</Width>
+              <Width>1.68358cm</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>1.73222cm</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.04766cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68146cm</Width>
+              <Width>1.77476cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -330,6 +333,55 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox11">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>IMPORTE</Value>
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox11</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <TopBorder>
+                          <Style>None</Style>
+                        </TopBorder>
+                        <BottomBorder>
+                          <Color>Black</Color>
+                          <Style>Solid</Style>
+                          <Width>1pt</Width>
+                        </BottomBorder>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox45">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -429,7 +481,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.73229cm</Height>
+              <Height>0.65292cm</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -442,7 +494,7 @@
                             <TextRun>
                               <Value>=Fields!codigo.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -475,7 +527,7 @@
                             <TextRun>
                               <Value>=Fields!descripcion.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -506,7 +558,7 @@
                             <TextRun>
                               <Value>=Fields!cantidad.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -542,7 +594,7 @@
                             <TextRun>
                               <Value>=Fields!ancho_largo.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -578,7 +630,7 @@
                             <TextRun>
                               <Value>=Fields!m2_ml.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -614,7 +666,8 @@
                             <TextRun>
                               <Value>=Fields!precio.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
+                                <Format>0.00'€';(0.00'€')</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -635,6 +688,42 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox12">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!cantidad.Value*Fields!precio.Value</Value>
+                              <Style>
+                                <FontSize>7pt</FontSize>
+                                <Format>0.00'€';(0.00'€')</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Style>None</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -650,7 +739,7 @@
                             <TextRun>
                               <Value>=Fields!descuento.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -686,7 +775,8 @@
                             <TextRun>
                               <Value>=Fields!totalinea.Value</Value>
                               <Style>
-                                <FontSize>8pt</FontSize>
+                                <FontSize>7pt</FontSize>
+                                <Format>0.00'€';(0.00'€')</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -707,6 +797,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
@@ -717,6 +808,7 @@
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -740,7 +832,7 @@
         <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <DataSetName>dsLinPresupuesto</DataSetName>
         <Top>0.17639cm</Top>
-        <Height>1.33229cm</Height>
+        <Height>1.25292cm</Height>
         <Width>18.9992cm</Width>
         <Style>
           <Border>
@@ -749,7 +841,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.67953in</Height>
+    <Height>0.64828in</Height>
     <Style />
   </Body>
   <Width>7.48in</Width>
@@ -881,61 +973,6 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="Textbox4">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>REALIZADO POR</Value>
-                  <Style>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>5.36787cm</Top>
-          <Left>5.10583cm</Left>
-          <Height>0.6cm</Height>
-          <Width>3.44946cm</Width>
-          <ZIndex>3</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
         <Textbox Name="fecha">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -960,7 +997,7 @@
           <Left>2.84396cm</Left>
           <Height>0.6cm</Height>
           <Width>2.26187cm</Width>
-          <ZIndex>4</ZIndex>
+          <ZIndex>3</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -993,7 +1030,7 @@
           <Top>5.96787cm</Top>
           <Height>0.6cm</Height>
           <Width>2.84396cm</Width>
-          <ZIndex>5</ZIndex>
+          <ZIndex>4</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1031,7 +1068,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>CLIENTE</Value>
+                  <Value>PRESUPUESTO</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>
@@ -1044,35 +1081,15 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox9</rd:DefaultName>
-          <Top>1.0287cm</Top>
+          <Top>0.7112cm</Top>
           <Left>9.30749cm</Left>
           <Height>0.73229cm</Height>
           <Width>9.69171cm</Width>
-          <ZIndex>6</ZIndex>
+          <ZIndex>5</ZIndex>
           <Style>
             <Border>
-              <Style>Solid</Style>
+              <Style>None</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
@@ -1244,92 +1261,7 @@
           <Left>9.30749cm</Left>
           <Height>2.90188cm</Height>
           <Width>9.69171cm</Width>
-          <ZIndex>7</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
-          </Style>
-        </Rectangle>
-        <Textbox Name="referencia">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!referencia.Value, "dsCabPresupuesto")</Value>
-                  <Style>
-                    <FontSize>9pt</FontSize>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>referencia</rd:DefaultName>
-          <Top>5.96787cm</Top>
-          <Left>9.30749cm</Left>
-          <Height>0.6cm</Height>
-          <Width>9.69171cm</Width>
-          <ZIndex>8</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Rectangle Name="Rectangle3">
-          <KeepTogether>true</KeepTogether>
-          <Top>5.96787cm</Top>
-          <Left>5.10583cm</Left>
-          <Height>0.6cm</Height>
-          <Width>3.44946cm</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>6</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
@@ -1409,7 +1341,7 @@
           <Top>2.49563cm</Top>
           <Height>1.95817cm</Height>
           <Width>7.40021cm</Width>
-          <ZIndex>10</ZIndex>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1420,55 +1352,115 @@
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
-        <Textbox Name="Textbox5">
+        <Textbox Name="referencia">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
           <Paragraphs>
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>REFERENCIA</Value>
+                  <Value>REFERENCIA: </Value>
                   <Style>
                     <FontSize>9pt</FontSize>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!referencia.Value, "dsCabPresupuesto")</Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
               </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
+              <Style />
             </Paragraph>
           </Paragraphs>
-          <rd:DefaultName>Textbox2</rd:DefaultName>
-          <Top>5.36787cm</Top>
+          <rd:DefaultName>referencia</rd:DefaultName>
+          <Top>4.80398cm</Top>
           <Left>9.30749cm</Left>
           <Height>0.6cm</Height>
           <Width>9.69171cm</Width>
-          <ZIndex>11</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
-              <Style>Solid</Style>
+              <Style>None</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="usuario">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>CREADO: </Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!usuario.Value, "dsUsuario")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>usuario</rd:DefaultName>
+          <Top>6.39204cm</Top>
+          <Left>9.30749cm</Left>
+          <Height>0.6cm</Height>
+          <Width>9.69171cm</Width>
+          <ZIndex>9</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="agente">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>AGENTE: </Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!agente.Value, "dsAgente")</Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>agente</rd:DefaultName>
+          <Top>5.61565cm</Top>
+          <Left>9.30749cm</Left>
+          <Height>0.6cm</Height>
+          <Width>9.69171cm</Width>
+          <ZIndex>10</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
@@ -1483,8 +1475,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>2.38712cm</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
+      <Height>3.47191cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Textbox Name="totaliva">
@@ -1498,47 +1489,29 @@
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
+                    <Format>0.00'€';(0.00'€')</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>totaliva</rd:DefaultName>
-          <Top>1.43462cm</Top>
-          <Left>12.60435cm</Left>
+          <Top>1.87941cm</Top>
+          <Left>15.67575cm</Left>
           <Height>0.66646cm</Height>
           <Width>3.0714cm</Width>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="totaldto">
@@ -1552,17 +1525,18 @@
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
+                    <Format>0.00'€';(0.00'€')</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>totaldto</rd:DefaultName>
-          <Top>1.43462cm</Top>
-          <Left>6.48179cm</Left>
+          <Top>0.5465cm</Top>
+          <Left>15.67575cm</Left>
           <Height>0.66646cm</Height>
           <Width>3.0714cm</Width>
           <ZIndex>1</ZIndex>
@@ -1570,30 +1544,11 @@
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="totalrecargo">
@@ -1607,17 +1562,18 @@
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
+                    <Format>0.00'€';(0.00'€')</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>totalrecargo</rd:DefaultName>
-          <Top>1.43462cm</Top>
-          <Left>9.55319cm</Left>
+          <Top>1.21296cm</Top>
+          <Left>15.67575cm</Left>
           <Height>0.66645cm</Height>
           <Width>3.0714cm</Width>
           <ZIndex>2</ZIndex>
@@ -1625,30 +1581,11 @@
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="totalpresupuesto">
@@ -1662,16 +1599,17 @@
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
+                    <Format>0.00'€';(0.00'€')</Format>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>totalpresupuesto</rd:DefaultName>
-          <Top>1.43462cm</Top>
+          <Top>2.54587cm</Top>
           <Left>15.67575cm</Left>
           <Height>0.66646cm</Height>
           <Width>3.0714cm</Width>
@@ -1680,30 +1618,11 @@
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="Textbox26">
@@ -1713,20 +1632,20 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>TOTAL</Value>
+                  <Value>TOTAL:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.75524cm</Top>
-          <Left>15.67575cm</Left>
+          <Top>2.53295cm</Top>
+          <Left>12.60435cm</Left>
           <Height>0.67938cm</Height>
           <Width>3.0714cm</Width>
           <ZIndex>4</ZIndex>
@@ -1767,19 +1686,19 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>IVA</Value>
+                  <Value>IVA:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.75524cm</Top>
+          <Top>1.86649cm</Top>
           <Left>12.60435cm</Left>
           <Height>0.67938cm</Height>
           <Width>3.0714cm</Width>
@@ -1821,21 +1740,21 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>R.E.</Value>
+                  <Value>R.E.:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.75524cm</Top>
-          <Left>9.55319cm</Left>
-          <Height>0.67938cm</Height>
+          <Top>1.21296cm</Top>
+          <Left>12.60435cm</Left>
+          <Height>0.65353cm</Height>
           <Width>3.0714cm</Width>
           <ZIndex>6</ZIndex>
           <Style>
@@ -1875,21 +1794,21 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>B. IMPONIBLE</Value>
+                  <Value>B. IMPONIBLE:</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
               <Style>
-                <TextAlign>Center</TextAlign>
+                <TextAlign>Right</TextAlign>
               </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.75524cm</Top>
-          <Left>6.48179cm</Left>
-          <Height>0.67938cm</Height>
+          <Top>0.5465cm</Top>
+          <Left>12.60435cm</Left>
+          <Height>0.66646cm</Height>
           <Width>3.0714cm</Width>
           <ZIndex>7</ZIndex>
           <Style>
@@ -1916,6 +1835,90 @@
               <Style>Solid</Style>
               <Width>1pt</Width>
             </RightBorder>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="observaciones">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!observaciones.Value, "dsCabPresupuesto")</Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>observaciones</rd:DefaultName>
+          <Top>1.07774cm</Top>
+          <Left>0.31432cm</Left>
+          <Height>2.13459cm</Height>
+          <Width>11.94562cm</Width>
+          <ZIndex>8</ZIndex>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+            <TopBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </TopBorder>
+            <BottomBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </BottomBorder>
+            <LeftBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </LeftBorder>
+            <RightBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </RightBorder>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox7">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>OBSERVACIONES:</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox7</rd:DefaultName>
+          <Top>0.44246cm</Top>
+          <Left>0.31432cm</Left>
+          <Height>0.6cm</Height>
+          <Width>3.40818cm</Width>
+          <ZIndex>9</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
@@ -1986,7 +1989,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsPresupuesto</rd:DataSetName>
-        <rd:SchemaPath>C:\shadow\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
         <rd:TableName>clientes</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -2042,7 +2045,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsPresupuesto</rd:DataSetName>
-        <rd:SchemaPath>C:\shadow\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
         <rd:TableName>presupuesto_cab</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -2087,14 +2090,66 @@
           <DataField>totalinea</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="num_presupuesto">
+          <DataField>num_presupuesto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsPresupuesto</rd:DataSetName>
-        <rd:SchemaPath>C:\shadow\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
         <rd:TableName>presupuesto_linea</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>presupuesto_lineaTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsUsuario">
+      <Query>
+        <DataSourceName>dsPresupuesto</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="userID">
+          <DataField>userID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="usuario">
+          <DataField>usuario</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsPresupuesto</rd:DataSetName>
+        <rd:SchemaPath>C:\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
+        <rd:TableName>usuarios</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>usuariosTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="dsAgente">
+      <Query>
+        <DataSourceName>dsPresupuesto</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="agenteID">
+          <DataField>agenteID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="agente">
+          <DataField>agente</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsPresupuesto</rd:DataSetName>
+        <rd:SchemaPath>C:\shadow\shadow\dsPresupuesto.xsd</rd:SchemaPath>
+        <rd:TableName>agentes</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>agentesTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

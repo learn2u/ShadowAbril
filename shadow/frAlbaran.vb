@@ -71,51 +71,56 @@ Public Class frAlbaran
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
 
-        readermy = consultamy.ExecuteReader
-        dtable.Load(readermy, LoadOption.OverwriteChanges)
+            bind.DataSource = dtable
 
-        bind.DataSource = dtable
+            dgAlbaranes.DataSource = bind
+            dgAlbaranes.EnableHeadersVisualStyles = False
+            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+            styCabeceras.BackColor = Color.Beige
+            styCabeceras.ForeColor = Color.Black
+            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+            dgAlbaranes.ColumnHeadersDefaultCellStyle = styCabeceras
 
-        dgAlbaranes.DataSource = bind
-        dgAlbaranes.EnableHeadersVisualStyles = False
-        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
-        styCabeceras.BackColor = Color.Beige
-        styCabeceras.ForeColor = Color.Black
-        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
-        dgAlbaranes.ColumnHeadersDefaultCellStyle = styCabeceras
+            dgAlbaranes.Columns(0).HeaderText = "NUMERO"
+            dgAlbaranes.Columns(0).Name = "Column1"
+            dgAlbaranes.Columns(0).FillWeight = 90
+            dgAlbaranes.Columns(0).MinimumWidth = 90
+            dgAlbaranes.Columns(1).HeaderText = "REFERENCIA"
+            dgAlbaranes.Columns(1).Name = "Column2"
+            dgAlbaranes.Columns(1).FillWeight = 190
+            dgAlbaranes.Columns(1).MinimumWidth = 190
+            dgAlbaranes.Columns(2).HeaderText = "FECHA"
+            dgAlbaranes.Columns(2).Name = "Column3"
+            dgAlbaranes.Columns(2).FillWeight = 90
+            dgAlbaranes.Columns(2).MinimumWidth = 90
+            dgAlbaranes.Columns(3).HeaderText = "CLIENTE"
+            dgAlbaranes.Columns(3).Name = "Column4"
+            dgAlbaranes.Columns(3).FillWeight = 300
+            dgAlbaranes.Columns(3).MinimumWidth = 300
+            dgAlbaranes.Columns(4).HeaderText = "IMPORTE"
+            dgAlbaranes.Columns(4).Name = "Column5"
+            dgAlbaranes.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgAlbaranes.Columns(4).FillWeight = 90
+            dgAlbaranes.Columns(4).MinimumWidth = 90
+            dgAlbaranes.Columns(5).HeaderText = "TOTAL"
+            dgAlbaranes.Columns(5).Name = "Column6"
+            dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgAlbaranes.Columns(5).FillWeight = 90
+            dgAlbaranes.Columns(5).MinimumWidth = 90
+            dgAlbaranes.Columns(6).Visible = False
+            dgAlbaranes.Columns(7).Visible = False
+            dgAlbaranes.Columns(8).Visible = False
+            dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dgAlbaranes.Visible = True
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de albaranes. Revisa los datos introducidos.")
+            Exit Sub
+        End Try
 
-        dgAlbaranes.Columns(0).HeaderText = "NUMERO"
-        dgAlbaranes.Columns(0).Name = "Column1"
-        dgAlbaranes.Columns(0).FillWeight = 90
-        dgAlbaranes.Columns(0).MinimumWidth = 90
-        dgAlbaranes.Columns(1).HeaderText = "REFERENCIA"
-        dgAlbaranes.Columns(1).Name = "Column2"
-        dgAlbaranes.Columns(1).FillWeight = 190
-        dgAlbaranes.Columns(1).MinimumWidth = 190
-        dgAlbaranes.Columns(2).HeaderText = "FECHA"
-        dgAlbaranes.Columns(2).Name = "Column3"
-        dgAlbaranes.Columns(2).FillWeight = 90
-        dgAlbaranes.Columns(2).MinimumWidth = 90
-        dgAlbaranes.Columns(3).HeaderText = "CLIENTE"
-        dgAlbaranes.Columns(3).Name = "Column4"
-        dgAlbaranes.Columns(3).FillWeight = 300
-        dgAlbaranes.Columns(3).MinimumWidth = 300
-        dgAlbaranes.Columns(4).HeaderText = "IMPORTE"
-        dgAlbaranes.Columns(4).Name = "Column5"
-        dgAlbaranes.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-        dgAlbaranes.Columns(4).FillWeight = 90
-        dgAlbaranes.Columns(4).MinimumWidth = 90
-        dgAlbaranes.Columns(5).HeaderText = "TOTAL"
-        dgAlbaranes.Columns(5).Name = "Column6"
-        dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-        dgAlbaranes.Columns(5).FillWeight = 90
-        dgAlbaranes.Columns(5).MinimumWidth = 90
-        dgAlbaranes.Columns(6).Visible = False
-        dgAlbaranes.Columns(7).Visible = False
-        dgAlbaranes.Columns(8).Visible = False
-        dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgAlbaranes.Visible = True
 
         conexionmy.Close()
     End Sub
@@ -163,20 +168,26 @@ Public Class frAlbaran
                         Exit Sub
                     End If
                 Next
-                lineas = lineas + 1
-                dgLineasPres1.Rows.Add()
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(8).Value = txDtocli.Text
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(9).Value = 0
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(10).Value = 0
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(11).Value = ""
-                dgLineasPres1.Focus()
-                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
-                dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
+                Try
+                    lineas = lineas + 1
+                    dgLineasPres1.Rows.Add()
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(9).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(10).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(11).Value = ""
+                    dgLineasPres1.Focus()
+                    dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al crear una nueva línea en el albarán. Revisa los datos.")
+                    Exit Sub
+                End Try
+
             Else
                 If dgLineasPres2.RowCount = 0 Then
                     lineas = 0
@@ -187,20 +198,26 @@ Public Class frAlbaran
                         Exit Sub
                     End If
                 Next
-                lineas = lineas + 1
-                dgLineasPres2.Rows.Add()
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = txDtocli.Text
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = ""
-                dgLineasPres2.Focus()
-                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
+                Try
+                    lineas = lineas + 1
+                    dgLineasPres2.Rows.Add()
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = ""
+                    dgLineasPres2.Focus()
+                    dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al crear una nueva línea en el albarán. Revisa los datos.")
+                    Exit Sub
+                End Try
+
             End If
 
         End If
@@ -216,20 +233,26 @@ Public Class frAlbaran
                     Exit Sub
                 End If
             Next
-            dgLineasPres1.Rows.Insert(dgLineasPres1.CurrentRow.Index)
-            renumerar()
-            dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(4)
+            Try
+                dgLineasPres1.Rows.Insert(dgLineasPres1.CurrentRow.Index)
+                renumerar()
+                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(4)
 
-            pos = dgLineasPres1.CurrentRow.Index
+                pos = dgLineasPres1.CurrentRow.Index
 
-            dgLineasPres1.CurrentRow.Cells(4).Value = 1
-            dgLineasPres1.CurrentRow.Cells(5).Value = 0
-            dgLineasPres1.CurrentRow.Cells(6).Value = 0
-            dgLineasPres1.CurrentRow.Cells(7).Value = 0
-            dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
-            dgLineasPres1.CurrentRow.Cells(9).Value = 0
-            dgLineasPres1.CurrentRow.Cells(10).Value = 0
-            dgLineasPres1.CurrentRow.Cells(11).Value = ""
+                dgLineasPres1.CurrentRow.Cells(4).Value = 1
+                dgLineasPres1.CurrentRow.Cells(5).Value = 0
+                dgLineasPres1.CurrentRow.Cells(6).Value = 0
+                dgLineasPres1.CurrentRow.Cells(7).Value = 0
+                dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
+                dgLineasPres1.CurrentRow.Cells(9).Value = 0
+                dgLineasPres1.CurrentRow.Cells(10).Value = 0
+                dgLineasPres1.CurrentRow.Cells(11).Value = ""
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al insertar una nueva línea en el albarán. Revisa los datos.")
+                Exit Sub
+            End Try
+
         Else
             For Each row As DataGridViewRow In dgLineasPres2.Rows
                 If row.Cells(3).Value Is Nothing Then
@@ -237,37 +260,55 @@ Public Class frAlbaran
                     Exit Sub
                 End If
             Next
-            dgLineasPres2.Rows.Insert(dgLineasPres2.CurrentRow.Index)
-            renumerar()
-            dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(4)
+            Try
+                dgLineasPres2.Rows.Insert(dgLineasPres2.CurrentRow.Index)
+                renumerar()
+                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(4)
 
-            pos = dgLineasPres2.CurrentRow.Index
+                pos = dgLineasPres2.CurrentRow.Index
 
-            dgLineasPres2.CurrentRow.Cells(4).Value = 1
-            dgLineasPres2.CurrentRow.Cells(5).Value = 0
-            dgLineasPres2.CurrentRow.Cells(6).Value = 0
-            dgLineasPres2.CurrentRow.Cells(7).Value = 0
-            dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
-            dgLineasPres2.CurrentRow.Cells(9).Value = 0
-            dgLineasPres2.CurrentRow.Cells(10).Value = 0
-            dgLineasPres2.CurrentRow.Cells(11).Value = ""
+                dgLineasPres2.CurrentRow.Cells(4).Value = 1
+                dgLineasPres2.CurrentRow.Cells(5).Value = 0
+                dgLineasPres2.CurrentRow.Cells(6).Value = 0
+                dgLineasPres2.CurrentRow.Cells(7).Value = 0
+                dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
+                dgLineasPres2.CurrentRow.Cells(9).Value = 0
+                dgLineasPres2.CurrentRow.Cells(10).Value = 0
+                dgLineasPres2.CurrentRow.Cells(11).Value = ""
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al insertar una nueva línea en el albarán. Revisa los datos.")
+                Exit Sub
+            End Try
+
         End If
         newLinea = "N"
     End Sub
     Public Sub renumerar()
         lineas = 0
         If flagEdit = "N" Then
-            For Each row As DataGridViewRow In dgLineasPres1.Rows
-                lineas = lineas + 1
-                row.Cells(0).Value = lineas
+            Try
+                For Each row As DataGridViewRow In dgLineasPres1.Rows
+                    lineas = lineas + 1
+                    row.Cells(0).Value = lineas
 
-            Next
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al renumerar las lineas del albaran.")
+                Exit Sub
+            End Try
+
         Else
-            For Each row As DataGridViewRow In dgLineasPres2.Rows
-                lineas = lineas + 1
-                row.Cells(0).Value = lineas
+            Try
+                For Each row As DataGridViewRow In dgLineasPres2.Rows
+                    lineas = lineas + 1
+                    row.Cells(0).Value = lineas
 
-            Next
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al renumerar las lineas del albaran.")
+                Exit Sub
+            End Try
+
         End If
     End Sub
     Public Sub recalcularTotales()
@@ -277,55 +318,71 @@ Public Class frAlbaran
         Dim reclinea As Decimal = 0
 
         If flagEdit = "N" Then
-            For Each row2 As DataGridViewRow In dgLineasPres1.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
-            Next
+            Try
+                For Each row2 As DataGridViewRow In dgLineasPres1.Rows
+                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
+                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al recalcular los totales de la línea. Revise los datos")
+                Exit Sub
+            End Try
+
         Else
-            For Each row2 As DataGridViewRow In dgLineasPres2.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
-            Next
+            Try
+                For Each row2 As DataGridViewRow In dgLineasPres2.Rows
+                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
+                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al recalcular los totales de la línea. Revise los datos")
+                Exit Sub
+            End Try
+
         End If
 
-        If totalLinea < 1 Then
-            txImpBruto.Text = totalLinea.ToString("0.00")
-        Else
-            txImpBruto.Text = totalLinea.ToString("#,###.00")
-        End If
-        If dtoLinea < 1 Then
-            txImpDto.Text = dtoLinea.ToString("0.00")
-        Else
-            txImpDto.Text = dtoLinea.ToString("#,###.00")
-        End If
-        If (totalLinea - dtoLinea) < 1 Then
-            txImponible.Text = (totalLinea - dtoLinea).ToString("0.00")
-        Else
-            txImponible.Text = (totalLinea - dtoLinea).ToString("#,###.00")
-        End If
-
-        'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
-        ivaLinea = (Decimal.Parse(txImponible.Text) * 21) / 100
-        If txRecargo.Text = "S" Then
-            reclinea = (Decimal.Parse(txImponible.Text) * vRecargo) / 100
-            If reclinea < 1 Then
-                txImpRecargo.Text = reclinea.ToString("0.00")
+        Try
+            If totalLinea < 1 Then
+                txImpBruto.Text = totalLinea.ToString("0.00")
             Else
-                txImpRecargo.Text = reclinea.ToString("#,###.00")
+                txImpBruto.Text = totalLinea.ToString("#,###.00")
+            End If
+            If dtoLinea < 1 Then
+                txImpDto.Text = dtoLinea.ToString("0.00")
+            Else
+                txImpDto.Text = dtoLinea.ToString("#,###.00")
+            End If
+            If (totalLinea - dtoLinea) < 1 Then
+                txImponible.Text = (totalLinea - dtoLinea).ToString("0.00")
+            Else
+                txImponible.Text = (totalLinea - dtoLinea).ToString("#,###.00")
             End If
 
-        End If
-        If ivaLinea < 1 Then
-            txImpIva.Text = ivaLinea.ToString("0.00")
-        Else
-            txImpIva.Text = ivaLinea.ToString("#,###.00")
-        End If
-        If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
-            txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")
-        Else
-            txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("#,###.00")
-        End If
+            'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
+            ivaLinea = (Decimal.Parse(txImponible.Text) * 21) / 100
+            If txRecargo.Text = "S" Then
+                reclinea = (Decimal.Parse(txImponible.Text) * vRecargo) / 100
+                If reclinea < 1 Then
+                    txImpRecargo.Text = reclinea.ToString("0.00")
+                Else
+                    txImpRecargo.Text = reclinea.ToString("#,###.00")
+                End If
 
+            End If
+            If ivaLinea < 1 Then
+                txImpIva.Text = ivaLinea.ToString("0.00")
+            Else
+                txImpIva.Text = ivaLinea.ToString("#,###.00")
+            End If
+            If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
+                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")
+            Else
+                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("#,###.00")
+            End If
+        Catch ex As Exception
+            MsgBox("Se ha producido un error al recalcular los totales de la línea. Revise los datos")
+            Exit Sub
+        End Try
     End Sub
     Public Sub actualizarLinea()
         If flagEdit = "N" Then
@@ -334,22 +391,26 @@ Public Class frAlbaran
                 Dim dto2 As Decimal
                 Dim totaldef As Decimal
                 Dim medida As Decimal
+                Try
+                    If dgLineasPres1.CurrentRow.Cells(5).Value = 0 Then
+                        total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
+                    Else
+                        medida = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(5).Value)
+                        dgLineasPres1.CurrentRow.Cells(6).Value = medida
+                        total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
+                    End If
 
-                If dgLineasPres1.CurrentRow.Cells(5).Value = 0 Then
-                    total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
-                Else
-                    medida = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(5).Value)
-                    dgLineasPres1.CurrentRow.Cells(6).Value = medida
-                    total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
-                End If
-
-                dto2 = (total2 * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(8).Value)) / 100
+                    dto2 = (total2 * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(8).Value)) / 100
 
 
-                totaldef = (total2 - dto2).ToString("0.00")
+                    totaldef = (total2 - dto2).ToString("0.00")
 
-                dgLineasPres1.CurrentRow.Cells(9).Value = total2
-                dgLineasPres1.CurrentRow.Cells(10).Value = totaldef
+                    dgLineasPres1.CurrentRow.Cells(9).Value = total2
+                    dgLineasPres1.CurrentRow.Cells(10).Value = totaldef
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al acualizar la línea del albarán. Revisa los datos")
+                    Exit Sub
+                End Try
             End If
         Else
             If dgLineasPres2.CurrentRow IsNot Nothing Then
@@ -358,25 +419,28 @@ Public Class frAlbaran
                 Dim totaldef As Decimal
                 Dim medida As Decimal
 
-                If dgLineasPres2.CurrentRow.Cells(5).Value = 0 Then
-                    total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
-                Else
-                    medida = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(5).Value)
-                    dgLineasPres2.CurrentRow.Cells(6).Value = medida
-                    total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
-                End If
+                Try
+                    If dgLineasPres2.CurrentRow.Cells(5).Value = 0 Then
+                        total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
+                    Else
+                        medida = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(5).Value)
+                        dgLineasPres2.CurrentRow.Cells(6).Value = medida
+                        total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
+                    End If
 
-                dto2 = (total2 * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(8).Value)) / 100
+                    dto2 = (total2 * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(8).Value)) / 100
 
 
-                totaldef = (total2 - dto2).ToString("0.00")
+                    totaldef = (total2 - dto2).ToString("0.00")
 
-                dgLineasPres2.CurrentRow.Cells(9).Value = total2
-                dgLineasPres2.CurrentRow.Cells(10).Value = totaldef
+                    dgLineasPres2.CurrentRow.Cells(9).Value = total2
+                    dgLineasPres2.CurrentRow.Cells(10).Value = totaldef
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al acualizar la línea del albarán. Revisa los datos")
+                    Exit Sub
+                End Try
             End If
         End If
-
-
     End Sub
 
     Private Sub dgLineasPres1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellEndEdit
@@ -412,33 +476,39 @@ Public Class frAlbaran
 
     Private Sub ELIMINARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ELIMINARToolStripMenuItem.Click
         If flagEdit = "N" Then
-            dgLineasPres1.Rows.RemoveAt(dgLineasPres1.CurrentRow.Index)
-            renumerar()
-            recalcularTotales()
+            Try
+                dgLineasPres1.Rows.RemoveAt(dgLineasPres1.CurrentRow.Index)
+                renumerar()
+                recalcularTotales()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación de líneas de albarán. Revise los datos")
+                Exit Sub
+            End Try
+
         Else
             'Cargo los datos de la linea para el control de stocks
-            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
-                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
-                artiLote = "N"
-            Else
-                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
-                artiLote = "S"
-            End If
+            Try
+                If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    artiLote = "N"
+                Else
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    artiLote = "S"
+                End If
 
-            cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-            cantFin = 0
-            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
+                cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                cantFin = 0
+                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
 
-            dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
-            renumerar()
-            recalcularTotales()
+                dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
+                renumerar()
+                recalcularTotales()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación de líneas de albarán y actualización de stocks. Revise los datos")
+                Exit Sub
+            End Try
+
         End If
-        'If dgLineasPres1.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
-        ' If dgLineasPres2.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
     End Sub
 
     Private Sub cmdNuevo_Click(sender As Object, e As EventArgs) Handles cmdNuevo.Click
@@ -501,13 +571,31 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
             Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
-            cmd.ExecuteNonQuery()
+            Try
+                cmd.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la grabación de la cabecera del albarán. Revise los datos")
+                Exit Sub
+            End Try
+
             If cbSerie.Text = "S1" Then
                 Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-                cmdActualizar.ExecuteNonQuery()
+                Try
+                    cmdActualizar.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del número del albarán en el archivo de configuración. Revise los datos")
+                    Exit Sub
+                End Try
+
             Else
                 Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran_2 = '" + txtNumpres.Text + "'", conexionmy)
-                cmdActualizar.ExecuteNonQuery()
+                Try
+                    cmdActualizar.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del número del albarán en el archivo de configuración. Revise los datos")
+                    Exit Sub
+                End Try
+
             End If
 
 
@@ -571,18 +659,30 @@ Public Class frAlbaran
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO albaran_linea (num_albaran, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
 
-                cmdLinea.ExecuteNonQuery()
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la grabación de las líneas del albarán. Revise los datos")
+                    Exit Sub
+                End Try
 
 
                 If row.Cells(11).Value = "" Then
-                    descontarStock(arti, lincant)
-                    'MsgBox("no hay lote")
+                    Try
+                        descontarStock(arti, lincant)
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                        Exit Sub
+                    End Try
                 Else
-                    vLote = row.Cells(11).Value
-                    descontarStockLote(vLote, lincant)
-                    'MsgBox(row.Cells(11).Value)
+                    Try
+                        vLote = row.Cells(11).Value
+                        descontarStockLote(vLote, lincant)
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                        Exit Sub
+                    End Try
                 End If
-
             Next
 
             conexionmy.Close()
@@ -620,28 +720,65 @@ Public Class frAlbaran
 
             If vSerie = serieIni Then
                 Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
-                cmd.ExecuteNonQuery()
-
+                Try
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del número de albarán en el archivo de configuración. Revise los datos")
+                    Exit Sub
+                End Try
             Else
                 Dim cmdEliminarLin As New MySqlCommand("DELETE FROM albaran_linea WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-                cmdEliminarLin.ExecuteNonQuery()
+                Try
+                    cmdEliminarLin.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de las líneas de albarán. Revise los datos")
+                    Exit Sub
+                End Try
                 Dim cmdEliminarCab As New MySqlCommand("DELETE FROM albaran_cab WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-                cmdEliminarCab.ExecuteNonQuery()
+                Try
+                    cmdEliminarCab.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de la cabecera del albarán (Err_1050). Revise los datos")
+                    Exit Sub
+                End Try
+
                 cargoNumero()
                 Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "','" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
-                cmd.ExecuteNonQuery()
+                Try
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de la cabecera del albarán (Err_1051). Revise los datos")
+                    Exit Sub
+                End Try
+
                 If cbSerie.Text = "S1" Then
                     Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-                    cmdActualizar.ExecuteNonQuery()
+                    Try
+                        cmdActualizar.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización de la cabecera del albarán (Err_1052). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 Else
                     Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran_2 = '" + txtNumpres.Text + "'", conexionmy)
-                    cmdActualizar.ExecuteNonQuery()
+                    Try
+                        cmdActualizar.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización de la cabecera del albarán (Err_1053). Revise los datos")
+                        Exit Sub
+                    End Try
                 End If
-
             End If
 
             Dim cmdEliminar As New MySqlCommand("DELETE FROM albaran_linea WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-            cmdEliminar.ExecuteNonQuery()
+            Try
+                cmdEliminar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización de las líneas del albarán (Err_1054). Revise los datos")
+                Exit Sub
+            End Try
+
 
             'Guardo líneas del presupuesto
 
@@ -700,28 +837,39 @@ Public Class frAlbaran
 
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO albaran_linea (num_albaran, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
-
-                cmdLinea.ExecuteNonQuery()
-
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de las líneas del albarán (Err_1055). Revise los datos")
+                    Exit Sub
+                End Try
             Next
-
             conexionmy.Close()
 
             If lineasEdit.Count > 0 Then
                 For Each itemlineas As lineasEditadas In lineasEdit
                     If itemlineas.esLote = "N" Then
-                        aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
-                        descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
-                    Else
-                        'vLote = row.Cells(11).Value
-                        aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
-                        descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
-                    End If
+                        Try
+                            aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1060). Revise los datos")
+                            Exit Sub
+                        End Try
 
+                    Else
+                        Try
+                            'vLote = row.Cells(11).Value
+                            aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1061). Revise los datos")
+                            Exit Sub
+                        End Try
+                    End If
                 Next
             End If
             lineasEdit.Clear()
-
 
             deshabilitarBotones()
             limpiarFormulario()
@@ -739,10 +887,20 @@ Public Class frAlbaran
 
         If cbSerie.Text = "S1" Then
             Dim cmdLastId As New MySqlCommand("SELECT num_albaran FROM configuracion  ", conexionmy)
-            numid = cmdLastId.ExecuteScalar()
+            Try
+                numid = cmdLastId.ExecuteScalar()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la carga del número de albarán (Err_1071). Revise los datos")
+                Exit Sub
+            End Try
         Else
             Dim cmdLastId As New MySqlCommand("SELECT num_albaran_2 FROM configuracion  ", conexionmy)
-            numid = cmdLastId.ExecuteScalar()
+            Try
+                numid = cmdLastId.ExecuteScalar()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la carga del número de albarán (Err_1072). Revise los datos")
+                Exit Sub
+            End Try
         End If
 
         txtNumpres.Text = numid + 1
@@ -766,43 +924,51 @@ Public Class frAlbaran
 
         cmdCab.CommandType = CommandType.Text
         cmdCab.Connection = conexionmy
-        rdrCab = cmdCab.ExecuteReader
-        rdrCab.Read()
-        txFecha.Text = rdrCab("fecha")
-        txNumcli.Text = rdrCab("clienteID")
-        txAgente.Text = rdrCab("agenteID")
-        txReferenciapres.Text = rdrCab("referencia")
-        txBultos.Text = rdrCab("bultos")
-        txObserva.Text = rdrCab("observaciones")
-        If rdrCab("serie") = "1" Then
-            cbSerie.Text = "S1"
-            serieIni = "1"
-        Else
-            cbSerie.Text = "S2"
-            serieIni = "2"
-        End If
-        If rdrCab("facturado") = "N" Then
-            cbEstado.Text = "NO FACTURADO"
-        Else
-            cbEstado.Text = "FACTURADO"
-            cmdAlbaran.Enabled = False
-        End If
-        cbEstado.Enabled = True
-
+        Try
+            rdrCab = cmdCab.ExecuteReader
+            rdrCab.Read()
+            txFecha.Text = rdrCab("fecha")
+            txNumcli.Text = rdrCab("clienteID")
+            txAgente.Text = rdrCab("agenteID")
+            txReferenciapres.Text = rdrCab("referencia")
+            txBultos.Text = rdrCab("bultos")
+            txObserva.Text = rdrCab("observaciones")
+            If rdrCab("serie") = "1" Then
+                cbSerie.Text = "S1"
+                serieIni = "1"
+            Else
+                cbSerie.Text = "S2"
+                serieIni = "2"
+            End If
+            If rdrCab("facturado") = "N" Then
+                cbEstado.Text = "NO FACTURADO"
+            Else
+                cbEstado.Text = "FACTURADO"
+                cmdAlbaran.Enabled = False
+            End If
+            cbEstado.Enabled = True
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga del albarán (Err_1082). Revise los datos")
+            Exit Sub
+        End Try
 
         rdrCab.Close()
-
 
         cmdCli = New MySqlCommand("SELECT * FROM clientes WHERE clienteID = '" + txNumcli.Text + "'", conexionmy)
 
         cmdCli.CommandType = CommandType.Text
         cmdCli.Connection = conexionmy
-        rdrCli = cmdCli.ExecuteReader
-        rdrCli.Read()
+        Try
+            rdrCli = cmdCli.ExecuteReader
+            rdrCli.Read()
 
-        txNumcli.Text = rdrCli("clienteID")
-        txClientepres.Text = rdrCli("nombre")
-        txDtocli.Text = rdrCli("descuento")
+            txNumcli.Text = rdrCli("clienteID")
+            txClientepres.Text = rdrCli("nombre")
+            txDtocli.Text = rdrCli("descuento")
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga del albarán (Err_1083). Revise los datos")
+            Exit Sub
+        End Try
 
         rdrCli.Close()
 
@@ -834,23 +1000,34 @@ Public Class frAlbaran
         cmdLinea.Connection = conexionmy
 
         Dim rdrLin As MySqlDataReader
-        rdrLin = cmdLinea.ExecuteReader
+        Try
+            rdrLin = cmdLinea.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga del albarán (Err_1084). Revise los datos")
+            Exit Sub
+        End Try
         If rdrLin.HasRows Then
             Do While rdrLin.Read()
-                lineas = lineas + 1
-                dgLineasPres2.Rows.Add()
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = rdrLin("linea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Value = rdrLin("codigo")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(3).Value = rdrLin("descripcion")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = rdrLin("cantidad")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = rdrLin("ancho_largo")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = rdrLin("m2_ml")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = rdrLin("precio")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = rdrLin("descuento")
-                'dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("ivalinea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("importe")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = rdrLin("totalinea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = rdrLin("lote")
+                Try
+                    lineas = lineas + 1
+                    dgLineasPres2.Rows.Add()
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = rdrLin("linea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Value = rdrLin("codigo")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(3).Value = rdrLin("descripcion")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = rdrLin("cantidad")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = rdrLin("ancho_largo")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = rdrLin("m2_ml")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = rdrLin("precio")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = rdrLin("descuento")
+                    'dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("ivalinea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("importe")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = rdrLin("totalinea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = rdrLin("lote")
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la carga del albarán (Err_1091). Revise los datos")
+                    Exit Sub
+                End Try
+
             Loop
         Else
 
@@ -887,11 +1064,14 @@ Public Class frAlbaran
             recalcularTotales()
         End If
         If (e.ColumnIndex = 4) Then
-            cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
-            'MsgBox(artiEdit)
-            'MsgBox(cantIni)
-            'MsgBox(cantFin)
+            Try
+                cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la edición del grid (Err_1092). Revise los datos")
+                Exit Sub
+            End Try
+
         End If
         If (e.ColumnIndex = 2) Then
             Dim vRef As String = dgLineasPres2.CurrentCell.Value
@@ -913,15 +1093,20 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
 
-            Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-            Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
-            reader.Read()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
 
-            Dim stock As String = (reader.GetString(1) - unidades).ToString
-            reader.Close()
+                Dim stock As String = (reader.GetString(1) - unidades).ToString
+                reader.Close()
 
-            Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-            cmdActualizo.ExecuteNonQuery()
+                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock (Err_1093). Revise los datos")
+                Exit Sub
+            End Try
 
             conexionmy.Close()
         End If
@@ -932,15 +1117,20 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
 
-            Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-            Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
-            reader.Read()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
 
-            Dim stock As String = (reader.GetString(1) + unidades).ToString
-            reader.Close()
+                Dim stock As String = (reader.GetString(1) + unidades).ToString
+                reader.Close()
 
-            Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-            cmdActualizo.ExecuteNonQuery()
+                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock (Err_1094). Revise los datos")
+                Exit Sub
+            End Try
 
             conexionmy.Close()
         End If
@@ -948,13 +1138,22 @@ Public Class frAlbaran
     Private Sub dgLineasPres2_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres2.CellEnter
         If (e.ColumnIndex = 4) Then
             If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
-                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
-                cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_1095). Revise los datos")
+                    Exit Sub
+                End Try
             Else
-                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
-                cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_1096). Revise los datos")
+                    Exit Sub
+                End Try
             End If
-
         End If
     End Sub
 
@@ -968,28 +1167,45 @@ Public Class frAlbaran
             Else
 
                 If (e.ColumnIndex = 4) Then
-                    value1 = dgLineasPres1.CurrentRow.Cells(4).EditedFormattedValue.ToString
-                    value1 = value1.Replace(".", ",")
-                    If value1 <> "" Then
-                        Dim cellValue As Decimal = CType(value1, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(4).Value = cellValue
-                    End If
+                    Try
+                        value1 = dgLineasPres1.CurrentRow.Cells(4).EditedFormattedValue.ToString
+                        value1 = value1.Replace(".", ",")
+                        If value1 <> "" Then
+                            Dim cellValue As Decimal = CType(value1, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(4).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición del grid (Err_1097). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
                 If (e.ColumnIndex = 7) Then
-                    value2 = dgLineasPres1.CurrentRow.Cells(7).EditedFormattedValue.ToString
-                    value2 = value2.Replace(".", ",")
-                    If value2 <> "" Then
-                        Dim cellValue As Decimal = CType(value2, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(7).Value = cellValue
-                    End If
+                    Try
+                        value2 = dgLineasPres1.CurrentRow.Cells(7).EditedFormattedValue.ToString
+                        value2 = value2.Replace(".", ",")
+                        If value2 <> "" Then
+                            Dim cellValue As Decimal = CType(value2, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(7).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición del grid (Err_1098). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
                 If (e.ColumnIndex = 8) Then
-                    value3 = dgLineasPres1.CurrentRow.Cells(8).EditedFormattedValue.ToString
-                    value3 = value3.Replace(".", ",")
-                    If value3 <> "" Then
-                        Dim cellValue As Decimal = CType(value3, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(8).Value = cellValue
-                    End If
+                    Try
+                        value3 = dgLineasPres1.CurrentRow.Cells(8).EditedFormattedValue.ToString
+                        value3 = value3.Replace(".", ",")
+                        If value3 <> "" Then
+                            Dim cellValue As Decimal = CType(value3, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(8).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición del grid (Err_1099). Revise los datos")
+                        Exit Sub
+                    End Try
                 End If
             End If
         End If
@@ -1020,44 +1236,61 @@ Public Class frAlbaran
                 Exit Sub
             Else
                 If (e.ColumnIndex = 4) Then
+                    Try
+                        If editNumber = "S" Then
+                            value1 = dgLineasPres2.CurrentRow.Cells(4).EditedFormattedValue.ToString
+                            value1 = value1.Replace(".", ",")
+                        Else
+                            value1 = Replace(dgLineasPres2.CurrentRow.Cells(4).EditedFormattedValue.ToString, ".", "")
+                        End If
+                        If value1 <> "" Then
+                            Dim cellValue As Decimal = CType(value1, Decimal)
+                            dgLineasPres2.CurrentRow.Cells(4).Value = cellValue
+                        End If
+                        editNumber = "N"
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición de los datos del grid (Err_1101). Revise los datos")
+                        Exit Sub
+                    End Try
 
-                    If editNumber = "S" Then
-                        value1 = dgLineasPres2.CurrentRow.Cells(4).EditedFormattedValue.ToString
-                        value1 = value1.Replace(".", ",")
-                    Else
-                        value1 = Replace(dgLineasPres2.CurrentRow.Cells(4).EditedFormattedValue.ToString, ".", "")
-                    End If
-                    If value1 <> "" Then
-                        Dim cellValue As Decimal = CType(value1, Decimal)
-                        dgLineasPres2.CurrentRow.Cells(4).Value = cellValue
-                    End If
-                    editNumber = "N"
                 End If
                 If (e.ColumnIndex = 7) Then
-                    If editNumber = "S" Then
-                        value2 = dgLineasPres2.CurrentRow.Cells(7).EditedFormattedValue.ToString
-                        value2 = value2.Replace(".", ",")
-                    Else
-                        value2 = Replace(dgLineasPres2.CurrentRow.Cells(7).EditedFormattedValue.ToString, ".", "")
-                    End If
-                    If value2 <> "" Then
-                        Dim cellValue As Decimal = CType(value2, Decimal)
-                        dgLineasPres2.CurrentRow.Cells(7).Value = cellValue
-                    End If
-                    editNumber = "N"
+                    Try
+                        If editNumber = "S" Then
+                            value2 = dgLineasPres2.CurrentRow.Cells(7).EditedFormattedValue.ToString
+                            value2 = value2.Replace(".", ",")
+                        Else
+                            value2 = Replace(dgLineasPres2.CurrentRow.Cells(7).EditedFormattedValue.ToString, ".", "")
+                        End If
+                        If value2 <> "" Then
+                            Dim cellValue As Decimal = CType(value2, Decimal)
+                            dgLineasPres2.CurrentRow.Cells(7).Value = cellValue
+                        End If
+                        editNumber = "N"
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición de los datos del grid (Err_1102). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
                 If (e.ColumnIndex = 8) Then
-                    If editNumber = "S" Then
-                        value3 = dgLineasPres2.CurrentRow.Cells(8).EditedFormattedValue.ToString
-                        value3 = value3.Replace(".", ",")
-                    Else
-                        value3 = Replace(dgLineasPres2.CurrentRow.Cells(8).EditedFormattedValue.ToString, ".", "")
-                    End If
-                    If value3 <> "" Then
-                        Dim cellValue As Decimal = CType(value3, Decimal)
-                        dgLineasPres2.CurrentRow.Cells(8).Value = cellValue
-                    End If
-                    editNumber = "N"
+                    Try
+                        If editNumber = "S" Then
+                            value3 = dgLineasPres2.CurrentRow.Cells(8).EditedFormattedValue.ToString
+                            value3 = value3.Replace(".", ",")
+                        Else
+                            value3 = Replace(dgLineasPres2.CurrentRow.Cells(8).EditedFormattedValue.ToString, ".", "")
+                        End If
+                        If value3 <> "" Then
+                            Dim cellValue As Decimal = CType(value3, Decimal)
+                            dgLineasPres2.CurrentRow.Cells(8).Value = cellValue
+                        End If
+                        editNumber = "N"
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición de los datos del grid (Err_1103). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
             End If
         End If
@@ -1073,20 +1306,26 @@ Public Class frAlbaran
         cn = New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
         cn.Open()
-        cm = New MySqlCommand("SELECT envioID, clienteID, localidad, provincia, concat_ws(' - ',cpostal, domicilio) AS direccion FROM envios WHERE clienteID = '" & txNumcli.Text & "'", cn)
+        Try
+            cm = New MySqlCommand("SELECT envioID, clienteID, localidad, provincia, concat_ws(' - ',cpostal, domicilio) AS direccion FROM envios WHERE clienteID = '" & txNumcli.Text & "'", cn)
 
 
-        cm.CommandType = CommandType.Text
-        cm.Connection = cn
+            cm.CommandType = CommandType.Text
+            cm.Connection = cn
 
-        da = New MySqlDataAdapter(cm)
-        ds = New DataSet()
-        da.Fill(ds)
+            da = New MySqlDataAdapter(cm)
+            ds = New DataSet()
+            da.Fill(ds)
 
 
-        cbEnvio.DataSource = ds.Tables(0)
-        cbEnvio.DisplayMember = ds.Tables(0).Columns("direccion").ToString
-        cbEnvio.ValueMember = "envioID"
+            cbEnvio.DataSource = ds.Tables(0)
+            cbEnvio.DisplayMember = ds.Tables(0).Columns("direccion").ToString
+            cbEnvio.ValueMember = "envioID"
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de direcciones de envío (Err_1104). Revise los datos")
+            Exit Sub
+        End Try
+
 
         cn.Close()
     End Sub
@@ -1100,40 +1339,55 @@ Public Class frAlbaran
 
         cmdCli.CommandType = CommandType.Text
         cmdCli.Connection = conexionmy
-        rdrArt = cmdCli.ExecuteReader
-        rdrArt.Read()
+        Try
+            rdrArt = cmdCli.ExecuteReader
+            rdrArt.Read()
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de artículos (Err_1105). Revise los datos")
+            Exit Sub
+        End Try
+
 
         If rdrArt.HasRows = True Then
             If flagEdit = "N" Then
-                dgLineasPres1.CurrentRow.Cells(3).Value = rdrArt("descripcion")
-                dgLineasPres1.CurrentRow.Cells(4).Value = 1
-                dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
-                dgLineasPres1.CurrentRow.Cells(7).Value = rdrArt("pvp")
-                dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
-                dgLineasPres1.CurrentRow.Cells(9).Value = 0
-                dgLineasPres1.CurrentRow.Cells(10).Value = 0
-                dgLineasPres1.CurrentRow.Cells(11).Value = ""
-                txIva.Text = rdrArt("iva")
-                'dgLineasPres1.CurrentCell = dgLineasPres1.CurrentRow.Cells(4)
-                'dgLineasPres1.BeginEdit(True)
+                Try
+                    dgLineasPres1.CurrentRow.Cells(3).Value = rdrArt("descripcion")
+                    dgLineasPres1.CurrentRow.Cells(4).Value = 1
+                    dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                    dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
+                    dgLineasPres1.CurrentRow.Cells(7).Value = rdrArt("pvp")
+                    dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
+                    dgLineasPres1.CurrentRow.Cells(9).Value = 0
+                    dgLineasPres1.CurrentRow.Cells(10).Value = 0
+                    dgLineasPres1.CurrentRow.Cells(11).Value = ""
+                    txIva.Text = rdrArt("iva")
+                    'dgLineasPres1.CurrentCell = dgLineasPres1.CurrentRow.Cells(4)
+                    'dgLineasPres1.BeginEdit(True)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la carga de artículos (Err_1106). Revise los datos")
+                    Exit Sub
+                End Try
+
             Else
-                dgLineasPres2.CurrentRow.Cells(3).Value = rdrArt("descripcion")
-                dgLineasPres2.CurrentRow.Cells(4).Value = 1
-                dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
-                dgLineasPres2.CurrentRow.Cells(7).Value = rdrArt("pvp")
-                dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
-                dgLineasPres2.CurrentRow.Cells(9).Value = 0
-                dgLineasPres2.CurrentRow.Cells(10).Value = 0
-                dgLineasPres2.CurrentRow.Cells(11).Value = ""
-                txIva.Text = rdrArt("iva")
-                'dgLineasPres2.CurrentCell = dgLineasPres2.CurrentRow.Cells(4)
-                'dgLineasPres2.BeginEdit(True)
+                Try
+                    dgLineasPres2.CurrentRow.Cells(3).Value = rdrArt("descripcion")
+                    dgLineasPres2.CurrentRow.Cells(4).Value = 1
+                    dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                    dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
+                    dgLineasPres2.CurrentRow.Cells(7).Value = rdrArt("pvp")
+                    dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
+                    dgLineasPres2.CurrentRow.Cells(9).Value = 0
+                    dgLineasPres2.CurrentRow.Cells(10).Value = 0
+                    dgLineasPres2.CurrentRow.Cells(11).Value = ""
+                    txIva.Text = rdrArt("iva")
+                    'dgLineasPres2.CurrentCell = dgLineasPres2.CurrentRow.Cells(4)
+                    'dgLineasPres2.BeginEdit(True)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la carga de artículos (Err_1107). Revise los datos")
+                    Exit Sub
+                End Try
             End If
-
         Else
-
         End If
 
         rdrArt.Close()
@@ -1149,12 +1403,24 @@ Public Class frAlbaran
             conexionmy.Open()
 
             Dim cmdEliminar As New MySqlCommand("DELETE FROM albaran_cab WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-            cmdEliminar.ExecuteNonQuery()
+            Try
+                cmdEliminar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación del albarán (Err_1110). Revise los datos")
+                Exit Sub
+            End Try
+
 
             eliminarAlbaranEditStock()
 
             Dim cmdEliminarLineas As New MySqlCommand("DELETE FROM albaran_linea WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
-            cmdEliminarLineas.ExecuteNonQuery()
+            Try
+                cmdEliminarLineas.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación del albarán (Err_1111). Revise los datos")
+                Exit Sub
+            End Try
+
 
             conexionmy.Close()
             deshabilitarBotones()
@@ -1169,7 +1435,7 @@ Public Class frAlbaran
     End Sub
 
     Private Sub cmdAlbaran_Click(sender As Object, e As EventArgs) Handles cmdAlbaran.Click
-        'Convertir Pedido en Factura
+        'Convertir Albarán en Factura
         Dim respuesta As String
         respuesta = MsgBox("La conversión a Factura no es reversible. ¿Está seguro?", vbYesNo)
         If respuesta = vbYes Then
@@ -1191,7 +1457,13 @@ Public Class frAlbaran
 
             cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '1', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
             cmd.Connection = conexionmy
-            cmd.ExecuteNonQuery()
+            Try
+                cmd.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la conversión del albarán (Err_1121). Revise los datos")
+                Exit Sub
+            End Try
+
 
             Dim cmdLinea As New MySqlCommand
             Dim row As New DataGridViewRow
@@ -1242,18 +1514,34 @@ Public Class frAlbaran
 
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la conversión del albarán (Err_1122). Revise los datos")
+                    Exit Sub
+                End Try
 
-                cmdLinea.ExecuteNonQuery()
 
             Next
 
             Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txtNumpres.Text + "'  ", conexionmy)
-            cmdActualizar.ExecuteNonQuery()
+            Try
+                cmdActualizar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la conversión del albarán (Err_1123). Revise los datos")
+                Exit Sub
+            End Try
+
 
             'Borro la cabecera y las lineas del presupuesto
 
             Dim cmdEliminar As New MySqlCommand("UPDATE albaran_cab SET facturado = 'S' WHERE num_albaran = '" + txNumpresBk.Text + "'", conexionmy)
-            cmdEliminar.ExecuteNonQuery()
+            Try
+                cmdEliminar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la conversión del albarán (Err_1124). Revise los datos")
+                Exit Sub
+            End Try
 
             conexionmy.Close()
             deshabilitarBotones()
@@ -1274,12 +1562,18 @@ Public Class frAlbaran
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
         conexionmy.Open()
 
-        Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
-        Dim numid As Int32
+        Try
+            Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
+            Dim numid As Int32
 
-        numid = cmdLastId.ExecuteScalar()
+            numid = cmdLastId.ExecuteScalar()
 
-        txtNumpres.Text = numid + 1
+            txtNumpres.Text = numid + 1
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la conversión del albarán (Err_1125). Revise los datos")
+            Exit Sub
+        End Try
+
 
         conexionmy.Close()
 
@@ -1289,15 +1583,20 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
 
-            Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
-            Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
-            reader.Read()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
 
-            Dim stock As String = (reader.GetString(1) - unidades).ToString
-            reader.Close()
+                Dim stock As String = (reader.GetString(1) - unidades).ToString
+                reader.Close()
 
-            Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
-            cmdActualizo.ExecuteNonQuery()
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
+                Exit Sub
+            End Try
 
             conexionmy.Close()
         End If
@@ -1308,15 +1607,20 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
 
-            Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
-            Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
-            reader.Read()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
 
-            Dim stock As String = (reader.GetString(1) + unidades).ToString
-            reader.Close()
+                Dim stock As String = (reader.GetString(1) + unidades).ToString
+                reader.Close()
 
-            Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
-            cmdActualizo.ExecuteNonQuery()
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")
+                Exit Sub
+            End Try
 
             conexionmy.Close()
         End If
@@ -1332,7 +1636,12 @@ Public Class frAlbaran
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
             Dim cmd As New MySqlCommand("UPDATE albaran_cab SET clienteID = '999999', clave = " + txNumcli.Text + " WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
-            cmd.ExecuteNonQuery()
+            Try
+                cmd.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización como albarán de contado (Err_1133). Revise los datos")
+                Exit Sub
+            End Try
             cargoTodosAlbaranes()
             tabPresupuestos.SelectTab(0)
             flagEdit = "N"
@@ -1396,20 +1705,25 @@ Public Class frAlbaran
         cmdLinea.Connection = conexionmy
 
         Dim rdrLin As MySqlDataReader
-        rdrLin = cmdLinea.ExecuteReader
-        If rdrLin.HasRows Then
-            Do While rdrLin.Read()
-                lineas = lineas + 1
-                dgCobros.Rows.Add()
-                dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(0).Value = rdrLin("fecha")
-                dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(1).Value = rdrLin("importe")
-                dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(2).Value = rdrLin("concepto")
-                dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(3).Value = rdrLin("documentoID")
-                dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(4).Value = rdrLin("cobroID")
-            Loop
-        Else
+        Try
+            rdrLin = cmdLinea.ExecuteReader
+            If rdrLin.HasRows Then
+                Do While rdrLin.Read()
+                    lineas = lineas + 1
+                    dgCobros.Rows.Add()
+                    dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(0).Value = rdrLin("fecha")
+                    dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(1).Value = rdrLin("importe")
+                    dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(2).Value = rdrLin("concepto")
+                    dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(3).Value = rdrLin("documentoID")
+                    dgCobros.Rows(dgCobros.Rows.Count - 1).Cells(4).Value = rdrLin("cobroID")
+                Loop
+            Else
+            End If
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de pagos en el albarán (Err_1134). Revise los datos")
+            Exit Sub
+        End Try
 
-        End If
 
         rdrLin.Close()
         conexionmy.Close()
@@ -1426,7 +1740,13 @@ Public Class frAlbaran
         Dim guardo_impbru As String = Replace(impbru, ",", ".")
 
         Dim cmd As New MySqlCommand("INSERT INTO cobrosacuenta (documentoID, fecha, importe, concepto) VALUES (" + txtNumpres.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + guardo_impbru + "', '" + txConceptoCobro.Text + "')", conexionmy)
-        cmd.ExecuteNonQuery()
+        Try
+            cmd.ExecuteNonQuery()
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el registro de cobros del albarán (Err_1141). Revise los datos")
+            Exit Sub
+        End Try
+
 
         conexionmy.Close()
         dgCobros.Rows.Clear()
@@ -1441,18 +1761,23 @@ Public Class frAlbaran
         Dim vPendiente As Decimal = 0
         Dim vtoRow As New DataGridViewRow
         Dim varImporte As Decimal = 0
+        Try
+            For Each vtoRow In dgCobros.Rows
 
-        For Each vtoRow In dgCobros.Rows
+                varImporte = varImporte + vtoRow.Cells(1).Value
 
-            varImporte = varImporte + vtoRow.Cells(1).Value
+            Next
+            txPendienteCobro.Text = Decimal.Parse(txTotalAlbaran.Text) - varImporte
+            If Decimal.Parse(txPendienteCobro.Text) = 0 Then
+                btRegistrar.Enabled = False
+            Else
+                btRegistrar.Enabled = True
+            End If
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el cálculo de cobros pendientes del albarán (Err_1142). Revise los datos")
+            Exit Sub
+        End Try
 
-        Next
-        txPendienteCobro.Text = Decimal.Parse(txTotalAlbaran.Text) - varImporte
-        If Decimal.Parse(txPendienteCobro.Text) = 0 Then
-            btRegistrar.Enabled = False
-        Else
-            btRegistrar.Enabled = True
-        End If
 
     End Sub
 
@@ -1461,9 +1786,14 @@ Public Class frAlbaran
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
         conexionmy.Open()
         Dim cmdEliminarLin As New MySqlCommand("DELETE FROM cobrosacuenta WHERE cobroID = '" + dgCobros.CurrentRow.Cells(4).Value.ToString + "'", conexionmy)
-        cmdEliminarLin.ExecuteNonQuery()
+        Try
+            cmdEliminarLin.ExecuteNonQuery()
 
-        dgCobros.Rows.RemoveAt(dgCobros.CurrentRow.Index)
+            dgCobros.Rows.RemoveAt(dgCobros.CurrentRow.Index)
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la cancelación de pagos del albarán (Err_1143). Revise los datos")
+            Exit Sub
+        End Try
 
         cargoPagos()
         txFechaCobro.Text = ""
@@ -1482,16 +1812,21 @@ Public Class frAlbaran
 
         Dim row As New DataGridViewRow
         For Each row In dgLineasPres2.Rows
+            Try
+                If row.Cells(11).Value = "" Then
+                    artiEdit = row.Cells(2).Value
+                    cantIni = Decimal.Parse(row.Cells(4).Value)
+                    aumentarStock(artiEdit, cantIni)
+                Else
+                    artiEdit = row.Cells(11).Value
+                    cantIni = Decimal.Parse(row.Cells(4).Value)
+                    aumentarStockLote(artiEdit, cantIni)
+                End If
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización de stocks (Err_1151). Revise los datos")
+                Exit Sub
+            End Try
 
-            If row.Cells(11).Value = "" Then
-                artiEdit = row.Cells(2).Value
-                cantIni = Decimal.Parse(row.Cells(4).Value)
-                aumentarStock(artiEdit, cantIni)
-            Else
-                artiEdit = row.Cells(11).Value
-                cantIni = Decimal.Parse(row.Cells(4).Value)
-                aumentarStockLote(artiEdit, cantIni)
-            End If
         Next
 
     End Sub
@@ -1519,8 +1854,13 @@ Public Class frAlbaran
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de albaranes facturados (Err_1161). Revise los datos")
+            Exit Sub
+        End Try
 
-        readermy = consultamy.ExecuteReader
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
         bind.DataSource = dtable
@@ -1599,8 +1939,13 @@ Public Class frAlbaran
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de clientes (Err_1162). Revise los datos")
+                Exit Sub
+            End Try
 
-            readermy = consultamy.ExecuteReader
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
             bind.DataSource = dtable
@@ -1668,8 +2013,13 @@ Public Class frAlbaran
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de números de albarán (Err_1163). Revise los datos")
+                Exit Sub
+            End Try
 
-            readermy = consultamy.ExecuteReader
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
             bind.DataSource = dtable
@@ -1737,8 +2087,13 @@ Public Class frAlbaran
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de referencias en el albarán (Err_1164). Revise los datos")
+                Exit Sub
+            End Try
 
-            readermy = consultamy.ExecuteReader
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
             bind.DataSource = dtable
@@ -1810,8 +2165,13 @@ Public Class frAlbaran
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de fechas en el albarán (Err_1165). Revise los datos")
+                Exit Sub
+            End Try
 
-            readermy = consultamy.ExecuteReader
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
             bind.DataSource = dtable
@@ -1879,8 +2239,13 @@ Public Class frAlbaran
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro general de albaranes (Err_1166). Revise los datos")
+                Exit Sub
+            End Try
 
-            readermy = consultamy.ExecuteReader
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
             bind.DataSource = dtable
@@ -1955,20 +2320,26 @@ Public Class frAlbaran
                             Exit Sub
                         End If
                     Next
-                    lineas = lineas + 1
-                    dgLineasPres1.Rows.Add()
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(8).Value = txDtocli.Text
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(9).Value = 0
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(10).Value = 0
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(11).Value = ""
-                    dgLineasPres1.Focus()
-                    dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
+                    Try
+                        lineas = lineas + 1
+                        dgLineasPres1.Rows.Add()
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(9).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(10).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(11).Value = ""
+                        dgLineasPres1.Focus()
+                        dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la creación de una nueva línea del albarán (Err_1171). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
             End If
         End If
@@ -1992,20 +2363,26 @@ Public Class frAlbaran
                         Exit Sub
                     End If
                 Next
-                lineas = lineas + 1
-                dgLineasPres2.Rows.Add()
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = txDtocli.Text
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = 0
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = ""
-                dgLineasPres2.Focus()
-                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
+                Try
+                    lineas = lineas + 1
+                    dgLineasPres2.Rows.Add()
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = txDtocli.Text
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = ""
+                    dgLineasPres2.Focus()
+                    dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la creación de una nueva línea del albarán (Err_1172). Revise los datos")
+                    Exit Sub
+                End Try
+
             End If
         End If
         newLinea = "N"
@@ -2034,8 +2411,13 @@ Public Class frAlbaran
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el filtro de albaranes no facturados(Err_1171). Revise los datos")
+            Exit Sub
+        End Try
 
-        readermy = consultamy.ExecuteReader
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
         bind.DataSource = dtable
@@ -2106,8 +2488,13 @@ Public Class frAlbaran
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el filtro de albaranes de serie 1(Err_1172). Revise los datos")
+            Exit Sub
+        End Try
 
-        readermy = consultamy.ExecuteReader
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
         bind.DataSource = dtable
@@ -2178,8 +2565,13 @@ Public Class frAlbaran
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el filtro de albaranes de serie 2(Err_1173). Revise los datos")
+            Exit Sub
+        End Try
 
-        readermy = consultamy.ExecuteReader
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
         bind.DataSource = dtable

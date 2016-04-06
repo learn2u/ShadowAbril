@@ -73,7 +73,8 @@ Public Class frPresupuestos
                     dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2)
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(2).Selected = True
                 Catch ex As Exception
-                    MsgBox("Se ha producido un error al crear una nueva línea.")
+                    MsgBox("Se ha producido un error al crear una nueva línea (Err_2001). Revise los datos")
+                    Exit Sub
                 End Try
 
             Else
@@ -102,7 +103,8 @@ Public Class frPresupuestos
                     dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2)
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Selected = True
                 Catch ex As Exception
-                    MsgBox("Se ha producido un error al crear una nueva línea.")
+                    MsgBox("Se ha producido un error al crear una nueva línea (Err_2002). Revise los datos.")
+                    Exit Sub
                 End Try
             End If
         End If
@@ -134,7 +136,8 @@ Public Class frPresupuestos
                 dgLineasPres1.CurrentRow.Cells(10).Value = 0
                 dgLineasPres1.CurrentRow.Cells(11).Value = ""
             Catch ex As Exception
-                MsgBox("Se ha producido un error al añadir una nueva línea.")
+                MsgBox("Se ha producido un error al añadir una nueva línea (Err_2003). Revise los datos.")
+                Exit Sub
             End Try
 
         Else
@@ -160,7 +163,8 @@ Public Class frPresupuestos
                 dgLineasPres2.CurrentRow.Cells(10).Value = 0
                 dgLineasPres2.CurrentRow.Cells(11).Value = ""
             Catch ex As Exception
-                MsgBox("Se ha producido un error al añadir una nueva línea.")
+                MsgBox("Se ha producido un error al añadir una nueva línea (Err_2004). Revise los datos.")
+                Exit Sub
             End Try
         End If
         newLinea = "N"
@@ -175,7 +179,8 @@ Public Class frPresupuestos
 
                 Next
             Catch ex As Exception
-                MsgBox("Se ha producido un error al renumerar las lineas del presupuesto.")
+                MsgBox("Se ha producido un error al renumerar las lineas del presupuesto (Err_2005). Revise los datos.")
+                Exit Sub
             End Try
 
         Else
@@ -186,7 +191,8 @@ Public Class frPresupuestos
 
                 Next
             Catch ex As Exception
-                MsgBox("Se ha producido un error al renumerar las lineas del presupuesto.")
+                MsgBox("Se ha producido un error al renumerar las lineas del presupuesto (Err_2006). Revise los datos.")
+                Exit Sub
             End Try
         End If
     End Sub
@@ -198,54 +204,71 @@ Public Class frPresupuestos
 
 
         If flagEdit = "N" Then
-            For Each row2 As DataGridViewRow In dgLineasPres1.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
-            Next
+            Try
+                For Each row2 As DataGridViewRow In dgLineasPres1.Rows
+                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
+                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el recálculo de totales del presupuesto (Err_2007). Revise los datos")
+                Exit Sub
+            End Try
+
         Else
-            For Each row2 As DataGridViewRow In dgLineasPres2.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
-            Next
-        End If
-        If totalLinea < 1 Then
-            txImpBruto.Text = totalLinea.ToString("0.00")
-        Else
-            txImpBruto.Text = totalLinea.ToString("#,###.00")
-        End If
-        If dtoLinea < 1 Then
-            txImpDto.Text = dtoLinea.ToString("0.00")
-        Else
-            txImpDto.Text = dtoLinea.ToString("#,###.00")
-        End If
-        If (totalLinea - dtoLinea) < 1 Then
-            txImponible.Text = (totalLinea - dtoLinea).ToString("0.00")
-        Else
-            txImponible.Text = (totalLinea - dtoLinea).ToString("#,###.00")
+            Try
+                For Each row2 As DataGridViewRow In dgLineasPres2.Rows
+                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
+                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el recálculo de totales del presupuesto (Err_2008). Revise los datos")
+                Exit Sub
+            End Try
+
         End If
 
-        'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
-        ivaLinea = (Decimal.Parse(txImponible.Text) * 21) / 100
-        If txRecargo.Text = "S" Then
-            reclinea = (Decimal.Parse(txImponible.Text) * vRecargo) / 100
-            If reclinea < 1 Then
-                txImpRecargo.Text = reclinea.ToString("0.00")
+        Try
+            If totalLinea < 1 Then
+                txImpBruto.Text = totalLinea.ToString("0.00")
             Else
-                txImpRecargo.Text = reclinea.ToString("#,###.00")
+                txImpBruto.Text = totalLinea.ToString("#,###.00")
+            End If
+            If dtoLinea < 1 Then
+                txImpDto.Text = dtoLinea.ToString("0.00")
+            Else
+                txImpDto.Text = dtoLinea.ToString("#,###.00")
+            End If
+            If (totalLinea - dtoLinea) < 1 Then
+                txImponible.Text = (totalLinea - dtoLinea).ToString("0.00")
+            Else
+                txImponible.Text = (totalLinea - dtoLinea).ToString("#,###.00")
             End If
 
-        End If
-        If ivaLinea < 1 Then
-            txImpIva.Text = ivaLinea.ToString("0.00")
-        Else
-            txImpIva.Text = ivaLinea.ToString("#,###.00")
-        End If
-        If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
-            txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")
-        Else
-            txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("#,###.00")
-        End If
+            'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
+            ivaLinea = (Decimal.Parse(txImponible.Text) * 21) / 100
+            If txRecargo.Text = "S" Then
+                reclinea = (Decimal.Parse(txImponible.Text) * vRecargo) / 100
+                If reclinea < 1 Then
+                    txImpRecargo.Text = reclinea.ToString("0.00")
+                Else
+                    txImpRecargo.Text = reclinea.ToString("#,###.00")
+                End If
 
+            End If
+            If ivaLinea < 1 Then
+                txImpIva.Text = ivaLinea.ToString("0.00")
+            Else
+                txImpIva.Text = ivaLinea.ToString("#,###.00")
+            End If
+            If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
+                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")
+            Else
+                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("#,###.00")
+            End If
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el recálculo de totales del presupuesto (Err_2009). Revise los datos")
+            Exit Sub
+        End Try
     End Sub
     Public Sub actualizarLinea()
         If flagEdit = "N" Then
@@ -255,21 +278,28 @@ Public Class frPresupuestos
                 Dim totaldef As Decimal
                 Dim medida As Decimal
 
-                If dgLineasPres1.CurrentRow.Cells(5).Value = 0 Then
-                    total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
-                Else
-                    medida = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(5).Value)
-                    dgLineasPres1.CurrentRow.Cells(6).Value = medida
-                    total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
-                End If
+                Try
+                    If dgLineasPres1.CurrentRow.Cells(5).Value = 0 Then
+                        total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
+                    Else
+                        medida = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(5).Value)
+                        dgLineasPres1.CurrentRow.Cells(6).Value = medida
+                        total2 = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(7).Value)
+                    End If
 
-                dto2 = (total2 * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(8).Value)) / 100
+                    dto2 = (total2 * Decimal.Parse(dgLineasPres1.CurrentRow.Cells(8).Value)) / 100
 
 
-                totaldef = (total2 - dto2).ToString("0.00")
+                    totaldef = (total2 - dto2).ToString("0.00")
 
-                dgLineasPres1.CurrentRow.Cells(9).Value = total2
-                dgLineasPres1.CurrentRow.Cells(10).Value = totaldef
+                    dgLineasPres1.CurrentRow.Cells(9).Value = total2
+                    dgLineasPres1.CurrentRow.Cells(10).Value = totaldef
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al actualizar la línea del presupuesto (Err_2010). Revise los datos")
+                    Exit Sub
+                End Try
+
+
             End If
         Else
             If dgLineasPres2.CurrentRow IsNot Nothing Then
@@ -278,25 +308,28 @@ Public Class frPresupuestos
                 Dim totaldef As Decimal
                 Dim medida As Decimal
 
-                If dgLineasPres2.CurrentRow.Cells(5).Value = 0 Then
-                    total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
-                Else
-                    medida = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(5).Value)
-                    dgLineasPres2.CurrentRow.Cells(6).Value = medida
-                    total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
-                End If
+                Try
+                    If dgLineasPres2.CurrentRow.Cells(5).Value = 0 Then
+                        total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
+                    Else
+                        medida = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(5).Value)
+                        dgLineasPres2.CurrentRow.Cells(6).Value = medida
+                        total2 = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(6).Value) * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(7).Value)
+                    End If
 
-                dto2 = (total2 * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(8).Value)) / 100
+                    dto2 = (total2 * Decimal.Parse(dgLineasPres2.CurrentRow.Cells(8).Value)) / 100
 
 
-                totaldef = (total2 - dto2).ToString("0.00")
+                    totaldef = (total2 - dto2).ToString("0.00")
 
-                dgLineasPres2.CurrentRow.Cells(9).Value = total2
-                dgLineasPres2.CurrentRow.Cells(10).Value = totaldef
+                    dgLineasPres2.CurrentRow.Cells(9).Value = total2
+                    dgLineasPres2.CurrentRow.Cells(10).Value = totaldef
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error al actualizar la línea del presupuesto (Err_2011). Revise los datos")
+                    Exit Sub
+                End Try
             End If
         End If
-
-
     End Sub
 
     Private Sub dgLineasPres1_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellEndEdit
@@ -336,20 +369,26 @@ Public Class frPresupuestos
 
     Private Sub ELIMINARToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ELIMINARToolStripMenuItem.Click
         If flagEdit = "N" Then
-            dgLineasPres1.Rows.RemoveAt(dgLineasPres1.CurrentRow.Index)
+            Try
+                dgLineasPres1.Rows.RemoveAt(dgLineasPres1.CurrentRow.Index)
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación de líneas del presupuesto (Err_2012). Revise los datos")
+                Exit Sub
+            End Try
+
             renumerar()
             recalcularTotales()
         Else
-            dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
+            Try
+                dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la eliminación de líneas del presupuesto (Err_2013). Revise los datos")
+                Exit Sub
+            End Try
+
             renumerar()
             recalcularTotales()
         End If
-        'If dgLineasPres1.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
-        ' If dgLineasPres2.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
     End Sub
     Public Sub deshabilitarBotones()
         cmdGuardar.Enabled = False
@@ -455,9 +494,21 @@ Public Class frPresupuestos
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
             Dim cmdP As New MySqlCommand("INSERT INTO presupuesto_cab (num_presupuesto, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpresupuesto, estado) VALUES (" + txtNumpres.Text + ", " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', '" + vEstado + "')", conexionmy)
-            cmdP.ExecuteNonQuery()
+            Try
+                cmdP.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la grabación de la cabecera del presupuesto (Err_2014). Revise los datos")
+                Exit Sub
+            End Try
+
             Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
-            cmdActualizar.ExecuteNonQuery()
+            Try
+                cmdActualizar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del número de presupuesto en el archivo de configuración (Err_2015). Revise los datos")
+                Exit Sub
+            End Try
+
 
             'Guardo líneas del presupuesto
 
@@ -515,9 +566,12 @@ Public Class frPresupuestos
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO presupuesto_linea (num_presupuesto, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value.ToString + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
 
-                cmdLinea.ExecuteNonQuery()
-
-
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la grabación de las líneas del presupuesto (Err_2016). Revise los datos")
+                    Exit Sub
+                End Try
 
             Next
 
@@ -557,13 +611,24 @@ Public Class frPresupuestos
             'Guardo cabecera y actualizo número de presupuesto
 
             Dim cmd As New MySqlCommand("UPDATE presupuesto_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', estado = '" + vEstado + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpresupuesto = '" + guardo_imptot + "' WHERE num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
-            cmd.ExecuteNonQuery()
+            Try
+                cmd.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización de la cabecera del presupuesto (Err_2017). Revise los datos")
+                Exit Sub
+            End Try
+
 
 
             'Guardo líneas del presupuesto
 
             Dim cmdEliminar As New MySqlCommand("DELETE FROM presupuesto_linea WHERE num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
-            cmdEliminar.ExecuteNonQuery()
+            Try
+                cmdEliminar.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización de la cabecera del presupuesto (Err_2018). Revise los datos")
+                Exit Sub
+            End Try
 
             Dim cmdLinea As New MySqlCommand
             Dim row As New DataGridViewRow
@@ -618,9 +683,12 @@ Public Class frPresupuestos
 
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO presupuesto_linea (num_presupuesto, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value.ToString + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
-
-                cmdLinea.ExecuteNonQuery()
-
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de líneas del presupuesto (Err_2019). Revise los datos")
+                    Exit Sub
+                End Try
             Next
 
             conexionmy.Close()
@@ -635,18 +703,22 @@ Public Class frPresupuestos
         End If
         lineas = 0
 
-
     End Sub
     Public Sub cargoNumero()
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
         conexionmy.Open()
+        Try
+            Dim cmdLastId As New MySqlCommand("SELECT num_presupuesto FROM configuracion  ", conexionmy)
+            Dim numid As Int32
 
-        Dim cmdLastId As New MySqlCommand("SELECT num_presupuesto FROM configuracion  ", conexionmy)
-        Dim numid As Int32
+            numid = cmdLastId.ExecuteScalar()
 
-        numid = cmdLastId.ExecuteScalar()
+            txtNumpres.Text = numid + 1
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga del número del presupuesto (Err_2020). Revise los datos")
+            Exit Sub
+        End Try
 
-        txtNumpres.Text = numid + 1
 
         conexionmy.Close()
 
@@ -670,8 +742,13 @@ Public Class frPresupuestos
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de presupuestos (Err_2021). Revise los datos")
+            Exit Sub
+        End Try
 
-        readermy = consultamy.ExecuteReader
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
         bind.DataSource = dtable
@@ -732,45 +809,57 @@ Public Class frPresupuestos
 
         cmdCab = New MySqlCommand("SELECT * FROM presupuesto_cab WHERE num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
 
-        cmdCab.CommandType = CommandType.Text
-        cmdCab.Connection = conexionmy
-        rdrCab = cmdCab.ExecuteReader
-        rdrCab.Read()
-        txFecha.Text = rdrCab("fecha")
-        txNumcli.Text = rdrCab("clienteID")
-        txAgente.Text = rdrCab("agenteID")
-        txReferenciapres.Text = rdrCab("referencia")
-        txObserva.Text = rdrCab("observaciones")
-        If rdrCab("estado") = "P" Then
-            cbEstado.Text = "PENDIENTE"
-            'ElseIf rdrCab("estado") = "A" Then
-            '    cbEstado.Text = "ACEPTADO"
-            'ElseIf rdrCab("estado") = "R" Then
-            '    cbEstado.Text = "RECHAZADO"
-        End If
-        If rdrCab("estado") = "R" Then
-            cbEstado.Text = "CONVERTIDO A PEDIDO"
-            cmdPedido.Enabled = False
-        End If
-        If rdrCab("estado") = "A" Then
-            cbEstado.Text = "CONVERTIDO A ALBARAN"
-            cmdPedido.Enabled = False
-            cmdAlbaran.Enabled = False
-        End If
-        cbEstado.Enabled = True
-        rdrCab.Close()
+        Try
+            cmdCab.CommandType = CommandType.Text
+            cmdCab.Connection = conexionmy
+            rdrCab = cmdCab.ExecuteReader
+            rdrCab.Read()
+            txFecha.Text = rdrCab("fecha")
+            txNumcli.Text = rdrCab("clienteID")
+            txAgente.Text = rdrCab("agenteID")
+            txReferenciapres.Text = rdrCab("referencia")
+            txObserva.Text = rdrCab("observaciones")
+            If rdrCab("estado") = "P" Then
+                cbEstado.Text = "PENDIENTE"
+                'ElseIf rdrCab("estado") = "A" Then
+                '    cbEstado.Text = "ACEPTADO"
+                'ElseIf rdrCab("estado") = "R" Then
+                '    cbEstado.Text = "RECHAZADO"
+            End If
+            If rdrCab("estado") = "R" Then
+                cbEstado.Text = "CONVERTIDO A PEDIDO"
+                cmdPedido.Enabled = False
+            End If
+            If rdrCab("estado") = "A" Then
+                cbEstado.Text = "CONVERTIDO A ALBARAN"
+                cmdPedido.Enabled = False
+                cmdAlbaran.Enabled = False
+            End If
+            cbEstado.Enabled = True
+            rdrCab.Close()
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga del presupuesto seleccionado (Err_2022). Revise los datos")
+            Exit Sub
+        End Try
+
 
 
         cmdCli = New MySqlCommand("SELECT * FROM clientes WHERE clienteID = '" + txNumcli.Text + "'", conexionmy)
 
         cmdCli.CommandType = CommandType.Text
         cmdCli.Connection = conexionmy
-        rdrCli = cmdCli.ExecuteReader
-        rdrCli.Read()
+        Try
+            rdrCli = cmdCli.ExecuteReader
+            rdrCli.Read()
 
-        txNumcli.Text = rdrCli("clienteID")
-        txClientepres.Text = rdrCli("nombre")
-        txDtocli.Text = rdrCli("descuento")
+            txNumcli.Text = rdrCli("clienteID")
+            txClientepres.Text = rdrCli("nombre")
+            txDtocli.Text = rdrCli("descuento")
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de clientes del presupuesto seleccionado (Err_2023). Revise los datos")
+            Exit Sub
+        End Try
+
 
         rdrCli.Close()
 
@@ -803,27 +892,33 @@ Public Class frPresupuestos
         cmdLinea.Connection = conexionmy
 
         Dim rdrLin As MySqlDataReader
-        rdrLin = cmdLinea.ExecuteReader
-        If rdrLin.HasRows Then
-            Do While rdrLin.Read()
-                lineas = lineas + 1
-                dgLineasPres2.Rows.Add()
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = rdrLin("linea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Value = rdrLin("codigo")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(3).Value = rdrLin("descripcion")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = rdrLin("cantidad")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = rdrLin("ancho_largo")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = rdrLin("m2_ml")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = rdrLin("precio")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = rdrLin("descuento")
-                'dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("ivalinea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("importe")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = rdrLin("totalinea")
-                dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = rdrLin("lote")
-            Loop
-        Else
+        Try
+            rdrLin = cmdLinea.ExecuteReader
+            If rdrLin.HasRows Then
+                Do While rdrLin.Read()
+                    lineas = lineas + 1
+                    dgLineasPres2.Rows.Add()
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = rdrLin("linea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(2).Value = rdrLin("codigo")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(3).Value = rdrLin("descripcion")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = rdrLin("cantidad")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = rdrLin("ancho_largo")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = rdrLin("m2_ml")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = rdrLin("precio")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(8).Value = rdrLin("descuento")
+                    'dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("ivalinea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(9).Value = rdrLin("importe")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(10).Value = rdrLin("totalinea")
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(11).Value = rdrLin("lote")
+                Loop
+            Else
 
-        End If
+            End If
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de líneas del presupuesto seleccionado (Err_2024). Revise los datos")
+            Exit Sub
+        End Try
+
 
         rdrLin.Close()
         conexionmy.Close()
@@ -876,36 +971,54 @@ Public Class frPresupuestos
 
         cmdCli.CommandType = CommandType.Text
         cmdCli.Connection = conexionmy
-        rdrArt = cmdCli.ExecuteReader
-        rdrArt.Read()
+        Try
+            rdrArt = cmdCli.ExecuteReader
+            rdrArt.Read()
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de artículos en el presupuesto actual (Err_2025). Revise los datos")
+            Exit Sub
+        End Try
+
 
         If rdrArt.HasRows = True Then
             If flagEdit = "N" Then
-                dgLineasPres1.CurrentRow.Cells(3).Value = rdrArt("descripcion")
-                dgLineasPres1.CurrentRow.Cells(4).Value = 1
-                dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
-                dgLineasPres1.CurrentRow.Cells(7).Value = rdrArt("pvp")
-                dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
-                dgLineasPres1.CurrentRow.Cells(9).Value = 0
-                dgLineasPres1.CurrentRow.Cells(10).Value = 0
-                dgLineasPres1.CurrentRow.Cells(11).Value = ""
-                txIva.Text = rdrArt("iva")
-                'dgLineasPres1.CurrentCell = dgLineasPres1.CurrentRow.Cells(4)
-                'dgLineasPres1.BeginEdit(True)
+                Try
+                    dgLineasPres1.CurrentRow.Cells(3).Value = rdrArt("descripcion")
+                    dgLineasPres1.CurrentRow.Cells(4).Value = 1
+                    dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                    dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
+                    dgLineasPres1.CurrentRow.Cells(7).Value = rdrArt("pvp")
+                    dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
+                    dgLineasPres1.CurrentRow.Cells(9).Value = 0
+                    dgLineasPres1.CurrentRow.Cells(10).Value = 0
+                    dgLineasPres1.CurrentRow.Cells(11).Value = ""
+                    txIva.Text = rdrArt("iva")
+                    'dgLineasPres1.CurrentCell = dgLineasPres1.CurrentRow.Cells(4)
+                    'dgLineasPres1.BeginEdit(True)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la carga de artículos en el presupuesto actual (Err_2026). Revise los datos")
+                    Exit Sub
+                End Try
+
             Else
-                dgLineasPres2.CurrentRow.Cells(3).Value = rdrArt("descripcion")
-                dgLineasPres2.CurrentRow.Cells(4).Value = 1
-                dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
-                dgLineasPres2.CurrentRow.Cells(7).Value = rdrArt("pvp")
-                dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
-                dgLineasPres2.CurrentRow.Cells(9).Value = 0
-                dgLineasPres2.CurrentRow.Cells(10).Value = 0
-                dgLineasPres2.CurrentRow.Cells(11).Value = ""
-                txIva.Text = rdrArt("iva")
-                'dgLineasPres2.CurrentCell = dgLineasPres2.CurrentRow.Cells(4)
-                'dgLineasPres2.BeginEdit(True)
+                Try
+                    dgLineasPres2.CurrentRow.Cells(3).Value = rdrArt("descripcion")
+                    dgLineasPres2.CurrentRow.Cells(4).Value = 1
+                    dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                    dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
+                    dgLineasPres2.CurrentRow.Cells(7).Value = rdrArt("pvp")
+                    dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
+                    dgLineasPres2.CurrentRow.Cells(9).Value = 0
+                    dgLineasPres2.CurrentRow.Cells(10).Value = 0
+                    dgLineasPres2.CurrentRow.Cells(11).Value = ""
+                    txIva.Text = rdrArt("iva")
+                    'dgLineasPres2.CurrentCell = dgLineasPres2.CurrentRow.Cells(4)
+                    'dgLineasPres2.BeginEdit(True)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la carga de artículos en el presupuesto actual (Err_2027). Revise los datos")
+                    Exit Sub
+                End Try
+
             End If
 
         Else
@@ -925,24 +1038,29 @@ Public Class frPresupuestos
         Dim da As MySqlDataAdapter
         Dim ds As DataSet
         cn = New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
-
-        cn.Open()
-        cm = New MySqlCommand("SELECT envioID, clienteID, localidad, provincia, concat_ws(' - ',cpostal, domicilio) AS direccion FROM envios WHERE clienteID = '" & txNumcli.Text & "'", cn)
-
-
-        cm.CommandType = CommandType.Text
-        cm.Connection = cn
-
-        da = New MySqlDataAdapter(cm)
-        ds = New DataSet()
-        da.Fill(ds)
+        Try
+            cn.Open()
+            cm = New MySqlCommand("SELECT envioID, clienteID, localidad, provincia, concat_ws(' - ',cpostal, domicilio) AS direccion FROM envios WHERE clienteID = '" & txNumcli.Text & "'", cn)
 
 
-        cbEnvio.DataSource = ds.Tables(0)
-        cbEnvio.DisplayMember = ds.Tables(0).Columns("direccion").ToString
-        cbEnvio.ValueMember = "envioID"
+            cm.CommandType = CommandType.Text
+            cm.Connection = cn
+
+            da = New MySqlDataAdapter(cm)
+            ds = New DataSet()
+            da.Fill(ds)
+
+
+            cbEnvio.DataSource = ds.Tables(0)
+            cbEnvio.DisplayMember = ds.Tables(0).Columns("direccion").ToString
+            cbEnvio.ValueMember = "envioID"
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de direcciones de envío en el presupuesto actual (Err_2028). Revise los datos")
+            Exit Sub
+        End Try
 
         cn.Close()
+
     End Sub
 
     Private Sub dgLineasPres1_CellValueChanged(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellValueChanged
@@ -955,28 +1073,46 @@ Public Class frPresupuestos
             Else
 
                 If (e.ColumnIndex = 4) Then
-                    value1 = dgLineasPres1.CurrentRow.Cells(4).EditedFormattedValue.ToString
-                    value1 = value1.Replace(".", ",")
-                    If value1 <> "" Then
-                        Dim cellValue As Decimal = CType(value1, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(4).Value = cellValue
-                    End If
+                    Try
+                        value1 = dgLineasPres1.CurrentRow.Cells(4).EditedFormattedValue.ToString
+                        value1 = value1.Replace(".", ",")
+                        If value1 <> "" Then
+                            Dim cellValue As Decimal = CType(value1, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(4).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición en las líneas del grid (Err_2029). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
                 If (e.ColumnIndex = 7) Then
-                    value2 = dgLineasPres1.CurrentRow.Cells(7).EditedFormattedValue.ToString
-                    value2 = value2.Replace(".", ",")
-                    If value2 <> "" Then
-                        Dim cellValue As Decimal = CType(value2, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(7).Value = cellValue
-                    End If
+                    Try
+                        value2 = dgLineasPres1.CurrentRow.Cells(7).EditedFormattedValue.ToString
+                        value2 = value2.Replace(".", ",")
+                        If value2 <> "" Then
+                            Dim cellValue As Decimal = CType(value2, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(7).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición en las líneas del grid (Err_2030). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
                 If (e.ColumnIndex = 8) Then
-                    value3 = dgLineasPres1.CurrentRow.Cells(8).EditedFormattedValue.ToString
-                    value3 = value3.Replace(".", ",")
-                    If value3 <> "" Then
-                        Dim cellValue As Decimal = CType(value3, Decimal)
-                        dgLineasPres1.CurrentRow.Cells(8).Value = cellValue
-                    End If
+                    Try
+                        value3 = dgLineasPres1.CurrentRow.Cells(8).EditedFormattedValue.ToString
+                        value3 = value3.Replace(".", ",")
+                        If value3 <> "" Then
+                            Dim cellValue As Decimal = CType(value3, Decimal)
+                            dgLineasPres1.CurrentRow.Cells(8).Value = cellValue
+                        End If
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la edición en las líneas del grid (Err_2031). Revise los datos")
+                        Exit Sub
+                    End Try
+
                 End If
             End If
         End If
@@ -1618,7 +1754,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2101). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -1642,7 +1778,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2102). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -1666,7 +1802,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2103). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -1690,7 +1826,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2104). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -1714,7 +1850,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2105). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -1738,7 +1874,7 @@ Public Class frPresupuestos
 
                 conexionmy.Close()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la gestión del stock. Comprueba los datos introducidos")
+                MsgBox("Se ha producido un error en la gestión del stock (Err_2106). Comprueba los datos introducidos")
                 Exit Sub
             End Try
 
@@ -2212,7 +2348,7 @@ Public Class frPresupuestos
                 Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
                 cmdActualizar.ExecuteNonQuery()
             Catch ex As Exception
-                MsgBox("Se ha producido un error en la grabación de los datos de cabecera del presupuesto")
+                MsgBox("Se ha producido un error en la grabación de los datos de cabecera del presupuesto (Err_2111).")
                 Exit Sub
             End Try
 
@@ -2276,7 +2412,7 @@ Public Class frPresupuestos
 
                     cmdLinea.ExecuteNonQuery()
                 Catch ex As Exception
-                    MsgBox("Se ha producido un error en la grabación de los datos de lineas del presupuesto")
+                    MsgBox("Se ha producido un error en la grabación de los datos de lineas del presupuesto (Err_2112).")
                     Exit Sub
                 End Try
 

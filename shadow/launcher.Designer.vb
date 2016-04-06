@@ -27,6 +27,7 @@ Partial Class launcher
         Me.EmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfiguraciónEmpresaToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ConfiguraciónMySQLToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LoginUsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.VENTASToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PresupuestosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PedidosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -41,8 +42,17 @@ Partial Class launcher
         Me.ArtículosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ADMINISTRACIÓNToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoginUsuariosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txCancelar = New System.Windows.Forms.Button()
+        Me.btConectar = New System.Windows.Forms.Button()
+        Me.txIp = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txContra = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txUser = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -72,6 +82,12 @@ Partial Class launcher
         Me.ConfiguraciónMySQLToolStripMenuItem.Name = "ConfiguraciónMySQLToolStripMenuItem"
         Me.ConfiguraciónMySQLToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
         Me.ConfiguraciónMySQLToolStripMenuItem.Text = "Configuración MySQL"
+        '
+        'LoginUsuariosToolStripMenuItem
+        '
+        Me.LoginUsuariosToolStripMenuItem.Name = "LoginUsuariosToolStripMenuItem"
+        Me.LoginUsuariosToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
+        Me.LoginUsuariosToolStripMenuItem.Text = "Login Usuarios"
         '
         'VENTASToolStripMenuItem
         '
@@ -158,14 +174,96 @@ Partial Class launcher
         'GastosToolStripMenuItem
         '
         Me.GastosToolStripMenuItem.Name = "GastosToolStripMenuItem"
-        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.GastosToolStripMenuItem.Text = "Gastos"
         '
-        'LoginUsuariosToolStripMenuItem
+        'Panel1
         '
-        Me.LoginUsuariosToolStripMenuItem.Name = "LoginUsuariosToolStripMenuItem"
-        Me.LoginUsuariosToolStripMenuItem.Size = New System.Drawing.Size(198, 22)
-        Me.LoginUsuariosToolStripMenuItem.Text = "Login Usuarios"
+        Me.Panel1.Controls.Add(Me.txCancelar)
+        Me.Panel1.Controls.Add(Me.btConectar)
+        Me.Panel1.Controls.Add(Me.txIp)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.txContra)
+        Me.Panel1.Controls.Add(Me.Label2)
+        Me.Panel1.Controls.Add(Me.txUser)
+        Me.Panel1.Controls.Add(Me.Label1)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 271)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(907, 247)
+        Me.Panel1.TabIndex = 14
+        '
+        'txCancelar
+        '
+        Me.txCancelar.Location = New System.Drawing.Point(537, 189)
+        Me.txCancelar.Name = "txCancelar"
+        Me.txCancelar.Size = New System.Drawing.Size(75, 23)
+        Me.txCancelar.TabIndex = 4
+        Me.txCancelar.Text = "Cancelar"
+        Me.txCancelar.UseVisualStyleBackColor = True
+        '
+        'btConectar
+        '
+        Me.btConectar.Location = New System.Drawing.Point(435, 189)
+        Me.btConectar.Name = "btConectar"
+        Me.btConectar.Size = New System.Drawing.Size(75, 23)
+        Me.btConectar.TabIndex = 3
+        Me.btConectar.Text = "Conectar"
+        Me.btConectar.UseVisualStyleBackColor = True
+        '
+        'txIp
+        '
+        Me.txIp.BackColor = System.Drawing.Color.White
+        Me.txIp.Location = New System.Drawing.Point(403, 111)
+        Me.txIp.Name = "txIp"
+        Me.txIp.Size = New System.Drawing.Size(209, 20)
+        Me.txIp.TabIndex = 2
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(299, 118)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(79, 13)
+        Me.Label3.TabIndex = 21
+        Me.Label3.Text = "IP CONEXION:"
+        '
+        'txContra
+        '
+        Me.txContra.BackColor = System.Drawing.Color.White
+        Me.txContra.Location = New System.Drawing.Point(403, 72)
+        Me.txContra.Name = "txContra"
+        Me.txContra.Size = New System.Drawing.Size(209, 20)
+        Me.txContra.TabIndex = 1
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(294, 79)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(84, 13)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "CONTRASEÑA:"
+        '
+        'txUser
+        '
+        Me.txUser.BackColor = System.Drawing.Color.White
+        Me.txUser.Location = New System.Drawing.Point(403, 34)
+        Me.txUser.Name = "txUser"
+        Me.txUser.Size = New System.Drawing.Size(209, 20)
+        Me.txUser.TabIndex = 0
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(319, 41)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(59, 13)
+        Me.Label1.TabIndex = 19
+        Me.Label1.Text = "USUARIO:"
         '
         'launcher
         '
@@ -175,6 +273,7 @@ Partial Class launcher
         Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.ClientSize = New System.Drawing.Size(907, 518)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.DoubleBuffered = True
         Me.IsMdiContainer = True
@@ -185,6 +284,8 @@ Partial Class launcher
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -208,4 +309,13 @@ Partial Class launcher
     Friend WithEvents ADMINISTRACIÓNToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents GastosToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LoginUsuariosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents txCancelar As Button
+    Friend WithEvents btConectar As Button
+    Friend WithEvents txIp As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txContra As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents txUser As TextBox
+    Friend WithEvents Label1 As Label
 End Class

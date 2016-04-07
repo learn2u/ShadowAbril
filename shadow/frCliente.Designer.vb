@@ -25,6 +25,8 @@ Partial Class frCliente
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frCliente))
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.txCliente = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
         Me.dgClientes = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.tsBotones = New System.Windows.Forms.ToolStrip()
@@ -124,6 +126,10 @@ Partial Class frCliente
         Me.Label26 = New System.Windows.Forms.Label()
         Me.txHorario = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
+        Me.txPostal = New System.Windows.Forms.TextBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txPob = New System.Windows.Forms.TextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgClientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -149,6 +155,12 @@ Partial Class frCliente
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.txPob)
+        Me.TabPage1.Controls.Add(Me.Label41)
+        Me.TabPage1.Controls.Add(Me.txPostal)
+        Me.TabPage1.Controls.Add(Me.Label40)
+        Me.TabPage1.Controls.Add(Me.txCliente)
+        Me.TabPage1.Controls.Add(Me.Label39)
         Me.TabPage1.Controls.Add(Me.dgClientes)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -158,13 +170,29 @@ Partial Class frCliente
         Me.TabPage1.Text = "CLIENTES"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'txCliente
+        '
+        Me.txCliente.Location = New System.Drawing.Point(114, 23)
+        Me.txCliente.Name = "txCliente"
+        Me.txCliente.Size = New System.Drawing.Size(449, 20)
+        Me.txCliente.TabIndex = 0
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(53, 30)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(55, 13)
+        Me.Label39.TabIndex = 13
+        Me.Label39.Text = "CLIENTE:"
+        '
         'dgClientes
         '
         Me.dgClientes.AllowUserToAddRows = False
         Me.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgClientes.Location = New System.Drawing.Point(6, 18)
+        Me.dgClientes.Location = New System.Drawing.Point(6, 108)
         Me.dgClientes.Name = "dgClientes"
-        Me.dgClientes.Size = New System.Drawing.Size(907, 527)
+        Me.dgClientes.Size = New System.Drawing.Size(916, 437)
         Me.dgClientes.TabIndex = 12
         '
         'TabPage2
@@ -1092,6 +1120,38 @@ Partial Class frCliente
         Me.Label27.TabIndex = 54
         Me.Label27.Text = "HORARIO:"
         '
+        'txPostal
+        '
+        Me.txPostal.Location = New System.Drawing.Point(114, 57)
+        Me.txPostal.Name = "txPostal"
+        Me.txPostal.Size = New System.Drawing.Size(180, 20)
+        Me.txPostal.TabIndex = 1
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(46, 64)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(62, 13)
+        Me.Label40.TabIndex = 15
+        Me.Label40.Text = "C.POSTAL:"
+        '
+        'txPob
+        '
+        Me.txPob.Location = New System.Drawing.Point(383, 57)
+        Me.txPob.Name = "txPob"
+        Me.txPob.Size = New System.Drawing.Size(464, 20)
+        Me.txPob.TabIndex = 2
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(306, 64)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(71, 13)
+        Me.Label41.TabIndex = 17
+        Me.Label41.Text = "POBLACIÓN:"
+        '
         'frCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1104,6 +1164,7 @@ Partial Class frCliente
         Me.Text = "CLIENTES"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         CType(Me.dgClientes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.tsBotones.ResumeLayout(False)
@@ -1224,4 +1285,10 @@ Partial Class frCliente
     Friend WithEvents ToolStripButton1 As ToolStripButton
     Friend WithEvents cbFormapago As ComboBox
     Friend WithEvents txIdAgente As TextBox
+    Friend WithEvents txCliente As TextBox
+    Friend WithEvents Label39 As Label
+    Friend WithEvents txPob As TextBox
+    Friend WithEvents Label41 As Label
+    Friend WithEvents txPostal As TextBox
+    Friend WithEvents Label40 As Label
 End Class

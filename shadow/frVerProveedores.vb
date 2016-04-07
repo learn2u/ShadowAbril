@@ -14,7 +14,7 @@ Public Class frVerProveedores
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif FROM proveedores WHERE nombre LIKE'" & txProveedor.Text & "%'", conexionmy)
+        Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif FROM proveedores WHERE nombre LIKE'" & txProveedor.Text & "%' ORDER BY nombre", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -50,7 +50,7 @@ Public Class frVerProveedores
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
             conexionmy.Open()
-            Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif FROM proveedores WHERE tipo = 'T'", conexionmy)
+            Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif FROM proveedores WHERE tipo = 'T' ORDER BY nombre", conexionmy)
 
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -88,7 +88,7 @@ Public Class frVerProveedores
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif, diapago, formatexto FROM proveedores WHERE tipo = 'P'", conexionmy)
+        Dim consultamy As New MySqlCommand("SELECT nombre, descuento, proveedorID, cif, diapago, formatexto FROM proveedores WHERE tipo = 'P' ORDER BY nombre", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable

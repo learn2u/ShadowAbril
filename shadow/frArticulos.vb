@@ -131,7 +131,7 @@ Public Class frArticulos
         txTejido.Text = ""
         txUbicacion.Text = ""
         ckControlStock.Enabled = True
-        txIva.Text = ""
+        txIva.Text = "21.00"
         txCompra.Text = 0
         txDto.Text = 0
         txMargenPor.Text = 0
@@ -177,7 +177,7 @@ Public Class frArticulos
             Dim guardo_stockmin As String = Replace(stockmin, ",", ".")
             Dim stockini As String = txInicial.Text
             Dim guardo_stockini As String = Replace(stockini, ",", ".")
-
+            Dim vColores As String
 
 
             If ckControlStock.Checked = True Then
@@ -186,39 +186,48 @@ Public Class frArticulos
                 equiv = "N"
             End If
 
+            If cbColores.SelectedItem Is Nothing Then
+                vColores = ""
+            Else
+                vColores = cbColores.SelectedValue.ToString
+            End If
+            If txNumPro.Text = "" Then
+                MsgBox("Es necesario seleccionar un proveedor para el artículo actual")
+                Exit Sub
+            End If
             cmd.CommandType = System.Data.CommandType.Text
-            cmd.CommandText = "INSERT INTO articulos2 (ref_proveedor, referencia, grupoID, proveedorID, descripcion, modelo, tejido, familia, color, colorID, ubicacion, medida, medidaID, unidad, ud_medida, control_stock, iva, precio_compra, dto_prov, porc_margen, euro_margen, pvp, stock, stock_min, stock_ini) VALUES ('" + txRefProv.Text + "' , '" + txCodigo.Text + "' , '" + txGrupo.Text + "' , '" + txNumPro.Text + "' , '" + txDescripcion.Text + "' , '" + txModelo.Text + "' , '" + txTejido.Text + "' , '" + cbFamilias.SelectedValue.ToString + "' , '" + cbColores.Text + "' , '" + cbColores.SelectedValue.ToString + "' , '" + txUbicacion.Text + "' , '" + cbMedidas.Text + "' , '" + cbMedidas.SelectedValue.ToString + "' , '" + cbUnidad.SelectedValue.ToString + "' , '" + cbUnidad.Text + "' , '" + equiv + "' , '" + guardo_iva + "' , '" + guardo_compra + "' , '" + guardo_dto + "' , '" + guardo_margenpor + "' , '" + guardo_margeneur + "' , '" + guardo_precio + "' , '" + guardo_stock + "' , '" + guardo_stockmin + "' , '" + guardo_stockini + "')"
+            cmd.CommandText = "INSERT INTO articulos2 (ref_proveedor, referencia, grupoID, proveedorID, descripcion, modelo, tejido, familia, color, colorID, ubicacion, medida, medidaID, unidad, ud_medida, control_stock, iva, precio_compra, dto_prov, porc_margen, euro_margen, pvp, stock, stock_min, stock_ini) VALUES ('" + txRefProv.Text + "' , '" + txCodigo.Text + "' , '" + txGrupo.Text + "' , '" + txNumPro.Text + "' , '" + txDescripcion.Text + "' , '" + txModelo.Text + "' , '" + txTejido.Text + "' , '" + cbFamilias.SelectedValue.ToString + "' , '" + cbColores.Text + "' , '" + vColores + "' , '" + txUbicacion.Text + "' , '" + cbMedidas.Text + "' , '" + cbMedidas.SelectedValue.ToString + "' , '" + cbUnidad.SelectedValue.ToString + "' , '" + cbUnidad.Text + "' , '" + equiv + "' , '" + guardo_iva + "' , '" + guardo_compra + "' , '" + guardo_dto + "' , '" + guardo_margenpor + "' , '" + guardo_margeneur + "' , '" + guardo_precio + "' , '" + guardo_stock + "' , '" + guardo_stockmin + "' , '" + guardo_stockini + "')"
 
             cmd.Connection = conexionmy
 
-            cmd.ExecuteNonQuery()
+                cmd.ExecuteNonQuery()
 
-            numid = cmdLastId.ExecuteScalar()
+                numid = cmdLastId.ExecuteScalar()
 
-            'Guardo lotes
-            Dim cmdLinea As New MySqlCommand
-            Dim row As New DataGridViewRow
-            Dim lincant As String
-            Dim guardo_lincant As String
+                'Guardo lotes
+                Dim cmdLinea As New MySqlCommand
+                Dim row As New DataGridViewRow
+                Dim lincant As String
+                Dim guardo_lincant As String
 
 
-            For Each row In dgLotes.Rows
+                For Each row In dgLotes.Rows
 
-                lincant = Decimal.Parse(row.Cells(3).Value).ToString("0.00")
-                guardo_lincant = Replace(lincant, ",", ".")
+                    lincant = Decimal.Parse(row.Cells(3).Value).ToString("0.00")
+                    guardo_lincant = Replace(lincant, ",", ".")
 
-                cmdLinea.Connection = conexionmy
-                cmdLinea.CommandText = "INSERT INTO lotes (referencia, descripcion, lote, stock_inicial, ubicacion) VALUES ('" + row.Cells(0).Value + "', " + row.Cells(1).Value + ", '" + row.Cells(2).Value + "', '" + guardo_lincant + "', '" + row.Cells(4).Value + "')"
+                    cmdLinea.Connection = conexionmy
+                    cmdLinea.CommandText = "INSERT INTO lotes (referencia, descripcion, lote, stock_inicial, ubicacion) VALUES ('" + row.Cells(0).Value + "', " + row.Cells(1).Value + ", '" + row.Cells(2).Value + "', '" + guardo_lincant + "', '" + row.Cells(4).Value + "')"
 
-                cmdLinea.ExecuteNonQuery()
+                    cmdLinea.ExecuteNonQuery()
 
-            Next
+                Next
 
-            conexionmy.Close()
-            'Me.Hide()
-        Else
+                conexionmy.Close()
+                'Me.Hide()
+            Else
 
-            Dim descuento As String = txDto.Text
+                Dim descuento As String = txDto.Text
             Dim guardo_descuento As String = Replace(descuento, ",", ".")
             Dim iva As String = txIva.Text
             Dim guardo_iva As String = Replace(iva, ",", ".")

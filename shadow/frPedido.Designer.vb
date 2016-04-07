@@ -131,28 +131,28 @@ Partial Class frPedido
         Me.cmdGuardar = New System.Windows.Forms.ToolStripButton()
         Me.cmdDelete = New System.Windows.Forms.ToolStripButton()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.tabPresupuestos = New System.Windows.Forms.TabControl()
-        Me.dgPedidos = New System.Windows.Forms.DataGridView()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.rbTodos = New System.Windows.Forms.RadioButton()
-        Me.rbPendientes = New System.Windows.Forms.RadioButton()
-        Me.rbAceptados = New System.Windows.Forms.RadioButton()
-        Me.rbFactura = New System.Windows.Forms.RadioButton()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.txDesde = New System.Windows.Forms.MaskedTextBox()
-        Me.txCliente = New System.Windows.Forms.TextBox()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txHasta = New System.Windows.Forms.MaskedTextBox()
-        Me.txReferencia = New System.Windows.Forms.TextBox()
-        Me.Label38 = New System.Windows.Forms.Label()
-        Me.txNumero = New System.Windows.Forms.TextBox()
-        Me.Label39 = New System.Windows.Forms.Label()
-        Me.txGeneral = New System.Windows.Forms.TextBox()
-        Me.Label40 = New System.Windows.Forms.Label()
-        Me.btBuscar = New System.Windows.Forms.Button()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.btBuscar = New System.Windows.Forms.Button()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txGeneral = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txNumero = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txReferencia = New System.Windows.Forms.TextBox()
+        Me.txHasta = New System.Windows.Forms.MaskedTextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txCliente = New System.Windows.Forms.TextBox()
+        Me.txDesde = New System.Windows.Forms.MaskedTextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.rbFactura = New System.Windows.Forms.RadioButton()
+        Me.rbAceptados = New System.Windows.Forms.RadioButton()
+        Me.rbPendientes = New System.Windows.Forms.RadioButton()
+        Me.rbTodos = New System.Windows.Forms.RadioButton()
+        Me.dgPedidos = New System.Windows.Forms.DataGridView()
+        Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -162,11 +162,11 @@ Partial Class frPedido
         CType(Me.dgLineasPres2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tsBotones.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.tabPresupuestos.SuspendLayout()
-        CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox4.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
         Me.Panel4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabPresupuestos.SuspendLayout()
         Me.SuspendLayout()
         '
         'ELIMINARToolStripMenuItem
@@ -1078,81 +1078,16 @@ Partial Class frPedido
         Me.TabPage1.Text = "LISTADO PEDIDOS"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
-        'tabPresupuestos
+        'Panel4
         '
-        Me.tabPresupuestos.Controls.Add(Me.TabPage1)
-        Me.tabPresupuestos.Controls.Add(Me.TabPage2)
-        Me.tabPresupuestos.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabPresupuestos.Location = New System.Drawing.Point(0, 0)
-        Me.tabPresupuestos.Name = "tabPresupuestos"
-        Me.tabPresupuestos.SelectedIndex = 0
-        Me.tabPresupuestos.Size = New System.Drawing.Size(1245, 661)
-        Me.tabPresupuestos.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
-        Me.tabPresupuestos.TabIndex = 1
-        '
-        'dgPedidos
-        '
-        Me.dgPedidos.AllowUserToAddRows = False
-        Me.dgPedidos.BackgroundColor = System.Drawing.Color.White
-        Me.dgPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgPedidos.Location = New System.Drawing.Point(300, 6)
-        Me.dgPedidos.Name = "dgPedidos"
-        Me.dgPedidos.Size = New System.Drawing.Size(897, 527)
-        Me.dgPedidos.TabIndex = 11
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.rbFactura)
-        Me.GroupBox4.Controls.Add(Me.rbAceptados)
-        Me.GroupBox4.Controls.Add(Me.rbPendientes)
-        Me.GroupBox4.Controls.Add(Me.rbTodos)
-        Me.GroupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.GroupBox4.Location = New System.Drawing.Point(3, 17)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(280, 139)
-        Me.GroupBox4.TabIndex = 0
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "ESTADO"
-        '
-        'rbTodos
-        '
-        Me.rbTodos.AutoSize = True
-        Me.rbTodos.Location = New System.Drawing.Point(6, 28)
-        Me.rbTodos.Name = "rbTodos"
-        Me.rbTodos.Size = New System.Drawing.Size(63, 17)
-        Me.rbTodos.TabIndex = 0
-        Me.rbTodos.Text = "TODOS"
-        Me.rbTodos.UseVisualStyleBackColor = True
-        '
-        'rbPendientes
-        '
-        Me.rbPendientes.AutoSize = True
-        Me.rbPendientes.Location = New System.Drawing.Point(6, 51)
-        Me.rbPendientes.Name = "rbPendientes"
-        Me.rbPendientes.Size = New System.Drawing.Size(94, 17)
-        Me.rbPendientes.TabIndex = 1
-        Me.rbPendientes.Text = "PENDIENTES"
-        Me.rbPendientes.UseVisualStyleBackColor = True
-        '
-        'rbAceptados
-        '
-        Me.rbAceptados.AutoSize = True
-        Me.rbAceptados.Location = New System.Drawing.Point(6, 74)
-        Me.rbAceptados.Name = "rbAceptados"
-        Me.rbAceptados.Size = New System.Drawing.Size(85, 17)
-        Me.rbAceptados.TabIndex = 2
-        Me.rbAceptados.Text = "A ALBARAN"
-        Me.rbAceptados.UseVisualStyleBackColor = True
-        '
-        'rbFactura
-        '
-        Me.rbFactura.AutoSize = True
-        Me.rbFactura.Location = New System.Drawing.Point(6, 97)
-        Me.rbFactura.Name = "rbFactura"
-        Me.rbFactura.Size = New System.Drawing.Size(85, 17)
-        Me.rbFactura.TabIndex = 3
-        Me.rbFactura.Text = "A FACTURA"
-        Me.rbFactura.UseVisualStyleBackColor = True
+        Me.Panel4.BackColor = System.Drawing.Color.White
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel4.Controls.Add(Me.GroupBox5)
+        Me.Panel4.Controls.Add(Me.GroupBox4)
+        Me.Panel4.Location = New System.Drawing.Point(6, 6)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(288, 527)
+        Me.Panel4.TabIndex = 12
         '
         'GroupBox5
         '
@@ -1176,110 +1111,6 @@ Partial Class frPedido
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "BUSQUEDA"
         '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(7, 192)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(47, 13)
-        Me.Label35.TabIndex = 9
-        Me.Label35.Text = "DESDE:"
-        '
-        'txDesde
-        '
-        Me.txDesde.BackColor = System.Drawing.Color.White
-        Me.txDesde.Location = New System.Drawing.Point(58, 185)
-        Me.txDesde.Mask = "00/00/0000"
-        Me.txDesde.Name = "txDesde"
-        Me.txDesde.Size = New System.Drawing.Size(72, 20)
-        Me.txDesde.TabIndex = 10
-        Me.txDesde.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txDesde.ValidatingType = GetType(Date)
-        '
-        'txCliente
-        '
-        Me.txCliente.Location = New System.Drawing.Point(9, 41)
-        Me.txCliente.Name = "txCliente"
-        Me.txCliente.Size = New System.Drawing.Size(265, 20)
-        Me.txCliente.TabIndex = 11
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(6, 25)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(55, 13)
-        Me.Label36.TabIndex = 12
-        Me.Label36.Text = "CLIENTE:"
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(133, 192)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(46, 13)
-        Me.Label37.TabIndex = 13
-        Me.Label37.Text = "HASTA:"
-        '
-        'txHasta
-        '
-        Me.txHasta.BackColor = System.Drawing.Color.White
-        Me.txHasta.Location = New System.Drawing.Point(185, 185)
-        Me.txHasta.Mask = "00/00/0000"
-        Me.txHasta.Name = "txHasta"
-        Me.txHasta.Size = New System.Drawing.Size(72, 20)
-        Me.txHasta.TabIndex = 11
-        Me.txHasta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txHasta.ValidatingType = GetType(Date)
-        '
-        'txReferencia
-        '
-        Me.txReferencia.Location = New System.Drawing.Point(10, 141)
-        Me.txReferencia.Name = "txReferencia"
-        Me.txReferencia.Size = New System.Drawing.Size(265, 20)
-        Me.txReferencia.TabIndex = 15
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(7, 125)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(78, 13)
-        Me.Label38.TabIndex = 16
-        Me.Label38.Text = "REFERENCIA:"
-        '
-        'txNumero
-        '
-        Me.txNumero.Location = New System.Drawing.Point(10, 90)
-        Me.txNumero.Name = "txNumero"
-        Me.txNumero.Size = New System.Drawing.Size(265, 20)
-        Me.txNumero.TabIndex = 17
-        '
-        'Label39
-        '
-        Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(7, 74)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(58, 13)
-        Me.Label39.TabIndex = 18
-        Me.Label39.Text = "NUMERO:"
-        '
-        'txGeneral
-        '
-        Me.txGeneral.Location = New System.Drawing.Point(10, 237)
-        Me.txGeneral.Name = "txGeneral"
-        Me.txGeneral.Size = New System.Drawing.Size(265, 20)
-        Me.txGeneral.TabIndex = 19
-        '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(7, 221)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(124, 13)
-        Me.Label40.TabIndex = 20
-        Me.Label40.Text = "BUSQUEDA GENERAL:"
-        '
         'btBuscar
         '
         Me.btBuscar.BackColor = System.Drawing.Color.Transparent
@@ -1292,16 +1123,185 @@ Partial Class frPedido
         Me.btBuscar.TabIndex = 21
         Me.btBuscar.UseVisualStyleBackColor = False
         '
-        'Panel4
+        'Label40
         '
-        Me.Panel4.BackColor = System.Drawing.Color.White
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel4.Controls.Add(Me.GroupBox5)
-        Me.Panel4.Controls.Add(Me.GroupBox4)
-        Me.Panel4.Location = New System.Drawing.Point(6, 6)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(288, 527)
-        Me.Panel4.TabIndex = 12
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(7, 221)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(124, 13)
+        Me.Label40.TabIndex = 20
+        Me.Label40.Text = "BUSQUEDA GENERAL:"
+        '
+        'txGeneral
+        '
+        Me.txGeneral.Location = New System.Drawing.Point(10, 237)
+        Me.txGeneral.Name = "txGeneral"
+        Me.txGeneral.Size = New System.Drawing.Size(265, 20)
+        Me.txGeneral.TabIndex = 19
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(7, 74)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(58, 13)
+        Me.Label39.TabIndex = 18
+        Me.Label39.Text = "NUMERO:"
+        '
+        'txNumero
+        '
+        Me.txNumero.Location = New System.Drawing.Point(10, 90)
+        Me.txNumero.Name = "txNumero"
+        Me.txNumero.Size = New System.Drawing.Size(265, 20)
+        Me.txNumero.TabIndex = 17
+        '
+        'Label38
+        '
+        Me.Label38.AutoSize = True
+        Me.Label38.Location = New System.Drawing.Point(7, 125)
+        Me.Label38.Name = "Label38"
+        Me.Label38.Size = New System.Drawing.Size(78, 13)
+        Me.Label38.TabIndex = 16
+        Me.Label38.Text = "REFERENCIA:"
+        '
+        'txReferencia
+        '
+        Me.txReferencia.Location = New System.Drawing.Point(10, 141)
+        Me.txReferencia.Name = "txReferencia"
+        Me.txReferencia.Size = New System.Drawing.Size(265, 20)
+        Me.txReferencia.TabIndex = 15
+        '
+        'txHasta
+        '
+        Me.txHasta.BackColor = System.Drawing.Color.White
+        Me.txHasta.Location = New System.Drawing.Point(185, 185)
+        Me.txHasta.Mask = "00/00/0000"
+        Me.txHasta.Name = "txHasta"
+        Me.txHasta.Size = New System.Drawing.Size(72, 20)
+        Me.txHasta.TabIndex = 11
+        Me.txHasta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txHasta.ValidatingType = GetType(Date)
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(133, 192)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(46, 13)
+        Me.Label37.TabIndex = 13
+        Me.Label37.Text = "HASTA:"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(6, 25)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(55, 13)
+        Me.Label36.TabIndex = 12
+        Me.Label36.Text = "CLIENTE:"
+        '
+        'txCliente
+        '
+        Me.txCliente.Location = New System.Drawing.Point(9, 41)
+        Me.txCliente.Name = "txCliente"
+        Me.txCliente.Size = New System.Drawing.Size(265, 20)
+        Me.txCliente.TabIndex = 11
+        '
+        'txDesde
+        '
+        Me.txDesde.BackColor = System.Drawing.Color.White
+        Me.txDesde.Location = New System.Drawing.Point(58, 185)
+        Me.txDesde.Mask = "00/00/0000"
+        Me.txDesde.Name = "txDesde"
+        Me.txDesde.Size = New System.Drawing.Size(72, 20)
+        Me.txDesde.TabIndex = 10
+        Me.txDesde.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txDesde.ValidatingType = GetType(Date)
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(7, 192)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(47, 13)
+        Me.Label35.TabIndex = 9
+        Me.Label35.Text = "DESDE:"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.rbFactura)
+        Me.GroupBox4.Controls.Add(Me.rbAceptados)
+        Me.GroupBox4.Controls.Add(Me.rbPendientes)
+        Me.GroupBox4.Controls.Add(Me.rbTodos)
+        Me.GroupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.GroupBox4.Location = New System.Drawing.Point(3, 17)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(280, 139)
+        Me.GroupBox4.TabIndex = 0
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "ESTADO"
+        '
+        'rbFactura
+        '
+        Me.rbFactura.AutoSize = True
+        Me.rbFactura.Location = New System.Drawing.Point(6, 97)
+        Me.rbFactura.Name = "rbFactura"
+        Me.rbFactura.Size = New System.Drawing.Size(85, 17)
+        Me.rbFactura.TabIndex = 3
+        Me.rbFactura.Text = "A FACTURA"
+        Me.rbFactura.UseVisualStyleBackColor = True
+        '
+        'rbAceptados
+        '
+        Me.rbAceptados.AutoSize = True
+        Me.rbAceptados.Location = New System.Drawing.Point(6, 74)
+        Me.rbAceptados.Name = "rbAceptados"
+        Me.rbAceptados.Size = New System.Drawing.Size(85, 17)
+        Me.rbAceptados.TabIndex = 2
+        Me.rbAceptados.Text = "A ALBARAN"
+        Me.rbAceptados.UseVisualStyleBackColor = True
+        '
+        'rbPendientes
+        '
+        Me.rbPendientes.AutoSize = True
+        Me.rbPendientes.Location = New System.Drawing.Point(6, 51)
+        Me.rbPendientes.Name = "rbPendientes"
+        Me.rbPendientes.Size = New System.Drawing.Size(94, 17)
+        Me.rbPendientes.TabIndex = 1
+        Me.rbPendientes.Text = "PENDIENTES"
+        Me.rbPendientes.UseVisualStyleBackColor = True
+        '
+        'rbTodos
+        '
+        Me.rbTodos.AutoSize = True
+        Me.rbTodos.Location = New System.Drawing.Point(6, 28)
+        Me.rbTodos.Name = "rbTodos"
+        Me.rbTodos.Size = New System.Drawing.Size(63, 17)
+        Me.rbTodos.TabIndex = 0
+        Me.rbTodos.Text = "TODOS"
+        Me.rbTodos.UseVisualStyleBackColor = True
+        '
+        'dgPedidos
+        '
+        Me.dgPedidos.AllowUserToAddRows = False
+        Me.dgPedidos.BackgroundColor = System.Drawing.Color.White
+        Me.dgPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgPedidos.Location = New System.Drawing.Point(300, 6)
+        Me.dgPedidos.Name = "dgPedidos"
+        Me.dgPedidos.Size = New System.Drawing.Size(897, 527)
+        Me.dgPedidos.TabIndex = 11
+        '
+        'tabPresupuestos
+        '
+        Me.tabPresupuestos.Controls.Add(Me.TabPage1)
+        Me.tabPresupuestos.Controls.Add(Me.TabPage2)
+        Me.tabPresupuestos.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabPresupuestos.Location = New System.Drawing.Point(0, 0)
+        Me.tabPresupuestos.Name = "tabPresupuestos"
+        Me.tabPresupuestos.SelectedIndex = 0
+        Me.tabPresupuestos.Size = New System.Drawing.Size(1245, 661)
+        Me.tabPresupuestos.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight
+        Me.tabPresupuestos.TabIndex = 1
         '
         'frPedido
         '
@@ -1325,13 +1325,13 @@ Partial Class frPedido
         Me.tsBotones.ResumeLayout(False)
         Me.tsBotones.PerformLayout()
         Me.TabPage1.ResumeLayout(False)
-        Me.tabPresupuestos.ResumeLayout(False)
-        CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
+        CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabPresupuestos.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub

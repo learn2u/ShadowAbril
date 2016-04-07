@@ -23,7 +23,7 @@ Partial Class frArticulos
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frArticulos))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.txCodigo1 = New System.Windows.Forms.TextBox()
@@ -71,19 +71,9 @@ Partial Class frArticulos
         Me.cmdDuplicar = New System.Windows.Forms.ToolStripButton()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.pnModelo = New System.Windows.Forms.Panel()
-        Me.grModelo = New System.Windows.Forms.GroupBox()
-        Me.dgMods = New System.Windows.Forms.DataGridView()
-        Me.btCloseMod = New System.Windows.Forms.Button()
-        Me.pnTejidos = New System.Windows.Forms.Panel()
-        Me.grTejidos = New System.Windows.Forms.GroupBox()
-        Me.dgTejidos = New System.Windows.Forms.DataGridView()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.cbColores = New System.Windows.Forms.ComboBox()
         Me.cbMedidas = New System.Windows.Forms.ComboBox()
         Me.txTejidoID = New System.Windows.Forms.TextBox()
-        Me.btTejidos = New System.Windows.Forms.Button()
-        Me.btModelo = New System.Windows.Forms.Button()
         Me.btProveedor = New System.Windows.Forms.Button()
         Me.cbFamilias = New System.Windows.Forms.ComboBox()
         Me.txModeloID = New System.Windows.Forms.TextBox()
@@ -95,9 +85,7 @@ Partial Class frArticulos
         Me.Label24 = New System.Windows.Forms.Label()
         Me.ckControlStock = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txModelo = New System.Windows.Forms.TextBox()
         Me.cbTejido = New System.Windows.Forms.ComboBox()
-        Me.txTejido = New System.Windows.Forms.TextBox()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.Label46 = New System.Windows.Forms.Label()
@@ -135,6 +123,8 @@ Partial Class frArticulos
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.cbModelos = New System.Windows.Forms.ComboBox()
+        Me.cbTejido2 = New System.Windows.Forms.ComboBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgArticulos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -144,12 +134,6 @@ Partial Class frArticulos
         Me.tsBotones.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TabPage4.SuspendLayout()
-        Me.pnModelo.SuspendLayout()
-        Me.grModelo.SuspendLayout()
-        CType(Me.dgMods, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.pnTejidos.SuspendLayout()
-        Me.grTejidos.SuspendLayout()
-        CType(Me.dgTejidos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -254,7 +238,7 @@ Partial Class frArticulos
         Me.pnLotes.Controls.Add(Me.btNuevaLinea)
         Me.pnLotes.Controls.Add(Me.btCloseLotes)
         Me.pnLotes.Controls.Add(Me.dgLotes)
-        Me.pnLotes.Location = New System.Drawing.Point(52, 49)
+        Me.pnLotes.Location = New System.Drawing.Point(50, 49)
         Me.pnLotes.Name = "pnLotes"
         Me.pnLotes.Size = New System.Drawing.Size(830, 415)
         Me.pnLotes.TabIndex = 147
@@ -447,10 +431,10 @@ Partial Class frArticulos
         '
         'stock
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
-        DataGridViewCellStyle2.Format = "N2"
-        DataGridViewCellStyle2.NullValue = Nothing
-        Me.stock.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopRight
+        DataGridViewCellStyle1.Format = "N2"
+        DataGridViewCellStyle1.NullValue = Nothing
+        Me.stock.DefaultCellStyle = DataGridViewCellStyle1
         Me.stock.HeaderText = "STOCK"
         Me.stock.Name = "stock"
         Me.stock.Width = 75
@@ -589,13 +573,9 @@ Partial Class frArticulos
         '
         'TabPage4
         '
-        Me.TabPage4.Controls.Add(Me.pnModelo)
-        Me.TabPage4.Controls.Add(Me.pnTejidos)
         Me.TabPage4.Controls.Add(Me.cbColores)
         Me.TabPage4.Controls.Add(Me.cbMedidas)
         Me.TabPage4.Controls.Add(Me.txTejidoID)
-        Me.TabPage4.Controls.Add(Me.btTejidos)
-        Me.TabPage4.Controls.Add(Me.btModelo)
         Me.TabPage4.Controls.Add(Me.btProveedor)
         Me.TabPage4.Controls.Add(Me.cbFamilias)
         Me.TabPage4.Controls.Add(Me.txModeloID)
@@ -649,86 +629,6 @@ Partial Class frArticulos
         Me.TabPage4.Text = "GENERAL"
         Me.TabPage4.UseVisualStyleBackColor = True
         '
-        'pnModelo
-        '
-        Me.pnModelo.Controls.Add(Me.grModelo)
-        Me.pnModelo.Location = New System.Drawing.Point(471, 33)
-        Me.pnModelo.Name = "pnModelo"
-        Me.pnModelo.Size = New System.Drawing.Size(401, 187)
-        Me.pnModelo.TabIndex = 144
-        Me.pnModelo.Visible = False
-        '
-        'grModelo
-        '
-        Me.grModelo.BackColor = System.Drawing.Color.White
-        Me.grModelo.Controls.Add(Me.dgMods)
-        Me.grModelo.Controls.Add(Me.btCloseMod)
-        Me.grModelo.Location = New System.Drawing.Point(17, 8)
-        Me.grModelo.Name = "grModelo"
-        Me.grModelo.Size = New System.Drawing.Size(369, 164)
-        Me.grModelo.TabIndex = 140
-        Me.grModelo.TabStop = False
-        Me.grModelo.Text = "MODELO"
-        '
-        'dgMods
-        '
-        Me.dgMods.AllowUserToAddRows = False
-        Me.dgMods.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgMods.Location = New System.Drawing.Point(6, 42)
-        Me.dgMods.Name = "dgMods"
-        Me.dgMods.Size = New System.Drawing.Size(354, 112)
-        Me.dgMods.TabIndex = 123
-        '
-        'btCloseMod
-        '
-        Me.btCloseMod.BackgroundImage = CType(resources.GetObject("btCloseMod.BackgroundImage"), System.Drawing.Image)
-        Me.btCloseMod.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btCloseMod.Location = New System.Drawing.Point(336, 12)
-        Me.btCloseMod.Name = "btCloseMod"
-        Me.btCloseMod.Size = New System.Drawing.Size(24, 23)
-        Me.btCloseMod.TabIndex = 122
-        Me.btCloseMod.UseVisualStyleBackColor = True
-        '
-        'pnTejidos
-        '
-        Me.pnTejidos.Controls.Add(Me.grTejidos)
-        Me.pnTejidos.Location = New System.Drawing.Point(343, 42)
-        Me.pnTejidos.Name = "pnTejidos"
-        Me.pnTejidos.Size = New System.Drawing.Size(401, 186)
-        Me.pnTejidos.TabIndex = 146
-        Me.pnTejidos.Visible = False
-        '
-        'grTejidos
-        '
-        Me.grTejidos.BackColor = System.Drawing.Color.White
-        Me.grTejidos.Controls.Add(Me.dgTejidos)
-        Me.grTejidos.Controls.Add(Me.Button1)
-        Me.grTejidos.Location = New System.Drawing.Point(17, 11)
-        Me.grTejidos.Name = "grTejidos"
-        Me.grTejidos.Size = New System.Drawing.Size(369, 164)
-        Me.grTejidos.TabIndex = 141
-        Me.grTejidos.TabStop = False
-        Me.grTejidos.Text = "TEJIDOS"
-        '
-        'dgTejidos
-        '
-        Me.dgTejidos.AllowUserToAddRows = False
-        Me.dgTejidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgTejidos.Location = New System.Drawing.Point(6, 42)
-        Me.dgTejidos.Name = "dgTejidos"
-        Me.dgTejidos.Size = New System.Drawing.Size(354, 112)
-        Me.dgTejidos.TabIndex = 123
-        '
-        'Button1
-        '
-        Me.Button1.BackgroundImage = CType(resources.GetObject("Button1.BackgroundImage"), System.Drawing.Image)
-        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button1.Location = New System.Drawing.Point(336, 12)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(24, 23)
-        Me.Button1.TabIndex = 122
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'cbColores
         '
         Me.cbColores.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -757,28 +657,6 @@ Partial Class frArticulos
         Me.txTejidoID.Size = New System.Drawing.Size(72, 20)
         Me.txTejidoID.TabIndex = 143
         Me.txTejidoID.Visible = False
-        '
-        'btTejidos
-        '
-        Me.btTejidos.BackColor = System.Drawing.Color.Gainsboro
-        Me.btTejidos.BackgroundImage = CType(resources.GetObject("btTejidos.BackgroundImage"), System.Drawing.Image)
-        Me.btTejidos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btTejidos.Location = New System.Drawing.Point(606, 151)
-        Me.btTejidos.Name = "btTejidos"
-        Me.btTejidos.Size = New System.Drawing.Size(26, 23)
-        Me.btTejidos.TabIndex = 142
-        Me.btTejidos.UseVisualStyleBackColor = False
-        '
-        'btModelo
-        '
-        Me.btModelo.BackColor = System.Drawing.Color.Gainsboro
-        Me.btModelo.BackgroundImage = CType(resources.GetObject("btModelo.BackgroundImage"), System.Drawing.Image)
-        Me.btModelo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.btModelo.Location = New System.Drawing.Point(606, 123)
-        Me.btModelo.Name = "btModelo"
-        Me.btModelo.Size = New System.Drawing.Size(26, 23)
-        Me.btModelo.TabIndex = 138
-        Me.btModelo.UseVisualStyleBackColor = False
         '
         'btProveedor
         '
@@ -871,9 +749,9 @@ Partial Class frArticulos
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.txModelo)
+        Me.GroupBox2.Controls.Add(Me.cbTejido2)
         Me.GroupBox2.Controls.Add(Me.cbTejido)
-        Me.GroupBox2.Controls.Add(Me.txTejido)
+        Me.GroupBox2.Controls.Add(Me.cbModelos)
         Me.GroupBox2.Controls.Add(Me.Label44)
         Me.GroupBox2.Controls.Add(Me.Label45)
         Me.GroupBox2.Controls.Add(Me.Label46)
@@ -884,30 +762,15 @@ Partial Class frArticulos
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "LONAS"
         '
-        'txModelo
-        '
-        Me.txModelo.Location = New System.Drawing.Point(81, 54)
-        Me.txModelo.Name = "txModelo"
-        Me.txModelo.Size = New System.Drawing.Size(352, 20)
-        Me.txModelo.TabIndex = 98
-        '
         'cbTejido
         '
         Me.cbTejido.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cbTejido.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cbTejido.FormattingEnabled = True
-        Me.cbTejido.Items.AddRange(New Object() {"ACRILICO", "MICROPERFORADO", "PVC"})
         Me.cbTejido.Location = New System.Drawing.Point(81, 27)
         Me.cbTejido.Name = "cbTejido"
         Me.cbTejido.Size = New System.Drawing.Size(352, 21)
         Me.cbTejido.TabIndex = 97
-        '
-        'txTejido
-        '
-        Me.txTejido.Location = New System.Drawing.Point(81, 83)
-        Me.txTejido.Name = "txTejido"
-        Me.txTejido.Size = New System.Drawing.Size(194, 20)
-        Me.txTejido.TabIndex = 95
         '
         'Label44
         '
@@ -1226,6 +1089,22 @@ Partial Class frArticulos
         Me.Label1.TabIndex = 46
         Me.Label1.Text = "DESCRIPCION:"
         '
+        'cbModelos
+        '
+        Me.cbModelos.FormattingEnabled = True
+        Me.cbModelos.Location = New System.Drawing.Point(80, 56)
+        Me.cbModelos.Name = "cbModelos"
+        Me.cbModelos.Size = New System.Drawing.Size(353, 21)
+        Me.cbModelos.TabIndex = 148
+        '
+        'cbTejido2
+        '
+        Me.cbTejido2.FormattingEnabled = True
+        Me.cbTejido2.Location = New System.Drawing.Point(80, 82)
+        Me.cbTejido2.Name = "cbTejido2"
+        Me.cbTejido2.Size = New System.Drawing.Size(353, 21)
+        Me.cbTejido2.TabIndex = 149
+        '
         'frArticulos
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1249,12 +1128,6 @@ Partial Class frArticulos
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
-        Me.pnModelo.ResumeLayout(False)
-        Me.grModelo.ResumeLayout(False)
-        CType(Me.dgMods, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.pnTejidos.ResumeLayout(False)
-        Me.grTejidos.ResumeLayout(False)
-        CType(Me.dgTejidos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
@@ -1275,7 +1148,6 @@ Partial Class frArticulos
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents cbTejido As ComboBox
-    Friend WithEvents txTejido As TextBox
     Friend WithEvents Label44 As Label
     Friend WithEvents Label45 As Label
     Friend WithEvents Label46 As Label
@@ -1325,20 +1197,9 @@ Partial Class frArticulos
     Friend WithEvents txNumPro As TextBox
     Friend WithEvents txProveedor As TextBox
     Friend WithEvents txModeloID As TextBox
-    Friend WithEvents txModelo As TextBox
     Friend WithEvents cbFamilias As ComboBox
-    Friend WithEvents btModelo As Button
     Friend WithEvents btProveedor As Button
-    Friend WithEvents grModelo As GroupBox
-    Friend WithEvents btCloseMod As Button
-    Friend WithEvents dgMods As DataGridView
     Friend WithEvents txTejidoID As TextBox
-    Friend WithEvents btTejidos As Button
-    Friend WithEvents grTejidos As GroupBox
-    Friend WithEvents dgTejidos As DataGridView
-    Friend WithEvents Button1 As Button
-    Friend WithEvents pnTejidos As Panel
-    Friend WithEvents pnModelo As Panel
     Friend WithEvents pnLotes As Panel
     Friend WithEvents dgLotes As DataGridView
     Friend WithEvents btCloseLotes As Button
@@ -1372,4 +1233,6 @@ Partial Class frArticulos
     Friend WithEvents txFiltroLotes As TextBox
     Friend WithEvents txBakLote As TextBox
     Friend WithEvents txCorte As TextBox
+    Friend WithEvents cbTejido2 As ComboBox
+    Friend WithEvents cbModelos As ComboBox
 End Class

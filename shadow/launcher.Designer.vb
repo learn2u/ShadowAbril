@@ -234,6 +234,7 @@ Partial Class launcher
         Me.txContra.BackColor = System.Drawing.Color.White
         Me.txContra.Location = New System.Drawing.Point(403, 72)
         Me.txContra.Name = "txContra"
+        Me.txContra.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txContra.Size = New System.Drawing.Size(209, 20)
         Me.txContra.TabIndex = 1
         '

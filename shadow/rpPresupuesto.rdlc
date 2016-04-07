@@ -1082,9 +1082,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox9</rd:DefaultName>
           <Top>0.7112cm</Top>
-          <Left>9.30749cm</Left>
+          <Left>8.61957cm</Left>
           <Height>0.73229cm</Height>
-          <Width>9.69171cm</Width>
+          <Width>10.37963cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -1116,9 +1116,9 @@
               </Paragraphs>
               <rd:DefaultName>nombrecom</rd:DefaultName>
               <Top>0.17639cm</Top>
-              <Left>0.2457cm</Left>
+              <Left>0.25561cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.19396cm</Width>
+              <Width>9.87197cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -1147,9 +1147,9 @@
               </Paragraphs>
               <rd:DefaultName>direccion</rd:DefaultName>
               <Top>0.82225cm</Top>
-              <Left>0.2457cm</Left>
+              <Left>0.25561cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.19396cm</Width>
+              <Width>9.87197cm</Width>
               <ZIndex>1</ZIndex>
               <Style>
                 <Border>
@@ -1177,7 +1177,7 @@
               </Paragraphs>
               <rd:DefaultName>cpostal</rd:DefaultName>
               <Top>1.45753cm</Top>
-              <Left>0.2457cm</Left>
+              <Left>0.25561cm</Left>
               <Height>0.6cm</Height>
               <Width>1.865cm</Width>
               <ZIndex>2</ZIndex>
@@ -1209,9 +1209,9 @@
               </Paragraphs>
               <rd:DefaultName>poblacion</rd:DefaultName>
               <Top>1.45753cm</Top>
-              <Left>2.14598cm</Left>
+              <Left>2.15588cm</Left>
               <Height>0.6cm</Height>
-              <Width>7.29368cm</Width>
+              <Width>7.97169cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1241,9 +1241,9 @@
               </Paragraphs>
               <rd:DefaultName>provincia</rd:DefaultName>
               <Top>2.09281cm</Top>
-              <Left>0.2457cm</Left>
+              <Left>0.25561cm</Left>
               <Height>0.6cm</Height>
-              <Width>9.19396cm</Width>
+              <Width>9.87197cm</Width>
               <ZIndex>4</ZIndex>
               <Style>
                 <Border>
@@ -1258,9 +1258,9 @@
           </ReportItems>
           <KeepTogether>true</KeepTogether>
           <Top>1.76099cm</Top>
-          <Left>9.30749cm</Left>
+          <Left>8.61957cm</Left>
           <Height>2.90188cm</Height>
-          <Width>9.69171cm</Width>
+          <Width>10.37963cm</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>
@@ -1377,9 +1377,9 @@
           </Paragraphs>
           <rd:DefaultName>referencia</rd:DefaultName>
           <Top>4.80398cm</Top>
-          <Left>9.30749cm</Left>
+          <Left>8.61957cm</Left>
           <Height>0.6cm</Height>
-          <Width>9.69171cm</Width>
+          <Width>10.37963cm</Width>
           <ZIndex>8</ZIndex>
           <Style>
             <Border>
@@ -1414,9 +1414,9 @@
           </Paragraphs>
           <rd:DefaultName>usuario</rd:DefaultName>
           <Top>6.39204cm</Top>
-          <Left>9.30749cm</Left>
+          <Left>8.61957cm</Left>
           <Height>0.6cm</Height>
-          <Width>9.69171cm</Width>
+          <Width>10.37963cm</Width>
           <ZIndex>9</ZIndex>
           <Style>
             <Border>
@@ -1453,9 +1453,9 @@
           </Paragraphs>
           <rd:DefaultName>agente</rd:DefaultName>
           <Top>5.61565cm</Top>
-          <Left>9.30749cm</Left>
+          <Left>8.61957cm</Left>
           <Height>0.6cm</Height>
-          <Width>9.69171cm</Width>
+          <Width>10.37963cm</Width>
           <ZIndex>10</ZIndex>
           <Style>
             <Border>

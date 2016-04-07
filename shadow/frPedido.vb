@@ -65,9 +65,9 @@ Public Class frPedido
                                                     clientes.clienteID 
                                             FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE eliminado = 'N' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
 
-            Dim readermy As MySqlDataReader
-            Dim dtable As New DataTable
-            Dim bind As New BindingSource()
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
 
         Try
             readermy = consultamy.ExecuteReader
@@ -2104,5 +2104,9 @@ Public Class frPedido
             conexionmy.Close()
 
         End If
+    End Sub
+
+    Private Sub dgLineasPres1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellContentClick
+
     End Sub
 End Class

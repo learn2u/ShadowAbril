@@ -9,6 +9,7 @@ Public Class frVerLotes
     Public Shared vPrecio As Decimal
     Public Shared vIva As Decimal
     Public Shared vLote As String
+    Public Shared vLongitud As Decimal
 
     Private Sub frVerLotes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
@@ -58,7 +59,8 @@ Public Class frVerLotes
             If frPresupuestos.flagEdit = "N" Then
                 newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value
                 newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                 newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                 newMdiPresupuesto.txIva.Text = vIva
@@ -69,7 +71,8 @@ Public Class frVerLotes
             Else
                 newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value
                 newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                 newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                 newMdiPresupuesto.txIva.Text = vIva
@@ -85,7 +88,8 @@ Public Class frVerLotes
             If frAlbaran.flagEdit = "N" Then
                 newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value
                 newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                 newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                 newMdiAlbaran.txIva.Text = vIva
@@ -96,7 +100,8 @@ Public Class frVerLotes
             Else
                 newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value
                 newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                 newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                 newMdiAlbaran.txIva.Text = vIva
@@ -113,7 +118,8 @@ Public Class frVerLotes
             If frPedido.flagEdit = "N" Then
                 newMdiPedido.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiPedido.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiPedido.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiPedido.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value
                 newMdiPedido.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                 newMdiPedido.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                 newMdiPedido.txIva.Text = vIva
@@ -124,7 +130,8 @@ Public Class frVerLotes
             Else
                 newMdiPedido.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                 newMdiPedido.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                'newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                newMdiPedido.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiPedido.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value
                 newMdiPedido.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                 newMdiPedido.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                 newMdiPedido.txIva.Text = vIva
@@ -203,7 +210,8 @@ Public Class frVerLotes
                 If frPresupuestos.flagEdit = "N" Then
                     newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(5).Value
                     newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                     newMdiPresupuesto.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                     newMdiPresupuesto.txIva.Text = vIva
@@ -214,7 +222,8 @@ Public Class frVerLotes
                 Else
                     newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(5).Value
                     newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                     newMdiPresupuesto.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                     newMdiPresupuesto.txIva.Text = vIva
@@ -230,7 +239,8 @@ Public Class frVerLotes
                 If frAlbaran.flagEdit = "N" Then
                     newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(5).Value
                     newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                     newMdiAlbaran.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                     newMdiAlbaran.txIva.Text = vIva
@@ -241,7 +251,8 @@ Public Class frVerLotes
                 Else
                     newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(5).Value
                     newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                     newMdiAlbaran.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                     newMdiAlbaran.txIva.Text = vIva
@@ -258,7 +269,8 @@ Public Class frVerLotes
                 If frPedido.flagEdit = "N" Then
                     newMdiPedido.dgLineasPres1.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiPedido.dgLineasPres1.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiPedido.dgLineasPres1.CurrentRow.Cells(6).Value = newMdiPedido.dgLineasPres1.CurrentRow.Cells(4).Value * newMdiPedido.dgLineasPres1.CurrentRow.Cells(5).Value
                     newMdiPedido.dgLineasPres1.CurrentRow.Cells(7).Value = vPrecio
                     newMdiPedido.dgLineasPres1.CurrentRow.Cells(11).Value = vLote
                     newMdiPedido.txIva.Text = vIva
@@ -269,7 +281,8 @@ Public Class frVerLotes
                 Else
                     newMdiPedido.dgLineasPres2.CurrentRow.Cells(2).Value = dgLotes.CurrentRow.Cells("referen").Value
                     newMdiPedido.dgLineasPres2.CurrentRow.Cells(3).Value = dgLotes.CurrentRow.Cells("descrip").Value
-                    'newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value = dgLotes.CurrentRow.Cells("longitud").Value
+                    newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value = vLongitud / 100
+                    newMdiPedido.dgLineasPres2.CurrentRow.Cells(6).Value = newMdiPedido.dgLineasPres2.CurrentRow.Cells(4).Value * newMdiPedido.dgLineasPres2.CurrentRow.Cells(5).Value
                     newMdiPedido.dgLineasPres2.CurrentRow.Cells(7).Value = vPrecio
                     newMdiPedido.dgLineasPres2.CurrentRow.Cells(11).Value = vLote
                     newMdiPedido.txIva.Text = vIva

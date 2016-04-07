@@ -172,7 +172,7 @@ Public Class frPedido
                     lineas = lineas + 1
                     dgLineasPres1.Rows.Add()
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
-                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 0
+                    dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
                     dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
@@ -202,7 +202,7 @@ Public Class frPedido
                     lineas = lineas + 1
                     dgLineasPres2.Rows.Add()
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
-                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
@@ -2128,7 +2128,7 @@ Public Class frPedido
                         lineas = lineas + 1
                         dgLineasPres1.Rows.Add()
                         dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(0).Value = lineas
-                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 0
+                        dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(4).Value = 1
                         dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(5).Value = 0
                         dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(6).Value = 0
                         dgLineasPres1.Rows(dgLineasPres1.Rows.Count - 1).Cells(7).Value = 0
@@ -2170,7 +2170,7 @@ Public Class frPedido
                     lineas = lineas + 1
                     dgLineasPres2.Rows.Add()
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
-                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 0
+                    dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0

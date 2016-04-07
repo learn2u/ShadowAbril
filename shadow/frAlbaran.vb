@@ -1584,7 +1584,7 @@ Public Class frAlbaran
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
@@ -1608,7 +1608,7 @@ Public Class frAlbaran
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
@@ -2292,14 +2292,6 @@ Public Class frAlbaran
 
             conexionmy.Close()
         End If
-    End Sub
-
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles TabPage2.Click
-
-    End Sub
-
-    Private Sub dgLineasPres1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellContentClick
-
     End Sub
 
     Private Sub dgLineasPres1_KeyDown(sender As Object, e As KeyEventArgs) Handles dgLineasPres1.KeyDown

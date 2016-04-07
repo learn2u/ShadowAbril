@@ -1065,8 +1065,15 @@ Public Class frAlbaran
         End If
         If (e.ColumnIndex = 4) Then
             Try
+                If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    artiLote = "N"
+                Else
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    artiLote = "S"
+                End If
                 cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la edición del grid (Err_1092). Revise los datos")
                 Exit Sub
@@ -1121,7 +1128,6 @@ Public Class frAlbaran
                 Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
-
                 Dim stock As String = (reader.GetString(1) + unidades).ToString
                 reader.Close()
 
@@ -1584,14 +1590,18 @@ Public Class frAlbaran
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
                 Dim stock As String = (reader.GetString(1) - unidades).ToString
                 reader.Close()
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
 
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
                 cmdActualizo.ExecuteNonQuery()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
@@ -1608,14 +1618,17 @@ Public Class frAlbaran
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
                 Dim stock As String = (reader.GetString(1) + unidades).ToString
                 reader.Close()
-
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + stock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
                 cmdActualizo.ExecuteNonQuery()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")

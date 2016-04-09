@@ -9,12 +9,15 @@ Public Class frPedido
     Public Shared pos As Integer
     Public Shared flagEdit As String = "N"
     Public Shared lineasEdit As New List(Of lineasEditadas)
+    Public Shared lineasElim As New List(Of lineasEliminadas)
     Public Shared artiEdit As String
     Public Shared cantIni As Decimal
     Public Shared cantFin As Decimal
     Public Shared serieIni As String
+    Public Shared posicion As Integer
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
+    Public Shared artiLote As String
 
     Private Sub frPedido_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
@@ -148,6 +151,7 @@ Public Class frPedido
         tsBotones.Focus()
         cmdNuevo.Select()
         dgLineasPres1.Rows.Clear()
+        dgLineasPres2.Rows.Clear()
     End Sub
 
     Private Sub cmdLineas_ButtonClick(sender As Object, e As EventArgs) Handles cmdLineas.ButtonClick
@@ -287,17 +291,29 @@ Public Class frPedido
     Public Sub renumerar()
         lineas = 0
         If flagEdit = "N" Then
-            For Each row As DataGridViewRow In dgLineasPres1.Rows
-                lineas = lineas + 1
-                row.Cells(0).Value = lineas
+            Try
+                For Each row As DataGridViewRow In dgLineasPres1.Rows
+                    lineas = lineas + 1
+                    row.Cells(0).Value = lineas
 
-            Next
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al renumerar las lineas del pedido.")
+                Exit Sub
+            End Try
+
         Else
-            For Each row As DataGridViewRow In dgLineasPres2.Rows
-                lineas = lineas + 1
-                row.Cells(0).Value = lineas
+            Try
+                For Each row As DataGridViewRow In dgLineasPres2.Rows
+                    lineas = lineas + 1
+                    row.Cells(0).Value = lineas
 
-            Next
+                Next
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al renumerar las lineas del pedido.")
+                Exit Sub
+            End Try
+
         End If
 
     End Sub
@@ -471,6 +487,8 @@ Public Class frPedido
         If flagEdit = "N" Then
             Try
                 dgLineasPres1.Rows.RemoveAt(dgLineasPres1.CurrentRow.Index)
+                renumerar()
+                recalcularTotales()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la eliminación de líneas en pedidos (Err_3011). Revise los datos")
                 Exit Sub
@@ -481,19 +499,26 @@ Public Class frPedido
         Else
             'Cargo los datos de la linea para el control de stocks
             Try
-                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    artiLote = "N"
+                Else
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    artiLote = "S"
+                End If
+
                 cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
                 cantFin = 0
-                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
 
                 dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
+                renumerar()
+                recalcularTotales()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la eliminación de líneas en pedidos (Err_3012). Revise los datos")
                 Exit Sub
             End Try
 
-            renumerar()
-            recalcularTotales()
         End If
     End Sub
 
@@ -508,6 +533,7 @@ Public Class frPedido
         dgLineasPres2.Visible = False
         dgLineasPres1.Enabled = True
         dgLineasPres1.Visible = True
+        cbSerie.Text = "S1"
         cbEstado.Text = "PENDIENTE"
         cbEstado.Enabled = True
         txFecha.Text = Format(Today, "ddMMyyyy")
@@ -530,6 +556,12 @@ Public Class frPedido
 
     Private Sub cmdGuardar_Click(sender As Object, e As EventArgs) Handles cmdGuardar.Click
 
+        Dim vSerie As String
+        If cbSerie.Text = "S1" Then
+            vSerie = "1"
+        Else
+            vSerie = "2"
+        End If
         If flagEdit = "N" Then
             cargoNumero()
 
@@ -559,7 +591,7 @@ Public Class frPedido
             'Guardo cabecera y actualizo número de presupuesto
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
-            Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_pedido, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado) VALUES (" + txtNumpres.Text + ", " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', '" + vEstado + "')", conexionmy)
+            Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', '" + vEstado + "')", conexionmy)
             Try
                 cmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -567,14 +599,24 @@ Public Class frPedido
                 Exit Sub
             End Try
 
+            If cbSerie.Text = "S1" Then
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_pedido = '" + txtNumpres.Text + "'", conexionmy)
+                Try
+                    cmdActualizar.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del número de pedido en el archivo de configuración (Err_3022). Revise los datos")
+                    Exit Sub
+                End Try
+            Else
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_pedido_2 = '" + txtNumpres.Text + "'", conexionmy)
+                Try
+                    cmdActualizar.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del número de pedido en el archivo de configuración (Err_3022). Revise los datos")
+                    Exit Sub
+                End Try
+            End If
 
-            Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_pedido = '" + txtNumpres.Text + "'", conexionmy)
-            Try
-                cmdActualizar.ExecuteNonQuery()
-            Catch ex As Exception
-                MsgBox("Se ha producido un error en la actualización del número de pedido en el archivo de configuración (Err_3022). Revise los datos")
-                Exit Sub
-            End Try
 
             'Guardo líneas del presupuesto
 
@@ -598,6 +640,7 @@ Public Class frPedido
             Dim lintotal As String
             Dim guardo_lintotal As String
             Dim arti As String
+            Dim vLote As String
 
             For Each row In dgLineasPres1.Rows
 
@@ -641,9 +684,24 @@ Public Class frPedido
                     MsgBox("Se ha producido un error en la grabación de las líneas del pedido actual (Err_3023). Revise los datos")
                     Exit Sub
                 End Try
+                If row.Cells(11).Value = "" Then
+                    Try
+                        descontarStock(arti, lincant)
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                        Exit Sub
+                    End Try
+                Else
+                    Try
+                    vLote = row.Cells(11).Value
+                        descontarStockLote(vLote, lincant)
+                    Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                    Exit Sub
+                End Try
+                End If
 
-
-            Next
+        Next
 
             conexionmy.Close()
 
@@ -682,18 +740,64 @@ Public Class frPedido
 
             'Guardo cabecera y actualizo número de presupuesto
 
+            If vSerie = serieIni Then
+                Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
+                Try
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de la cabecera del pedido actual (Err_3024). Revise los datos")
+                    Exit Sub
+                End Try
+            Else
+                Dim cmdEliminarLin As New MySqlCommand("DELETE FROM pedido_linea WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
+                Try
+                    cmdEliminarLin.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de las líneas de pedido. Revise los datos")
+                    Exit Sub
+                End Try
+                Dim cmdEliminarCab As New MySqlCommand("DELETE FROM pedido_cab WHERE num_albaran = '" + txtNumpres.Text + "'", conexionmy)
+                Try
+                    cmdEliminarCab.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de la cabecera del pedido (Err_1050). Revise los datos")
+                    Exit Sub
+                End Try
 
-            Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
-            Try
-                cmd.ExecuteNonQuery()
-            Catch ex As Exception
-                MsgBox("Se ha producido un error en la actualización de la cabecera del pedido actual (Err_3024). Revise los datos")
-                Exit Sub
-            End Try
+                cargoNumero()
+                Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
+                Try
+                    cmd.ExecuteNonQuery()
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la actualización de la cabecera del pedido (Err_1051). Revise los datos")
+                    Exit Sub
+                End Try
+
+                If cbSerie.Text = "S1" Then
+                    Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_pedido = '" + txtNumpres.Text + "'", conexionmy)
+                    Try
+                        cmdActualizar.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización de la cabecera del pedido (Err_1052). Revise los datos")
+                        Exit Sub
+                    End Try
+
+                Else
+                    Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_pedido_2 = '" + txtNumpres.Text + "'", conexionmy)
+                    Try
+                        cmdActualizar.ExecuteNonQuery()
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización de la cabecera del pedido (Err_1053). Revise los datos")
+                        Exit Sub
+                    End Try
+                End If
+            End If
 
 
 
-            'Guardo líneas del presupuesto
+
+
+
 
             Dim cmdEliminar As New MySqlCommand("DELETE FROM pedido_linea WHERE num_pedido = '" + txtNumpres.Text + "'", conexionmy)
             Try
@@ -703,7 +807,7 @@ Public Class frPedido
                 Exit Sub
             End Try
 
-
+            'Guardo líneas del presupuesto
             Dim cmdLinea As New MySqlCommand
             Dim row As New DataGridViewRow
 
@@ -769,16 +873,27 @@ Public Class frPedido
             conexionmy.Close()
 
             If lineasEdit.Count > 0 Then
-                Try
-                    For Each itemlineas As lineasEditadas In lineasEdit
-                        aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
-                        descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
-                    Next
-                Catch ex As Exception
-                    MsgBox("Se ha producido un error en el proceso de actualización de stocks del pedido actual (Err_3027). Revise los datos")
-                    Exit Sub
-                End Try
+                For Each itemlineas As lineasEditadas In lineasEdit
+                    If itemlineas.esLote = "N" Then
+                        Try
+                            aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1060). Revise los datos")
+                            Exit Sub
+                        End Try
 
+                    Else
+                        Try
+                            'vLote = row.Cells(11).Value
+                            aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1061). Revise los datos")
+                            Exit Sub
+                        End Try
+                    End If
+                Next
             End If
             lineasEdit.Clear()
 
@@ -797,13 +912,23 @@ Public Class frPedido
 
         Dim numid As Int32
 
-        Dim cmdLastId As New MySqlCommand("SELECT num_pedido FROM configuracion  ", conexionmy)
-        Try
-            numid = cmdLastId.ExecuteScalar()
-        Catch ex As Exception
-            MsgBox("Se ha producido un error al cargar el número del pedido actual (Err_3028). Revise los datos")
-            Exit Sub
-        End Try
+        If cbSerie.Text = "S1" Then
+            Dim cmdLastId As New MySqlCommand("SELECT num_pedido FROM configuracion  ", conexionmy)
+            Try
+                numid = cmdLastId.ExecuteScalar()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al cargar el número del pedido actual (Err_3028). Revise los datos")
+                Exit Sub
+            End Try
+        Else
+            Dim cmdLastId As New MySqlCommand("SELECT num_pedido_2 FROM configuracion  ", conexionmy)
+            Try
+                numid = cmdLastId.ExecuteScalar()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error al cargar el número del pedido actual (Err_3028). Revise los datos")
+                Exit Sub
+            End Try
+        End If
 
         txtNumpres.Text = numid + 1
 
@@ -834,6 +959,13 @@ Public Class frPedido
             txAgente.Text = rdrCab("agenteID")
             txReferenciapres.Text = rdrCab("referencia")
             txObserva.Text = rdrCab("observaciones")
+            If rdrCab("serie") = "1" Then
+                cbSerie.Text = "S1"
+                serieIni = "1"
+            Else
+                cbSerie.Text = "S2"
+                serieIni = "2"
+            End If
             If rdrCab("estado") = "P" Then
                 cbEstado.Text = "PENDIENTE"
             End If
@@ -960,8 +1092,15 @@ Public Class frPedido
         End If
         If (e.ColumnIndex = 4) Then
             Try
+                If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    artiLote = "N"
+                Else
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    artiLote = "S"
+                End If
                 cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+                lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la edición de los datos de las líneas del pedido (Err_3032). Revise los datos")
                 Exit Sub
@@ -2189,5 +2328,60 @@ Public Class frPedido
 
         End If
         newLinea = "N"
+    End Sub
+    Public Sub descontarStockLote(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) - unidades).ToString
+                reader.Close()
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
+
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+
+    End Sub
+    Public Sub aumentarStockLote(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) + unidades).ToString
+                reader.Close()
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+
     End Sub
 End Class

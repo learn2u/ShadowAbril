@@ -484,7 +484,8 @@ Public Class frAlbaran
                 MsgBox("Se ha producido un error en la eliminación de líneas de albarán. Revise los datos")
                 Exit Sub
             End Try
-
+            renumerar()
+            recalcularTotales()
         Else
             'Cargo los datos de la linea para el control de stocks
             Try

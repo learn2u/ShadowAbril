@@ -46,6 +46,12 @@ Partial Class frPresupuestos
         Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dsPresupuesto = New shadow.dsPresupuesto()
+        Me.presupuesto_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.presupuesto_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.usuariosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.agentesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
@@ -162,17 +168,18 @@ Partial Class frPresupuestos
         Me.txtNumpres = New System.Windows.Forms.TextBox()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dsPresupuesto = New shadow.dsPresupuesto()
-        Me.presupuesto_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.presupuesto_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.clientesTableAdapter = New shadow.dsPresupuestoTableAdapters.clientesTableAdapter()
         Me.presupuesto_cabTableAdapter = New shadow.dsPresupuestoTableAdapters.presupuesto_cabTableAdapter()
         Me.presupuesto_lineaTableAdapter = New shadow.dsPresupuestoTableAdapters.presupuesto_lineaTableAdapter()
-        Me.usuariosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.usuariosTableAdapter = New shadow.dsPresupuestoTableAdapters.usuariosTableAdapter()
-        Me.agentesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.agentesTableAdapter = New shadow.dsPresupuestoTableAdapters.agentesTableAdapter()
+        Me.cbSerie = New System.Windows.Forms.ComboBox()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPresupuestos.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
@@ -189,13 +196,37 @@ Partial Class frPresupuestos
         Me.Panel3.SuspendLayout()
         Me.tsBotones.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'dsPresupuesto
+        '
+        Me.dsPresupuesto.DataSetName = "dsPresupuesto"
+        Me.dsPresupuesto.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'presupuesto_cabBindingSource
+        '
+        Me.presupuesto_cabBindingSource.DataMember = "presupuesto_cab"
+        Me.presupuesto_cabBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'presupuesto_lineaBindingSource
+        '
+        Me.presupuesto_lineaBindingSource.DataMember = "presupuesto_linea"
+        Me.presupuesto_lineaBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'usuariosBindingSource
+        '
+        Me.usuariosBindingSource.DataMember = "usuarios"
+        Me.usuariosBindingSource.DataSource = Me.dsPresupuesto
+        '
+        'agentesBindingSource
+        '
+        Me.agentesBindingSource.DataMember = "agentes"
+        Me.agentesBindingSource.DataSource = Me.dsPresupuesto
         '
         'tabPresupuestos
         '
@@ -454,6 +485,7 @@ Partial Class frPresupuestos
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.White
+        Me.TabPage2.Controls.Add(Me.cbSerie)
         Me.TabPage2.Controls.Add(Me.Panel1)
         Me.TabPage2.Controls.Add(Me.txRecargo)
         Me.TabPage2.Controls.Add(Me.txNumpresBk)
@@ -1356,10 +1388,10 @@ Partial Class frPresupuestos
         'txtNumpres
         '
         Me.txtNumpres.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.txtNumpres.Location = New System.Drawing.Point(102, 59)
+        Me.txtNumpres.Location = New System.Drawing.Point(144, 59)
         Me.txtNumpres.Name = "txtNumpres"
         Me.txtNumpres.ReadOnly = True
-        Me.txtNumpres.Size = New System.Drawing.Size(114, 20)
+        Me.txtNumpres.Size = New System.Drawing.Size(72, 20)
         Me.txtNumpres.TabIndex = 100
         '
         'TabPage3
@@ -1397,26 +1429,6 @@ Partial Class frPresupuestos
         Me.ReportViewer1.Size = New System.Drawing.Size(1315, 629)
         Me.ReportViewer1.TabIndex = 0
         '
-        'clientesBindingSource
-        '
-        Me.clientesBindingSource.DataMember = "clientes"
-        Me.clientesBindingSource.DataSource = Me.dsPresupuesto
-        '
-        'dsPresupuesto
-        '
-        Me.dsPresupuesto.DataSetName = "dsPresupuesto"
-        Me.dsPresupuesto.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'presupuesto_cabBindingSource
-        '
-        Me.presupuesto_cabBindingSource.DataMember = "presupuesto_cab"
-        Me.presupuesto_cabBindingSource.DataSource = Me.dsPresupuesto
-        '
-        'presupuesto_lineaBindingSource
-        '
-        Me.presupuesto_lineaBindingSource.DataMember = "presupuesto_linea"
-        Me.presupuesto_lineaBindingSource.DataSource = Me.dsPresupuesto
-        '
         'clientesTableAdapter
         '
         Me.clientesTableAdapter.ClearBeforeFill = True
@@ -1429,23 +1441,22 @@ Partial Class frPresupuestos
         '
         Me.presupuesto_lineaTableAdapter.ClearBeforeFill = True
         '
-        'usuariosBindingSource
-        '
-        Me.usuariosBindingSource.DataMember = "usuarios"
-        Me.usuariosBindingSource.DataSource = Me.dsPresupuesto
-        '
         'usuariosTableAdapter
         '
         Me.usuariosTableAdapter.ClearBeforeFill = True
         '
-        'agentesBindingSource
-        '
-        Me.agentesBindingSource.DataMember = "agentes"
-        Me.agentesBindingSource.DataSource = Me.dsPresupuesto
-        '
         'agentesTableAdapter
         '
         Me.agentesTableAdapter.ClearBeforeFill = True
+        '
+        'cbSerie
+        '
+        Me.cbSerie.FormattingEnabled = True
+        Me.cbSerie.Items.AddRange(New Object() {"S1", "S2"})
+        Me.cbSerie.Location = New System.Drawing.Point(102, 59)
+        Me.cbSerie.Name = "cbSerie"
+        Me.cbSerie.Size = New System.Drawing.Size(36, 21)
+        Me.cbSerie.TabIndex = 111
         '
         'frPresupuestos
         '
@@ -1458,6 +1469,12 @@ Partial Class frPresupuestos
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PRESUPUESTO"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPresupuestos.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TableLayoutPanel2.ResumeLayout(False)
@@ -1479,12 +1496,6 @@ Partial Class frPresupuestos
         Me.tsBotones.ResumeLayout(False)
         Me.tsBotones.PerformLayout()
         Me.TabPage3.ResumeLayout(False)
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.presupuesto_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1616,4 +1627,5 @@ Partial Class frPresupuestos
     Friend WithEvents agentesBindingSource As BindingSource
     Friend WithEvents usuariosTableAdapter As dsPresupuestoTableAdapters.usuariosTableAdapter
     Friend WithEvents agentesTableAdapter As dsPresupuestoTableAdapters.agentesTableAdapter
+    Friend WithEvents cbSerie As ComboBox
 End Class

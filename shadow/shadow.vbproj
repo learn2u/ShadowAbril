@@ -105,6 +105,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dsAlbaranes.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsAlbaranes.xsd</DependentUpon>
+    </Compile>
     <Compile Include="dsPresupuesto.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -267,6 +272,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="tolseproDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>tolseproDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="variables.vb" />
     <Compile Include="vtosEditados.vb" />
   </ItemGroup>
@@ -346,10 +356,22 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="rpPedido.rdlc" />
+    <EmbeddedResource Include="rpAlbaran_2.rdlc" />
+    <EmbeddedResource Include="rpAlbaran_1.rdlc" />
     <EmbeddedResource Include="rpPresupuesto.rdlc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="dsAlbaranes.xsc">
+      <DependentUpon>dsAlbaranes.xsd</DependentUpon>
+    </None>
+    <None Include="dsAlbaranes.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsAlbaranes.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dsAlbaranes.xss">
+      <DependentUpon>dsAlbaranes.xsd</DependentUpon>
+    </None>
     <None Include="dsPresupuesto.xsc">
       <DependentUpon>dsPresupuesto.xsd</DependentUpon>
     </None>
@@ -372,6 +394,17 @@
     </None>
     <None Include="App.config" />
     <None Include="shadow_ClaveTemporal.pfx" />
+    <None Include="tolseproDataSet.xsc">
+      <DependentUpon>tolseproDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="tolseproDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>tolseproDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="tolseproDataSet.xss">
+      <DependentUpon>tolseproDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="conexion.xml" />

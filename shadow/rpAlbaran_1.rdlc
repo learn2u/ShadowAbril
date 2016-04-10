@@ -476,6 +476,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>cantidad1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -509,6 +512,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>ancho_largo1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -542,6 +548,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>m2_ml1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -575,6 +584,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>precio1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -608,6 +620,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>importe</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -641,6 +656,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>descuento1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -674,6 +692,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>totalinea1</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -684,6 +705,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -1714,7 +1736,7 @@
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>
-                    <Format>0.00;(0.00)</Format>
+                    <Format>0;(0)</Format>
                   </Style>
                 </TextRun>
               </TextRuns>

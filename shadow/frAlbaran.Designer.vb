@@ -155,6 +155,7 @@ Partial Class frAlbaran
         Me.cmdDelete = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmdContado = New System.Windows.Forms.ToolStripButton()
+        Me.tscbSeries = New System.Windows.Forms.ToolStripComboBox()
         Me.dgAlbaranes = New System.Windows.Forms.DataGridView()
         Me.rbTodos = New System.Windows.Forms.RadioButton()
         Me.btBuscar = New System.Windows.Forms.Button()
@@ -181,7 +182,6 @@ Partial Class frAlbaran
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.tscbSeries = New System.Windows.Forms.ToolStripComboBox()
         Me.TabPage2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -1315,6 +1315,12 @@ Partial Class frAlbaran
         Me.cmdContado.Size = New System.Drawing.Size(29, 35)
         Me.cmdContado.ToolTipText = "Guardar como Venta de Contado"
         '
+        'tscbSeries
+        '
+        Me.tscbSeries.Items.AddRange(New Object() {"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"})
+        Me.tscbSeries.Name = "tscbSeries"
+        Me.tscbSeries.Size = New System.Drawing.Size(121, 38)
+        '
         'dgAlbaranes
         '
         Me.dgAlbaranes.AllowUserToAddRows = False
@@ -1584,12 +1590,6 @@ Partial Class frAlbaran
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "VISTA PRELIMINAR"
         Me.TabPage3.UseVisualStyleBackColor = True
-        '
-        'tscbSeries
-        '
-        Me.tscbSeries.Items.AddRange(New Object() {"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"})
-        Me.tscbSeries.Name = "tscbSeries"
-        Me.tscbSeries.Size = New System.Drawing.Size(121, 38)
         '
         'frAlbaran
         '

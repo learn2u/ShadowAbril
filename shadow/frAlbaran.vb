@@ -1467,6 +1467,15 @@ Public Class frAlbaran
 
     Private Sub cmdAlbaran_Click(sender As Object, e As EventArgs) Handles cmdAlbaran.Click
         'Convertir Albarán en Factura
+        Dim vSelecSerie As String
+        If tscbSeries.Text = "S1" Then
+            vSelecSerie = 1
+        ElseIf tscbSeries.Text = "S1" Then
+            vSelecSerie = 2
+        Else
+            MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")
+            Exit Sub
+        End If
         Dim respuesta As String
         respuesta = MsgBox("La conversión a Factura no es reversible. ¿Está seguro?", vbYesNo)
         If respuesta = vbYes Then
@@ -1486,7 +1495,7 @@ Public Class frAlbaran
             Dim vRec As String = Replace(txImpRecargo.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '1', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
             cmd.Connection = conexionmy
             Try
                 cmd.ExecuteNonQuery()
@@ -1555,9 +1564,16 @@ Public Class frAlbaran
 
             Next
 
-            Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txtNumpres.Text + "'  ", conexionmy)
+
             Try
-                cmdActualizar.ExecuteNonQuery()
+                If vSelecSerie = "1" Then
+                    Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txtNumpres.Text + "'  ", conexionmy)
+                    cmdActualizar.ExecuteNonQuery()
+                Else
+                    Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura_2 = '" + txtNumpres.Text + "'  ", conexionmy)
+                    cmdActualizar.ExecuteNonQuery()
+                End If
+
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la conversión del albarán (Err_1123). Revise los datos")
                 Exit Sub
@@ -1594,12 +1610,22 @@ Public Class frAlbaran
         conexionmy.Open()
 
         Try
-            Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
-            Dim numid As Int32
+            If tscbSeries.Text = "S1" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
+                Dim numid As Int32
 
-            numid = cmdLastId.ExecuteScalar()
+                numid = cmdLastId.ExecuteScalar()
 
-            txtNumpres.Text = numid + 1
+                txtNumpres.Text = numid + 1
+            ElseIf tscbSeries.Text = "S2" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_factura_2 FROM configuracion  ", conexionmy)
+                Dim numid As Int32
+
+                numid = cmdLastId.ExecuteScalar()
+
+                txtNumpres.Text = numid + 1
+            End If
+
         Catch ex As Exception
             MsgBox("Se ha producido un error en la conversión del albarán (Err_1125). Revise los datos")
             Exit Sub

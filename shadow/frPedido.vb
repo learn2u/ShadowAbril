@@ -1405,6 +1405,15 @@ Public Class frPedido
 
     Private Sub cmdPedido_Click(sender As Object, e As EventArgs) Handles cmdPedido.Click
         'Convertir Pedido en Albaran
+        Dim vSelecSerie As String
+        If tscbSeries.Text = "S1" Then
+            vSelecSerie = 1
+        ElseIf tscbSeries.Text = "S1" Then
+            vSelecSerie = 2
+        Else
+            MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")
+            Exit Sub
+        End If
         Dim respuesta As String
         respuesta = MsgBox("La conversión a Albarán no es reversible. Una vez convertido, el pedido será eliminado. ¿Está seguro?", vbYesNo)
         If respuesta = vbYes Then
@@ -1423,7 +1432,7 @@ Public Class frPedido
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '1', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'N', 0, 'N')"
+            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'N', 0, 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 
@@ -1481,8 +1490,14 @@ Public Class frPedido
 
             Next
 
-            Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran = '" + txtNumpres.Text + "'  ", conexionmy)
-            cmdActualizar.ExecuteNonQuery()
+            If vSelecSerie = "1" Then
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran = '" + txtNumpres.Text + "'  ", conexionmy)
+                cmdActualizar.ExecuteNonQuery()
+            Else
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_albaran_2 = '" + txtNumpres.Text + "'  ", conexionmy)
+                cmdActualizar.ExecuteNonQuery()
+            End If
+
 
             'Borro la cabecera y las lineas del presupuesto
 
@@ -1507,6 +1522,15 @@ Public Class frPedido
 
     Private Sub cmdAlbaran_Click(sender As Object, e As EventArgs) Handles cmdAlbaran.Click
         'Convertir Pedido en Factura
+        Dim vSelecSerie As String
+        If tscbSeries.Text = "S1" Then
+            vSelecSerie = 1
+        ElseIf tscbSeries.Text = "S1" Then
+            vSelecSerie = 2
+        Else
+            MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")
+            Exit Sub
+        End If
         Dim respuesta As String
         respuesta = MsgBox("La conversión a Factura no es reversible. Una vez convertido, el pedido será eliminado. ¿Está seguro?", vbYesNo)
         If respuesta = vbYes Then
@@ -1525,7 +1549,7 @@ Public Class frPedido
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalfactura, manual, eliminado) VALUES (" + txtNumpres.Text + " , '1', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'S', 'N')"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalfactura, manual, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'S', 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 
@@ -1583,8 +1607,14 @@ Public Class frPedido
 
             Next
 
-            Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txtNumpres.Text + "'  ", conexionmy)
-            cmdActualizar.ExecuteNonQuery()
+            If vSelecSerie = "1" Then
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txtNumpres.Text + "'  ", conexionmy)
+                cmdActualizar.ExecuteNonQuery()
+            Else
+                Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura_2 = '" + txtNumpres.Text + "'  ", conexionmy)
+                cmdActualizar.ExecuteNonQuery()
+            End If
+
 
             'Borro la cabecera y las lineas del presupuesto
 
@@ -1606,33 +1636,49 @@ Public Class frPedido
         End If
     End Sub
     Public Sub cargoNumeroConversion(tipoDoc As String)
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
         If tipoDoc = "A" Then
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
-            conexionmy.Open()
+            If tscbSeries.Text = "S1" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_albaran FROM configuracion  ", conexionmy)
+                Dim numid As Int32
 
-            Dim cmdLastId As New MySqlCommand("SELECT num_albaran FROM configuracion  ", conexionmy)
-            Dim numid As Int32
+                numid = cmdLastId.ExecuteScalar()
 
-            numid = cmdLastId.ExecuteScalar()
+                txtNumpres.Text = numid + 1
 
-            txtNumpres.Text = numid + 1
+                conexionmy.Close()
+            ElseIf tscbSeries.Text = "S2" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_albaran_2 FROM configuracion  ", conexionmy)
+                Dim numid As Int32
 
-            conexionmy.Close()
+                numid = cmdLastId.ExecuteScalar()
+
+                txtNumpres.Text = numid + 1
+
+                conexionmy.Close()
+            End If
         Else
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
-            conexionmy.Open()
+            If tscbSeries.Text = "S1" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
+                Dim numid As Int32
 
-            Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
-            Dim numid As Int32
+                numid = cmdLastId.ExecuteScalar()
 
-            numid = cmdLastId.ExecuteScalar()
+                txtNumpres.Text = numid + 1
 
-            txtNumpres.Text = numid + 1
+                conexionmy.Close()
+            ElseIf tscbSeries.Text = "S2" Then
+                Dim cmdLastId As New MySqlCommand("SELECT num_factura_2 FROM configuracion  ", conexionmy)
+                Dim numid As Int32
 
-            conexionmy.Close()
+                numid = cmdLastId.ExecuteScalar()
 
+                txtNumpres.Text = numid + 1
+
+                conexionmy.Close()
+            End If
         End If
-
     End Sub
 
     Private Sub dgPedidos_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgPedidos.CellDoubleClick

@@ -173,7 +173,7 @@ Partial Class frPresupuestos
         Me.presupuesto_lineaTableAdapter = New shadow.dsPresupuestoTableAdapters.presupuesto_lineaTableAdapter()
         Me.usuariosTableAdapter = New shadow.dsPresupuestoTableAdapters.usuariosTableAdapter()
         Me.agentesTableAdapter = New shadow.dsPresupuestoTableAdapters.agentesTableAdapter()
-        Me.cbSerie = New System.Windows.Forms.ComboBox()
+        Me.tscbSeries = New System.Windows.Forms.ToolStripComboBox()
         CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dsPresupuesto, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.presupuesto_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -485,7 +485,6 @@ Partial Class frPresupuestos
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.White
-        Me.TabPage2.Controls.Add(Me.cbSerie)
         Me.TabPage2.Controls.Add(Me.Panel1)
         Me.TabPage2.Controls.Add(Me.txRecargo)
         Me.TabPage2.Controls.Add(Me.txNumpresBk)
@@ -1091,7 +1090,7 @@ Partial Class frPresupuestos
         'tsBotones
         '
         Me.tsBotones.AutoSize = False
-        Me.tsBotones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdNuevo, Me.cmdGuardar, Me.cmdCancelar, Me.cmdDelete, Me.ToolStripButton2, Me.cmdImprimir, Me.cmdPDF, Me.cmdMail, Me.ToolStripButton7, Me.cmdPedido, Me.cmdAlbaran, Me.cmdDuplicar, Me.ToolStripSeparator2, Me.cmdToldos, Me.ToolStripButton4, Me.cmdCliente, Me.ToolStripSeparator1, Me.cmdRentabilidad, Me.ToolStripSeparator3, Me.cmdLineas})
+        Me.tsBotones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdNuevo, Me.cmdGuardar, Me.cmdCancelar, Me.cmdDelete, Me.ToolStripButton2, Me.cmdImprimir, Me.cmdPDF, Me.cmdMail, Me.ToolStripButton7, Me.cmdPedido, Me.cmdAlbaran, Me.tscbSeries, Me.cmdDuplicar, Me.ToolStripSeparator2, Me.cmdToldos, Me.ToolStripButton4, Me.cmdCliente, Me.ToolStripSeparator1, Me.cmdRentabilidad, Me.ToolStripSeparator3, Me.cmdLineas})
         Me.tsBotones.Location = New System.Drawing.Point(3, 3)
         Me.tsBotones.Name = "tsBotones"
         Me.tsBotones.Size = New System.Drawing.Size(1315, 38)
@@ -1388,10 +1387,10 @@ Partial Class frPresupuestos
         'txtNumpres
         '
         Me.txtNumpres.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.txtNumpres.Location = New System.Drawing.Point(144, 59)
+        Me.txtNumpres.Location = New System.Drawing.Point(102, 59)
         Me.txtNumpres.Name = "txtNumpres"
         Me.txtNumpres.ReadOnly = True
-        Me.txtNumpres.Size = New System.Drawing.Size(72, 20)
+        Me.txtNumpres.Size = New System.Drawing.Size(114, 20)
         Me.txtNumpres.TabIndex = 100
         '
         'TabPage3
@@ -1449,14 +1448,11 @@ Partial Class frPresupuestos
         '
         Me.agentesTableAdapter.ClearBeforeFill = True
         '
-        'cbSerie
+        'tscbSeries
         '
-        Me.cbSerie.FormattingEnabled = True
-        Me.cbSerie.Items.AddRange(New Object() {"S1", "S2"})
-        Me.cbSerie.Location = New System.Drawing.Point(102, 59)
-        Me.cbSerie.Name = "cbSerie"
-        Me.cbSerie.Size = New System.Drawing.Size(36, 21)
-        Me.cbSerie.TabIndex = 111
+        Me.tscbSeries.Items.AddRange(New Object() {"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"})
+        Me.tscbSeries.Name = "tscbSeries"
+        Me.tscbSeries.Size = New System.Drawing.Size(121, 38)
         '
         'frPresupuestos
         '
@@ -1627,5 +1623,5 @@ Partial Class frPresupuestos
     Friend WithEvents agentesBindingSource As BindingSource
     Friend WithEvents usuariosTableAdapter As dsPresupuestoTableAdapters.usuariosTableAdapter
     Friend WithEvents agentesTableAdapter As dsPresupuestoTableAdapters.agentesTableAdapter
-    Friend WithEvents cbSerie As ComboBox
+    Friend WithEvents tscbSeries As ToolStripComboBox
 End Class

@@ -9,12 +9,20 @@ Public Class frPresupuestos
     Public Shared lineas As Int16
     Public Shared pos As Integer
     Public Shared flagEdit As String = "N"
+    Public Shared lineasEdit As New List(Of lineasEditadas)
+    Public Shared lineasElim As New List(Of lineasEliminadas)
+    Public Shared artiEdit As String
+    Public Shared cantIni As Decimal
+    Public Shared cantFin As Decimal
+    Public Shared serieIni As String
+    Public Shared posicion As Integer
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
     Public Shared numero_impresion As Integer
     Public Shared codigo_cliente_impresion As Integer
     Public Shared id_agente_impresion As Integer
     Public Shared id_usuario_impresion As Integer
+    Public Shared artiLote As String
 
 
 
@@ -1225,7 +1233,15 @@ Public Class frPresupuestos
 
     Private Sub cmdPedido_Click(sender As Object, e As EventArgs) Handles cmdPedido.Click
         'Conversion Presupuesto a Pedido
-
+        Dim vSelecSerie As String
+        If tscbSeries.Text = "S1" Then
+            vSelecSerie = 1
+        ElseIf tscbSeries.Text = "S1" Then
+            vSelecSerie = 2
+        Else
+            MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")
+            Exit Sub
+        End If
         Dim respuesta As String
         respuesta = MsgBox("La conversión a Pedido no es reversible. ¿Está seguro?", vbYesNo)
         If respuesta = vbYes Then
@@ -1245,7 +1261,7 @@ Public Class frPresupuestos
             Dim vRec As String = Replace(txImpRecargo.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO pedido_cab (num_pedido, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado, eliminado) VALUES (" + txtNumpres.Text + " , " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'P', 'N')"
+            cmd.CommandText = "INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'P', 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 

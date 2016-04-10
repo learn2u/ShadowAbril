@@ -1236,7 +1236,7 @@ Public Class frPresupuestos
         Dim vSelecSerie As String
         If tscbSeries.Text = "S1" Then
             vSelecSerie = 1
-        ElseIf tscbSeries.Text = "S1" Then
+        ElseIf tscbSeries.Text = "S2" Then
             vSelecSerie = 2
         Else
             MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")
@@ -1367,7 +1367,7 @@ Public Class frPresupuestos
         Dim vSelecSerie As String
         If tscbSeries.Text = "S1" Then
             vSelecSerie = 1
-        ElseIf tscbSeries.Text = "S1" Then
+        ElseIf tscbSeries.Text = "S2" Then
             vSelecSerie = 2
         Else
             MsgBox("La serie seleccionada no es correcta. Selecciona una serie disponible")

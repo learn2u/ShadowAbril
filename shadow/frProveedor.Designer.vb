@@ -105,6 +105,12 @@ Partial Class frProveedor
         Me.Label26 = New System.Windows.Forms.Label()
         Me.txHorario = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
+        Me.txPob = New System.Windows.Forms.TextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.txPostal = New System.Windows.Forms.TextBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txProveedor = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgClientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -129,6 +135,12 @@ Partial Class frProveedor
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.txPob)
+        Me.TabPage1.Controls.Add(Me.Label41)
+        Me.TabPage1.Controls.Add(Me.txPostal)
+        Me.TabPage1.Controls.Add(Me.Label40)
+        Me.TabPage1.Controls.Add(Me.txProveedor)
+        Me.TabPage1.Controls.Add(Me.Label39)
         Me.TabPage1.Controls.Add(Me.dgClientes)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -142,9 +154,9 @@ Partial Class frProveedor
         '
         Me.dgClientes.AllowUserToAddRows = False
         Me.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgClientes.Location = New System.Drawing.Point(6, 18)
+        Me.dgClientes.Location = New System.Drawing.Point(6, 118)
         Me.dgClientes.Name = "dgClientes"
-        Me.dgClientes.Size = New System.Drawing.Size(907, 527)
+        Me.dgClientes.Size = New System.Drawing.Size(907, 427)
         Me.dgClientes.TabIndex = 12
         '
         'TabPage2
@@ -898,6 +910,54 @@ Partial Class frProveedor
         Me.Label27.TabIndex = 54
         Me.Label27.Text = "HORARIO:"
         '
+        'txPob
+        '
+        Me.txPob.Location = New System.Drawing.Point(385, 62)
+        Me.txPob.Name = "txPob"
+        Me.txPob.Size = New System.Drawing.Size(464, 20)
+        Me.txPob.TabIndex = 20
+        '
+        'Label41
+        '
+        Me.Label41.AutoSize = True
+        Me.Label41.Location = New System.Drawing.Point(308, 69)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(71, 13)
+        Me.Label41.TabIndex = 23
+        Me.Label41.Text = "POBLACIÓN:"
+        '
+        'txPostal
+        '
+        Me.txPostal.Location = New System.Drawing.Point(116, 62)
+        Me.txPostal.Name = "txPostal"
+        Me.txPostal.Size = New System.Drawing.Size(180, 20)
+        Me.txPostal.TabIndex = 19
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(48, 69)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(62, 13)
+        Me.Label40.TabIndex = 22
+        Me.Label40.Text = "C.POSTAL:"
+        '
+        'txProveedor
+        '
+        Me.txProveedor.Location = New System.Drawing.Point(116, 28)
+        Me.txProveedor.Name = "txProveedor"
+        Me.txProveedor.Size = New System.Drawing.Size(449, 20)
+        Me.txProveedor.TabIndex = 18
+        '
+        'Label39
+        '
+        Me.Label39.AutoSize = True
+        Me.Label39.Location = New System.Drawing.Point(32, 35)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(78, 13)
+        Me.Label39.TabIndex = 21
+        Me.Label39.Text = "PROVEEDOR:"
+        '
         'frProveedor
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -910,6 +970,7 @@ Partial Class frProveedor
         Me.Text = "PROVEEDORES"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
         CType(Me.dgClientes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.tsBotones.ResumeLayout(False)
@@ -1009,4 +1070,10 @@ Partial Class frProveedor
     Friend WithEvents txHorario As TextBox
     Friend WithEvents Label27 As Label
     Friend WithEvents ckTipo As CheckBox
+    Friend WithEvents txPob As TextBox
+    Friend WithEvents Label41 As Label
+    Friend WithEvents txPostal As TextBox
+    Friend WithEvents Label40 As Label
+    Friend WithEvents txProveedor As TextBox
+    Friend WithEvents Label39 As Label
 End Class

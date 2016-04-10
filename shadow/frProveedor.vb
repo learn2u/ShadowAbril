@@ -401,4 +401,145 @@ Public Class frProveedor
 
         flagEditPro = True
     End Sub
+
+    Private Sub txProveedor_TextChanged(sender As Object, e As EventArgs) Handles txProveedor.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+
+        conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT proveedorID, cif, nombre, telefono FROM proveedores WHERE nombre LIKE'" & txProveedor.Text & "%' ORDER BY nombre", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+        dgClientes.DataSource = bind
+        dgClientes.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgClientes.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgClientes.Columns(0).HeaderText = "CODIGO"
+        dgClientes.Columns(0).Name = "Column1"
+        dgClientes.Columns(0).FillWeight = 100
+        dgClientes.Columns(0).MinimumWidth = 100
+        dgClientes.Columns(1).HeaderText = "CIF"
+        dgClientes.Columns(1).Name = "Column2"
+        dgClientes.Columns(1).FillWeight = 100
+        dgClientes.Columns(1).MinimumWidth = 100
+        dgClientes.Columns(2).HeaderText = "CLIENTE"
+        dgClientes.Columns(2).Name = "Column3"
+        dgClientes.Columns(2).FillWeight = 450
+        dgClientes.Columns(2).MinimumWidth = 450
+        dgClientes.Columns(3).HeaderText = "TELEFONO"
+        dgClientes.Columns(3).Name = "Column4"
+        'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        'gridcliente.Columns(4).Visible = False
+        'gridcliente.Columns(5).Visible = False
+        'gridcliente.Columns(6).Visible = False
+        dgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgClientes.Visible = True
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub txPostal_TextChanged(sender As Object, e As EventArgs) Handles txPostal.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+
+        conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT proveedorID, cif, nombre, telefono, cpostal FROM proveedores WHERE cpostal LIKE'" & txPostal.Text & "%' ORDER BY nombre", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+        dgClientes.DataSource = bind
+        dgClientes.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgClientes.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgClientes.Columns(0).HeaderText = "CODIGO"
+        dgClientes.Columns(0).Name = "Column1"
+        dgClientes.Columns(0).FillWeight = 100
+        dgClientes.Columns(0).MinimumWidth = 100
+        dgClientes.Columns(1).HeaderText = "CIF"
+        dgClientes.Columns(1).Name = "Column2"
+        dgClientes.Columns(1).FillWeight = 100
+        dgClientes.Columns(1).MinimumWidth = 100
+        dgClientes.Columns(2).HeaderText = "CLIENTE"
+        dgClientes.Columns(2).Name = "Column3"
+        dgClientes.Columns(2).FillWeight = 450
+        dgClientes.Columns(2).MinimumWidth = 450
+        dgClientes.Columns(3).HeaderText = "TELEFONO"
+        dgClientes.Columns(3).Name = "Column4"
+        'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        'gridcliente.Columns(4).Visible = False
+        'gridcliente.Columns(5).Visible = False
+        'gridcliente.Columns(6).Visible = False
+        dgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgClientes.Visible = True
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub txPob_TextChanged(sender As Object, e As EventArgs) Handles txPob.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+
+        conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT proveedorID, cif, nombre, telefono, poblacion FROM proveedores WHERE poblacion LIKE'" & txPob.Text & "%' ORDER BY nombre", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+        dgClientes.DataSource = bind
+        dgClientes.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgClientes.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgClientes.Columns(0).HeaderText = "CODIGO"
+        dgClientes.Columns(0).Name = "Column1"
+        dgClientes.Columns(0).FillWeight = 100
+        dgClientes.Columns(0).MinimumWidth = 100
+        dgClientes.Columns(1).HeaderText = "CIF"
+        dgClientes.Columns(1).Name = "Column2"
+        dgClientes.Columns(1).FillWeight = 100
+        dgClientes.Columns(1).MinimumWidth = 100
+        dgClientes.Columns(2).HeaderText = "CLIENTE"
+        dgClientes.Columns(2).Name = "Column3"
+        dgClientes.Columns(2).FillWeight = 450
+        dgClientes.Columns(2).MinimumWidth = 450
+        dgClientes.Columns(3).HeaderText = "TELEFONO"
+        dgClientes.Columns(3).Name = "Column4"
+        'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        'gridcliente.Columns(4).Visible = False
+        'gridcliente.Columns(5).Visible = False
+        'gridcliente.Columns(6).Visible = False
+        dgClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgClientes.Visible = True
+
+        conexionmy.Close()
+    End Sub
 End Class

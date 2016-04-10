@@ -67,10 +67,10 @@ Public Class frVerAgentes
         conexionmy.Close()
     End Sub
 
-    Private Sub dgProvedores_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgProvedores.CellClick
-        frCliente.txAgente.Text = dgProvedores.CurrentRow.Cells("cliente").Value
-        frCliente.txIdAgente.Text = dgProvedores.CurrentRow.Cells("cod").Value
+    Private Sub dgProvedores_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgProvedores.CellDoubleClick
+        newMdiCliente.txAgente.Text = dgProvedores.CurrentRow.Cells("cliente").Value
+        newMdiCliente.txIdAgente.Text = dgProvedores.CurrentRow.Cells("cod").Value
 
-        Me.Hide()
+        Me.Close()
     End Sub
 End Class

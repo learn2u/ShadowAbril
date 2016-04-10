@@ -120,10 +120,16 @@
   <metadata name="tsBotones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <metadata name="tsBotones.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmdMostrarAgente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAMBJREFUOE+t
+        kg0NwjAQhSsBCZOAFBwMCUhAAg7AAXPCnAwH8L6klzS9XkvIXvJlzf28u25LlS7iJT4ZzrMY6iCscRWP
+        DGczoiYUhW9xEpMopxIjh0lTrM0UCs+CYqaXIkcNeSemA5NpPoqWqGlugfNNsAnPSGxFrZMZjBQahKtV
+        sqs6lS8xUvclIpw30TIhRo6a8F8gQQFTuM49w5mYNS+CeChWNCNrJEbzM8egaxLJvsKuJr98fqfa5C8x
+        Wc3p+gXbP0ly1SDXQwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="cmdNuevo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -170,15 +176,6 @@
         7E5owA6EBZyAiClWQQ/ZfNIGMKiFO1g075W+B1Xme7D6PC7qDKrNWcyP+PEvcRPczN+azAl/31XanNzA
         thEenJlKcw94ykQR5oSXWFKsRQ84SGUgWYse5BZxtFoFveQAyjvkAWRca5Uh7veA0iEhARRDRiCnoF0p
         vQGyqi7/MmfC0AAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="cmdMostrarAgente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAMBJREFUOE+t
-        kg0NwjAQhSsBCZOAFBwMCUhAAg7AAXPCnAwH8L6klzS9XkvIXvJlzf28u25LlS7iJT4ZzrMY6iCscRWP
-        DGczoiYUhW9xEpMopxIjh0lTrM0UCs+CYqaXIkcNeSemA5NpPoqWqGlugfNNsAnPSGxFrZMZjBQahKtV
-        sqs6lS8xUvclIpw30TIhRo6a8F8gQQFTuM49w5mYNS+CeChWNCNrJEbzM8egaxLJvsKuJr98fqfa5C8x
-        Wc3p+gXbP0ly1SDXQwAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btGrabarEnvio.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

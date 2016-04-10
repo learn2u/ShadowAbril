@@ -57,6 +57,11 @@ Public Class frCliente
             End If
 
             Dim fecha As Date = txFechaAlta.Text
+            If txFechaAlta.Text = "  /  /" Then
+                fecha = Nothing
+            Else
+                fecha = txFechaAlta.Text
+            End If
 
             cmd.CommandType = System.Data.CommandType.Text
             cmd.CommandText = "INSERT INTO clientes (cif, nombre, nombrecom, direccion, poblacion, cpostal, provincia, pais, telefono, movil, fax, email, url, observaciones, contacto, contacto2, telefcontac1, telefcontac2, agenteID, descuento, comision, recargo, exento, formapago, formatexto, diapago, entidad, cuentabancaria, iban, bic, tipocli, fechaalta, horario, mensaje, libre1, libre2, libre3) VALUES ('" + txCif.Text + "' , '" + txNFiscal.Text + "' , '" + txNComercial.Text + "' , '" + txDomicilio.Text + "' , '" + txPoblacion.Text + "' , '" + txCpostal.Text + "' , '" + cbProvincia.Text + "' , '" + txPais.Text + "' , '" + txTel.Text + "' , '" + txMovil.Text + "' , '" + txFax.Text + "' , '" + txEmail.Text + "' , '" + txWeb.Text + "' , '" + txObservaciones.Text + "' , '" + txContacto1.Text + "' , '" + txContacto2.Text + "' , '" + txTel1.Text + "' , '" + txTel2.Text + "' , '" + txIdAgente.Text + "' , '" + guardo_descuento + "' , '" + guardo_comision + "' , '" + equiv + "' , '" + exento + "' , " + cbFormapago.SelectedValue.ToString + " , '" + cbFormapago.Text + "' , '" + txPago1.Text + "' , '" + txBANCO.Text + "' , '" + txCCC.Text + "' ,'" + txIBAN.Text + "' , '" + txBIC.Text + "' , '" + cbTipocli.Text + "' , '" + fecha.ToString("yyyy-MM-dd") + "' , '" + txHorario.Text + "' , '" + txEmergente.Text + "' , '" + txLibre1.Text + "', '" + txLibre2.Text + "', '" + txLibre3.Text + "')"
@@ -101,6 +106,11 @@ Public Class frCliente
             End If
 
             Dim fecha As Date = txFechaAlta.Text
+            If txFechaAlta.Text = "  /  /" Then
+                fecha = Nothing
+            Else
+                fecha = txFechaAlta.Text
+            End If
 
             Dim cmdActualizar As New MySqlCommand("UPDATE clientes SET nombre = '" + txNFiscal.Text + "', 
                                                 cif = '" + txCif.Text + "',
@@ -326,6 +336,8 @@ Public Class frCliente
         cmdCancelar.Enabled = True
         btNuevoEnvio.Enabled = True
         btGrabarEnvio.Enabled = True
+        cargoFormaPago()
+        txFechaAlta.Text = Format(Today, "ddMMyyyy")
         txCif.Focus()
     End Sub
     Public Sub cargoClientes()

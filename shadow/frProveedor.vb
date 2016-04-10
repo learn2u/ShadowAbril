@@ -120,6 +120,11 @@ Public Class frProveedor
             End If
 
             Dim fecha As Date = txFechaAlta.Text
+            If txFechaAlta.Text = "  /  /" Then
+                fecha = Nothing
+            Else
+                fecha = txFechaAlta.Text
+            End If
 
             cmd.CommandType = System.Data.CommandType.Text
             cmd.CommandText = "INSERT INTO proveedores (cif, nombre, nombrecom, direccion, poblacion, cpostal, provincia, pais, telefono, movil, fax, email, url, observaciones, contacto, contacto2, telefcontac1, telefcontac2, descuento, recargo, exento, formapago, formatexto, diapago, entidad, cuentabancaria, iban, bic, fechaalta, horario, mensaje, libre1, libre2, libre3, tipo) VALUES ('" + txCif.Text + "' , '" + txNFiscal.Text + "' , '" + txNComercial.Text + "' , '" + txDomicilio.Text + "' , '" + txPoblacion.Text + "' , '" + txCpostal.Text + "' , '" + cbProvincia.Text + "' , '" + txPais.Text + "' , '" + txTel.Text + "' , '" + txMovil.Text + "' , '" + txFax.Text + "' , '" + txEmail.Text + "' , '" + txWeb.Text + "' , '" + txObservaciones.Text + "' , '" + txContacto1.Text + "' , '" + txContacto2.Text + "' , '" + txTel1.Text + "' , '" + txTel2.Text + "' , '" + guardo_descuento + "' , '" + recargo + "' , '" + exento + "' , " + cbFormapago.SelectedValue.ToString + " , '" + cbFormapago.Text + "' , '" + txPago1.Text + "' , '" + txBanco.Text + "' , '" + txCCC.Text + "' ,'" + txIban.Text + "' , '" + txBic.Text + "' , '" + fecha.ToString("yyyy-MM-dd") + "' , '" + txHorario.Text + "' , '" + txEmergente.Text + "' , '" + txLibre1.Text + "', '" + txLibre2.Text + "', '" + txLibre3.Text + "', '" + tipo + "')"
@@ -159,6 +164,11 @@ Public Class frProveedor
             End If
 
             Dim fecha As Date = txFechaAlta.Text
+            If txFechaAlta.Text = "  /  /" Then
+                fecha = Nothing
+            Else
+                fecha = txFechaAlta.Text
+            End If
 
             Dim cmdActualizar As New MySqlCommand("UPDATE proveedores SET nombre = '" + txNFiscal.Text + "', 
                                                 cif = '" + txCif.Text + "',
@@ -379,6 +389,7 @@ Public Class frProveedor
         cmdNuevo.Enabled = False
         cmdGuardar.Enabled = True
         cmdCancelar.Enabled = True
+        txFechaAlta.Text = Format(Today, "ddMMyyyy")
         cargoFormaPago()
         txCif.Focus()
     End Sub

@@ -63,9 +63,10 @@ Public Class frAlbaran
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.eliminado, 
+                                                    albaran_cab.eliminado,
+                                                    albaran_cab.serie, 
                                                     clientes.clienteID
-                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE eliminado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE eliminado = 'N' AND serie = '1' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -114,6 +115,7 @@ Public Class frAlbaran
             dgAlbaranes.Columns(6).Visible = False
             dgAlbaranes.Columns(7).Visible = False
             dgAlbaranes.Columns(8).Visible = False
+            dgAlbaranes.Columns(9).Visible = False
             dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgAlbaranes.Visible = True
         Catch ex As Exception
@@ -566,12 +568,18 @@ Public Class frAlbaran
             Dim guardo_imprec As String = Replace(imprec, ",", ".")
 
             Dim fecha As Date = txFecha.Text
+            Dim vPagado As String
+            If ckPagado.Checked = True Then
+                vPagado = "S"
+            Else
+                vPagado = "N"
+            End If
 
 
             'Guardo cabecera y actualizo número de presupuesto
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
-            Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
+            Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, pagado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N',  '" + vPagado + "')", conexionmy)
             Try
                 cmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -708,6 +716,7 @@ Public Class frAlbaran
             Dim guardo_imptot As String = Replace(imptot, ",", ".")
             Dim imprec As String = Replace(txImpRecargo.Text.ToString, ".", "")
             Dim guardo_imprec As String = Replace(imprec, ",", ".")
+            Dim vPagado As String
 
             Dim fecha As Date = txFecha.Text
             Dim vEstado As String
@@ -716,11 +725,16 @@ Public Class frAlbaran
             Else
                 vEstado = "N"
             End If
+            If ckPagado.Checked = True Then
+                vPagado = "S"
+            Else
+                vPagado = "N"
+            End If
 
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
+                Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
                 Try
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -948,6 +962,11 @@ Public Class frAlbaran
                 cmdAlbaran.Enabled = False
             End If
             cbEstado.Enabled = True
+            If rdrCab("pagado") = "S" Then
+                ckPagado.Checked = True
+            Else
+                ckPagado.Checked = False
+            End If
         Catch ex As Exception
             MsgBox("Se ha producido un error en la carga del albarán (Err_1082). Revise los datos")
             Exit Sub
@@ -2623,5 +2642,82 @@ Public Class frAlbaran
         dgAlbaranes.Visible = True
 
         conexionmy.Close()
+    End Sub
+    Public Sub cargoAlbPagado()
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.pagado, 
+                                                    clientes.clienteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE pagado = 'S' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el filtro de albaranes no pagados(Err_1171). Revise los datos")
+            Exit Sub
+        End Try
+
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgAlbaranes.DataSource = bind
+        dgAlbaranes.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgAlbaranes.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgAlbaranes.Columns(0).HeaderText = "NUMERO"
+        dgAlbaranes.Columns(0).Name = "Column1"
+        dgAlbaranes.Columns(0).FillWeight = 90
+        dgAlbaranes.Columns(0).MinimumWidth = 90
+        dgAlbaranes.Columns(1).HeaderText = "REFERENCIA"
+        dgAlbaranes.Columns(1).Name = "Column2"
+        dgAlbaranes.Columns(1).FillWeight = 190
+        dgAlbaranes.Columns(1).MinimumWidth = 190
+        dgAlbaranes.Columns(2).HeaderText = "FECHA"
+        dgAlbaranes.Columns(2).Name = "Column3"
+        dgAlbaranes.Columns(2).FillWeight = 90
+        dgAlbaranes.Columns(2).MinimumWidth = 90
+        dgAlbaranes.Columns(3).HeaderText = "CLIENTE"
+        dgAlbaranes.Columns(3).Name = "Column4"
+        dgAlbaranes.Columns(3).FillWeight = 300
+        dgAlbaranes.Columns(3).MinimumWidth = 300
+        dgAlbaranes.Columns(4).HeaderText = "IMPORTE"
+        dgAlbaranes.Columns(4).Name = "Column5"
+        dgAlbaranes.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgAlbaranes.Columns(4).FillWeight = 90
+        dgAlbaranes.Columns(4).MinimumWidth = 90
+        dgAlbaranes.Columns(5).HeaderText = "TOTAL"
+        dgAlbaranes.Columns(5).Name = "Column6"
+        dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgAlbaranes.Columns(5).FillWeight = 90
+        dgAlbaranes.Columns(5).MinimumWidth = 90
+        dgAlbaranes.Columns(6).Visible = False
+        dgAlbaranes.Columns(7).Visible = False
+        dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgAlbaranes.Visible = True
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub rbPagados_CheckedChanged(sender As Object, e As EventArgs) Handles rbPagados.CheckedChanged
+        If rbPagados.Checked = True Then
+            cargoAlbPagado()
+        End If
     End Sub
 End Class

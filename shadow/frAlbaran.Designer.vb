@@ -22,6 +22,7 @@ Partial Class frAlbaran
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frAlbaran))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -41,6 +42,16 @@ Partial Class frAlbaran
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource6 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.albaran_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dsAlbaranes = New shadow.dsAlbaranes()
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.albaran_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.ELIMINARToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.INSERTARToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdLineas = New System.Windows.Forms.ToolStripSplitButton()
@@ -155,6 +166,7 @@ Partial Class frAlbaran
         Me.cmdDelete = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmdContado = New System.Windows.Forms.ToolStripButton()
+        Me.tscbSeries = New System.Windows.Forms.ToolStripComboBox()
         Me.dgAlbaranes = New System.Windows.Forms.DataGridView()
         Me.rbTodos = New System.Windows.Forms.RadioButton()
         Me.btBuscar = New System.Windows.Forms.Button()
@@ -181,7 +193,15 @@ Partial Class frAlbaran
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
-        Me.tscbSeries = New System.Windows.Forms.ToolStripComboBox()
+        Me.ReportViewer2 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.albaran_lineaTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_lineaTableAdapter()
+        Me.clientesTableAdapter = New shadow.dsAlbaranesTableAdapters.clientesTableAdapter()
+        Me.albaran_cabTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_cabTableAdapter()
+        CType(Me.albaran_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsAlbaranes, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.albaran_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -198,7 +218,28 @@ Partial Class frAlbaran
         Me.Panel4.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.tabPresupuestos.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'albaran_lineaBindingSource
+        '
+        Me.albaran_lineaBindingSource.DataMember = "albaran_linea"
+        Me.albaran_lineaBindingSource.DataSource = Me.dsAlbaranes
+        '
+        'dsAlbaranes
+        '
+        Me.dsAlbaranes.DataSetName = "dsAlbaranes"
+        Me.dsAlbaranes.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsAlbaranes
+        '
+        'albaran_cabBindingSource
+        '
+        Me.albaran_cabBindingSource.DataMember = "albaran_cab"
+        Me.albaran_cabBindingSource.DataSource = Me.dsAlbaranes
         '
         'ELIMINARToolStripMenuItem
         '
@@ -1315,6 +1356,12 @@ Partial Class frAlbaran
         Me.cmdContado.Size = New System.Drawing.Size(29, 35)
         Me.cmdContado.ToolTipText = "Guardar como Venta de Contado"
         '
+        'tscbSeries
+        '
+        Me.tscbSeries.Items.AddRange(New Object() {"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"})
+        Me.tscbSeries.Name = "tscbSeries"
+        Me.tscbSeries.Size = New System.Drawing.Size(121, 38)
+        '
         'dgAlbaranes
         '
         Me.dgAlbaranes.AllowUserToAddRows = False
@@ -1577,6 +1624,8 @@ Partial Class frAlbaran
         '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.ReportViewer2)
+        Me.TabPage3.Controls.Add(Me.ReportViewer1)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
@@ -1585,11 +1634,51 @@ Partial Class frAlbaran
         Me.TabPage3.Text = "VISTA PRELIMINAR"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'tscbSeries
+        'ReportViewer2
         '
-        Me.tscbSeries.Items.AddRange(New Object() {"S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9"})
-        Me.tscbSeries.Name = "tscbSeries"
-        Me.tscbSeries.Size = New System.Drawing.Size(121, 38)
+        ReportDataSource1.Name = "dsAlbaranLin"
+        ReportDataSource1.Value = Me.albaran_lineaBindingSource
+        ReportDataSource2.Name = "dsCliente"
+        ReportDataSource2.Value = Me.clientesBindingSource
+        ReportDataSource3.Name = "dsAlbaranCab"
+        ReportDataSource3.Value = Me.albaran_cabBindingSource
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource1)
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource2)
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource3)
+        Me.ReportViewer2.LocalReport.ReportEmbeddedResource = "shadow.rpAlbaran_2.rdlc"
+        Me.ReportViewer2.Location = New System.Drawing.Point(486, 25)
+        Me.ReportViewer2.Name = "ReportViewer2"
+        Me.ReportViewer2.Size = New System.Drawing.Size(396, 246)
+        Me.ReportViewer2.TabIndex = 1
+        '
+        'ReportViewer1
+        '
+        ReportDataSource4.Name = "dsAlbaranLin"
+        ReportDataSource4.Value = Me.albaran_lineaBindingSource
+        ReportDataSource5.Name = "dsCliente"
+        ReportDataSource5.Value = Me.clientesBindingSource
+        ReportDataSource6.Name = "dsAlbaranCab"
+        ReportDataSource6.Value = Me.albaran_cabBindingSource
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource4)
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource5)
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource6)
+        Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "shadow.rpAlbaran_1.rdlc"
+        Me.ReportViewer1.Location = New System.Drawing.Point(8, 25)
+        Me.ReportViewer1.Name = "ReportViewer1"
+        Me.ReportViewer1.Size = New System.Drawing.Size(396, 246)
+        Me.ReportViewer1.TabIndex = 0
+        '
+        'albaran_lineaTableAdapter
+        '
+        Me.albaran_lineaTableAdapter.ClearBeforeFill = True
+        '
+        'clientesTableAdapter
+        '
+        Me.clientesTableAdapter.ClearBeforeFill = True
+        '
+        'albaran_cabTableAdapter
+        '
+        Me.albaran_cabTableAdapter.ClearBeforeFill = True
         '
         'frAlbaran
         '
@@ -1601,6 +1690,10 @@ Partial Class frAlbaran
         Me.Name = "frAlbaran"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "ALBARÁN"
+        CType(Me.albaran_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsAlbaranes, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.albaran_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1623,6 +1716,7 @@ Partial Class frAlbaran
         Me.Panel4.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.tabPresupuestos.ResumeLayout(False)
+        Me.TabPage3.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -1767,4 +1861,13 @@ Partial Class frAlbaran
     Friend WithEvents rbPagados As RadioButton
     Friend WithEvents ckPagado As CheckBox
     Friend WithEvents tscbSeries As ToolStripComboBox
+    Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents ReportViewer2 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents albaran_cabTableAdapter As dsAlbaranesTableAdapters.albaran_cabTableAdapter
+    Friend WithEvents clientesTableAdapter As dsAlbaranesTableAdapters.clientesTableAdapter
+    Friend WithEvents albaran_lineaTableAdapter As dsAlbaranesTableAdapters.albaran_lineaTableAdapter
+    Friend WithEvents albaran_cabBindingSource As BindingSource
+    Friend WithEvents clientesBindingSource As BindingSource
+    Friend WithEvents dsAlbaranes As dsAlbaranes
+    Friend WithEvents albaran_lineaBindingSource As BindingSource
 End Class

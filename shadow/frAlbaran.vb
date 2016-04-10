@@ -44,6 +44,8 @@ Public Class frAlbaran
 
         Me.ReportViewer1.RefreshReport()
         Me.ReportViewer2.RefreshReport()
+        Me.ReportViewer1.RefreshReport()
+        Me.ReportViewer2.RefreshReport()
     End Sub
     Public Sub deshabilitarBotones()
         cmdGuardar.Enabled = False

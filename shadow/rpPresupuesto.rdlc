@@ -715,6 +715,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox12</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>

@@ -18,6 +18,9 @@ Public Class frAlbaran
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
     Public Shared artiLote As String
+    Public Shared numero_impresion As Integer
+    Public Shared codigo_cliente_impresion As Integer
+
 
     Private Sub frAlbaran_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
@@ -39,12 +42,14 @@ Public Class frAlbaran
 
 
 
+        Me.ReportViewer1.RefreshReport()
+        Me.ReportViewer2.RefreshReport()
     End Sub
     Public Sub deshabilitarBotones()
         cmdGuardar.Enabled = False
         cmdCancelar.Enabled = False
         cmdDelete.Enabled = False
-        cmdImprimir.Enabled = False
+        'cmdImprimir.Enabled = False
         cmdPDF.Enabled = False
         cmdMail.Enabled = False
         cmdAlbaran.Enabled = False
@@ -2718,6 +2723,32 @@ Public Class frAlbaran
     Private Sub rbPagados_CheckedChanged(sender As Object, e As EventArgs) Handles rbPagados.CheckedChanged
         If rbPagados.Checked = True Then
             cargoAlbPagado()
+        End If
+    End Sub
+
+    Private Sub cmdImprimir_Click(sender As Object, e As EventArgs) Handles cmdImprimir.Click
+        numero_impresion = CInt(txtNumpres.Text)
+        codigo_cliente_impresion = CInt(txNumcli.Text)
+        tabPresupuestos.SelectedIndex = 2
+
+
+        Me.clientesTableAdapter.Fill(Me.dsAlbaranes.clientes, codigo_cliente_impresion)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_cab' Puede moverla o quitarla según sea necesario.
+        Me.albaran_cabTableAdapter.Fill(Me.dsAlbaranes.albaran_cab, numero_impresion)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_linea' Puede moverla o quitarla según sea necesario.
+        Me.albaran_lineaTableAdapter.Fill(Me.dsAlbaranes.albaran_linea, numero_impresion)
+
+        If cbSerie.Text = "S1" Then
+            Me.ReportViewer1.Visible = True
+            Me.ReportViewer2.Visible = False
+            Me.ReportViewer1.Dock = DockStyle.Fill
+            Me.ReportViewer1.RefreshReport()
+
+        Else
+            Me.ReportViewer2.Visible = True
+            Me.ReportViewer1.Visible = False
+            Me.ReportViewer2.Dock = DockStyle.Fill
+            Me.ReportViewer2.RefreshReport()
         End If
     End Sub
 End Class

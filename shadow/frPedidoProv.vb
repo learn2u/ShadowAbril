@@ -1095,4 +1095,8 @@ Public Class frPedidoProv
         cmdDelete.Enabled = True
         recalcularTotales()
     End Sub
+
+    Private Sub frPedidoProv_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        launcher.PedidosAProveedoresToolStripMenuItem.Enabled = True
+    End Sub
 End Class

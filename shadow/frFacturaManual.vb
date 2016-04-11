@@ -2241,4 +2241,8 @@ Public Class frFacturaManual
             conexionmy.Close()
         End If
     End Sub
+
+    Private Sub frFacturaManual_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        launcher.FacturaciónManualToolStripMenuItem.Enabled = True
+    End Sub
 End Class

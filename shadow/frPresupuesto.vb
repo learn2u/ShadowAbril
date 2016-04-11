@@ -837,11 +837,11 @@ Public Class frPresupuestos
                 'ElseIf rdrCab("estado") = "R" Then
                 '    cbEstado.Text = "RECHAZADO"
             End If
-            If rdrCab("estado") = "R" Then
+            If rdrCab("estado") = "D" Then
                 cbEstado.Text = "CONVERTIDO A PEDIDO"
                 cmdPedido.Enabled = False
             End If
-            If rdrCab("estado") = "A" Then
+            If rdrCab("estado") = "B" Then
                 cbEstado.Text = "CONVERTIDO A ALBARAN"
                 cmdPedido.Enabled = False
                 cmdAlbaran.Enabled = False
@@ -1256,13 +1256,14 @@ Public Class frPresupuestos
 
             cargoNumeroConversion("P")
             Dim vFecha As Date = txFecha.Text
+            Dim vFechaHoy As Date = Today
             Dim vBruto As String = Replace(txImpBruto.Text.ToString, ",", ".")
             Dim vDto As String = Replace(txImpDto.Text.ToString, ",", ".")
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vRec As String = Replace(txImpRecargo.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'P', 'N')"
+            cmd.CommandText = "INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'P', 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 
@@ -1387,13 +1388,14 @@ Public Class frPresupuestos
 
             cargoNumeroConversion("A")
             Dim vFecha As Date = txFecha.Text
+            Dim vFechaHoy As Date = Today
             Dim vBruto As String = Replace(txImpBruto.Text.ToString, ",", ".")
             Dim vDto As String = Replace(txImpDto.Text.ToString, ",", ".")
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vRec As String = Replace(txImpRecargo.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 0, 'N')"
+            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 0, 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 
@@ -2518,7 +2520,8 @@ Public Class frPresupuestos
         Me.ReportViewer1.RefreshReport()
     End Sub
 
-    Private Sub dgLineasPres1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellContentClick
+    Private Sub frPresupuestos_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        launcher.PresupuestosToolStripMenuItem.Enabled = True
 
     End Sub
 End Class

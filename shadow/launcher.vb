@@ -38,6 +38,8 @@ Public Class launcher
 
     Private Sub PresupuestosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PresupuestosToolStripMenuItem.Click
         muestroPresupuestos()
+        PresupuestosToolStripMenuItem.Enabled = False
+
     End Sub
 
     Private Sub PedidosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PedidosToolStripMenuItem.Click
@@ -48,14 +50,17 @@ Public Class launcher
 
     Private Sub AlbaranesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AlbaranesToolStripMenuItem.Click
         muestroAlbaranes()
+        AlbaranesToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub FacturaciónManualToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturaciónManualToolStripMenuItem.Click
         muestroFacturaManual()
+        FacturaciónManualToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub FacturarAlbaranesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FacturarAlbaranesToolStripMenuItem.Click
         muestroFacturaAlbaranes()
+        FacturarAlbaranesToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub ClientesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClientesToolStripMenuItem.Click
@@ -64,6 +69,7 @@ Public Class launcher
 
     Private Sub PedidosAProveedoresToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PedidosAProveedoresToolStripMenuItem.Click
         muestroPedidoProv()
+        PedidosAProveedoresToolStripMenuItem.Enabled = False
     End Sub
 
     Private Sub EntradasToolStripMenuItem_Click(sender As Object, e As EventArgs)
@@ -80,6 +86,7 @@ Public Class launcher
 
     Private Sub GastosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GastosToolStripMenuItem.Click
         muestroGastos()
+        GastosToolStripMenuItem.Enabled = False
     End Sub
     Public Sub muestroPresupuestos()
         If newMdiPresupuesto Is Nothing Then

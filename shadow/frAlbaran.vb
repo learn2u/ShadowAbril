@@ -1499,13 +1499,14 @@ Public Class frAlbaran
 
             cargoNumeroConversion("F")
             Dim vFecha As Date = txFecha.Text
+            Dim vFechaHoy As Date = Today
             Dim vBruto As String = Replace(txImpBruto.Text.ToString, ",", ".")
             Dim vDto As String = Replace(txImpDto.Text.ToString, ",", ".")
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vRec As String = Replace(txImpRecargo.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vRec + "', '" + vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
             cmd.Connection = conexionmy
             Try
                 cmd.ExecuteNonQuery()
@@ -2786,5 +2787,9 @@ Public Class frAlbaran
             Me.ReportViewer2.Dock = DockStyle.Fill
             Me.ReportViewer2.RefreshReport()
         End If
+    End Sub
+
+    Private Sub frAlbaran_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        launcher.AlbaranesToolStripMenuItem.Enabled = True
     End Sub
 End Class

@@ -1323,4 +1323,8 @@ Public Class frGastos
             editNumber = "S"
         End If
     End Sub
+
+    Private Sub frGastos_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        launcher.GastosToolStripMenuItem.Enabled = True
+    End Sub
 End Class

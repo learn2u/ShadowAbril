@@ -970,8 +970,17 @@ Public Class frPedido
             rdrCab = cmdCab.ExecuteReader
             rdrCab.Read()
             txFecha.Text = rdrCab("fecha")
-            dtpEntrega.Text = rdrCab("fechaentrega")
-            dtpAcepta.Text = rdrCab("fechaacepta")
+            If IsDBNull(rdrCab("fechaentrega")) = True Then
+                dtpEntrega.Text = Today
+            Else
+                dtpEntrega.Text = rdrCab("fechaentrega")
+            End If
+            If IsDBNull(rdrCab("fechaacepta")) = True Then
+                dtpAcepta.Text = Today
+            Else
+                dtpAcepta.Text = rdrCab("fechaacepta")
+            End If
+
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
             txUsuario.Text = rdrCab("usuarioID")
@@ -988,9 +997,9 @@ Public Class frPedido
             If rdrCab("estado") = "P" Then
                 cbEstado.Text = "PENDIENTE"
             End If
-            If rdrCab("estado") = "A" Then
+            If rdrCab("estado") = "B" Then
                 cbEstado.Text = "CONVERTIDO A ALBARAN"
-                cmdAlbaran.Enabled = False
+                cmdPedido.Enabled = False
             End If
             If rdrCab("estado") = "E" Then
                 cbEstado.Text = "ENVIADO"
@@ -1446,12 +1455,13 @@ Public Class frPedido
 
             cargoNumeroConversion("A")
             Dim vFecha As Date = txFecha.Text
+            Dim vFechaHoy As Date = Today
             Dim vBruto As String = Replace(txImpBruto.Text.ToString, ",", ".")
             Dim vDto As String = Replace(txImpDto.Text.ToString, ",", ".")
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'N', 0, 'N')"
+            cmd.CommandText = "INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalalbaran, facturado, bultos, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'N', 0, 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 
@@ -1563,12 +1573,13 @@ Public Class frPedido
 
             cargoNumeroConversion("F")
             Dim vFecha As Date = txFecha.Text
+            Dim vFechaHoy As Date = Today
             Dim vBruto As String = Replace(txImpBruto.Text.ToString, ",", ".")
             Dim vDto As String = Replace(txImpDto.Text.ToString, ",", ".")
             Dim vIva As String = Replace(txImpIva.Text.ToString, ",", ".")
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalfactura, manual, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'S', 'N')"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalfactura, manual, eliminado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + vBruto + "', '" + vDto + "', '" + vIva + "', '" + vTotal + "', 'S', 'N')"
             cmd.Connection = conexionmy
             cmd.ExecuteNonQuery()
 

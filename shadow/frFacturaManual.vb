@@ -126,6 +126,8 @@ Public Class frFacturaManual
         txNumcli.Text = ""
         txClientepres.Text = ""
         txAgente.Text = ""
+        txUsuario.Text = vCodUser
+        txEmpresa.Text = vEmpresa
         txRecargo.Text = ""
         txDtocli.Text = ""
         txIva.Text = "21.00"
@@ -598,7 +600,7 @@ Public Class frFacturaManual
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedIndex.ToString + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
+                Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedIndex.ToString + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
                 cmd.ExecuteNonQuery()
 
             Else
@@ -752,6 +754,8 @@ Public Class frFacturaManual
         txFecha.Text = rdrCab("fecha")
         txNumcli.Text = rdrCab("clienteID")
         txAgente.Text = rdrCab("agenteID")
+        txUsuario.Text = rdrCab("usuarioID")
+        txEmpresa.Text = rdrCab("empresaID")
         txReferenciapres.Text = rdrCab("referencia")
         txObserva.Text = rdrCab("observaciones")
 

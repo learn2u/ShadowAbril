@@ -24,8 +24,6 @@ Public Class frPresupuestos
     Public Shared id_usuario_impresion As Integer
     Public Shared artiLote As String
 
-
-
     Private Sub frPresupuestos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         deshabilitarBotones()
@@ -457,6 +455,8 @@ Public Class frPresupuestos
         txNumcli.Text = ""
         txClientepres.Text = ""
         txAgente.Text = ""
+        txUsuario.Text = vCodUser
+        txEmpresa.Text = vEmpresa
         txRecargo.Text = ""
         txDtocli.Text = ""
         txIva.Text = "21.00"
@@ -620,7 +620,7 @@ Public Class frPresupuestos
 
             'Guardo cabecera y actualizo número de presupuesto
 
-            Dim cmd As New MySqlCommand("UPDATE presupuesto_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', estado = '" + vEstado + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpresupuesto = '" + guardo_imptot + "' WHERE num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
+            Dim cmd As New MySqlCommand("UPDATE presupuesto_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', estado = '" + vEstado + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpresupuesto = '" + guardo_imptot + "' WHERE num_presupuesto = '" + txtNumpres.Text + "'", conexionmy)
             Try
                 cmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -826,6 +826,8 @@ Public Class frPresupuestos
             txFecha.Text = rdrCab("fecha")
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
+            txEmpresa.Text = rdrCab("empresaID")
+            txUsuario.Text = rdrCab("usuarioID")
             txReferenciapres.Text = rdrCab("referencia")
             txObserva.Text = rdrCab("observaciones")
             If rdrCab("estado") = "P" Then

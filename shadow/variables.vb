@@ -11,6 +11,8 @@
     Public vUser As String
     Public vContra As String
     Public vRol As String
+    Public vCodUser As String
+    Public vEmpresa As String = "1"
     Public newMdiAlbaran As New frAlbaran()
     Public newMdiPresupuesto As New frPresupuestos()
     Public newMdiPedido As New frPedido()

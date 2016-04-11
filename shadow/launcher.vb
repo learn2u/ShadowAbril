@@ -272,6 +272,7 @@ Public Class launcher
 
         rdr.Read()
         If rdr.HasRows Then
+            vCodUser = rdr("userID")
             vUser = rdr("usuario")
             vContra = rdr("password")
             vRol = rdr("rol")

@@ -42,12 +42,12 @@ Partial Class frAlbaran
         Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Dim ReportDataSource6 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource1 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Dim ReportDataSource6 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.albaran_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.dsAlbaranes = New shadow.dsAlbaranes()
         Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
@@ -193,11 +193,12 @@ Partial Class frAlbaran
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.ReportViewer2 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
         Me.albaran_lineaTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_lineaTableAdapter()
         Me.clientesTableAdapter = New shadow.dsAlbaranesTableAdapters.clientesTableAdapter()
         Me.albaran_cabTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_cabTableAdapter()
-        Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.ReportViewer2 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.Label13 = New System.Windows.Forms.Label()
         CType(Me.albaran_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dsAlbaranes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -484,6 +485,7 @@ Partial Class frAlbaran
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.White
+        Me.TabPage2.Controls.Add(Me.Label13)
         Me.TabPage2.Controls.Add(Me.ckPagado)
         Me.TabPage2.Controls.Add(Me.Panel1)
         Me.TabPage2.Controls.Add(Me.btPagos)
@@ -1178,7 +1180,7 @@ Partial Class frAlbaran
         'txNumpresBk
         '
         Me.txNumpresBk.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.txNumpresBk.Location = New System.Drawing.Point(102, 130)
+        Me.txNumpresBk.Location = New System.Drawing.Point(658, 122)
         Me.txNumpresBk.Name = "txNumpresBk"
         Me.txNumpresBk.ReadOnly = True
         Me.txNumpresBk.Size = New System.Drawing.Size(74, 20)
@@ -1213,11 +1215,11 @@ Partial Class frAlbaran
         '
         'txUsuario
         '
-        Me.txUsuario.Location = New System.Drawing.Point(528, 122)
+        Me.txUsuario.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.txUsuario.Location = New System.Drawing.Point(102, 125)
         Me.txUsuario.Name = "txUsuario"
-        Me.txUsuario.Size = New System.Drawing.Size(59, 20)
+        Me.txUsuario.Size = New System.Drawing.Size(114, 20)
         Me.txUsuario.TabIndex = 105
-        Me.txUsuario.Text = "1"
         Me.txUsuario.Visible = False
         '
         'txEmpresa
@@ -1634,17 +1636,22 @@ Partial Class frAlbaran
         Me.TabPage3.Text = "VISTA PRELIMINAR"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'albaran_lineaTableAdapter
+        'ReportViewer2
         '
-        Me.albaran_lineaTableAdapter.ClearBeforeFill = True
-        '
-        'clientesTableAdapter
-        '
-        Me.clientesTableAdapter.ClearBeforeFill = True
-        '
-        'albaran_cabTableAdapter
-        '
-        Me.albaran_cabTableAdapter.ClearBeforeFill = True
+        ReportDataSource1.Name = "dsAlbaranLin"
+        ReportDataSource1.Value = Me.albaran_lineaBindingSource
+        ReportDataSource2.Name = "dsCliente"
+        ReportDataSource2.Value = Me.clientesBindingSource
+        ReportDataSource3.Name = "dsAlbaranCab"
+        ReportDataSource3.Value = Me.albaran_cabBindingSource
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource1)
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource2)
+        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource3)
+        Me.ReportViewer2.LocalReport.ReportEmbeddedResource = "shadow.rpAlbaran_2.rdlc"
+        Me.ReportViewer2.Location = New System.Drawing.Point(434, 18)
+        Me.ReportViewer2.Name = "ReportViewer2"
+        Me.ReportViewer2.Size = New System.Drawing.Size(396, 246)
+        Me.ReportViewer2.TabIndex = 1
         '
         'ReportViewer1
         '
@@ -1663,22 +1670,27 @@ Partial Class frAlbaran
         Me.ReportViewer1.Size = New System.Drawing.Size(396, 246)
         Me.ReportViewer1.TabIndex = 0
         '
-        'ReportViewer2
+        'albaran_lineaTableAdapter
         '
-        ReportDataSource1.Name = "dsAlbaranLin"
-        ReportDataSource1.Value = Me.albaran_lineaBindingSource
-        ReportDataSource2.Name = "dsCliente"
-        ReportDataSource2.Value = Me.clientesBindingSource
-        ReportDataSource3.Name = "dsAlbaranCab"
-        ReportDataSource3.Value = Me.albaran_cabBindingSource
-        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource1)
-        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource2)
-        Me.ReportViewer2.LocalReport.DataSources.Add(ReportDataSource3)
-        Me.ReportViewer2.LocalReport.ReportEmbeddedResource = "shadow.rpAlbaran_2.rdlc"
-        Me.ReportViewer2.Location = New System.Drawing.Point(434, 18)
-        Me.ReportViewer2.Name = "ReportViewer2"
-        Me.ReportViewer2.Size = New System.Drawing.Size(396, 246)
-        Me.ReportViewer2.TabIndex = 1
+        Me.albaran_lineaTableAdapter.ClearBeforeFill = True
+        '
+        'clientesTableAdapter
+        '
+        Me.clientesTableAdapter.ClearBeforeFill = True
+        '
+        'albaran_cabTableAdapter
+        '
+        Me.albaran_cabTableAdapter.ClearBeforeFill = True
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Enabled = False
+        Me.Label13.Location = New System.Drawing.Point(37, 128)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(59, 13)
+        Me.Label13.TabIndex = 116
+        Me.Label13.Text = "USUARIO:"
         '
         'frAlbaran
         '
@@ -1870,4 +1882,5 @@ Partial Class frAlbaran
     Friend WithEvents albaran_lineaBindingSource As BindingSource
     Friend WithEvents ReportViewer1 As Microsoft.Reporting.WinForms.ReportViewer
     Friend WithEvents ReportViewer2 As Microsoft.Reporting.WinForms.ReportViewer
+    Friend WithEvents Label13 As Label
 End Class

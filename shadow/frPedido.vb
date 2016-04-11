@@ -24,6 +24,7 @@ Public Class frPedido
     Public Shared id_usuario_impresion As Integer
 
 
+
     Private Sub frPedido_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
 
@@ -142,6 +143,8 @@ Public Class frPedido
         txNumcli.Text = ""
         txClientepres.Text = ""
         txAgente.Text = ""
+        txUsuario.Text = vCodUser
+        txEmpresa.Text = vEmpresa
         txRecargo.Text = ""
         txDtocli.Text = ""
         txIva.Text = "21.00"
@@ -753,7 +756,7 @@ Public Class frPedido
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechaentrega = '" + fechaEnt.ToString("yyyy-MM-dd") + "', fechaacepta = '" + fechaAcep.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
+                Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechaentrega = '" + fechaEnt.ToString("yyyy-MM-dd") + "', fechaacepta = '" + fechaAcep.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
                 Try
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -971,6 +974,8 @@ Public Class frPedido
             dtpAcepta.Text = rdrCab("fechaacepta")
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
+            txUsuario.Text = rdrCab("usuarioID")
+            txEmpresa.Text = rdrCab("empresaID")
             txReferenciapres.Text = rdrCab("referencia")
             txObserva.Text = rdrCab("observaciones")
             If rdrCab("serie") = "1" Then

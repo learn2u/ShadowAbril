@@ -46,6 +46,12 @@ Partial Class frPedido
         Dim ReportDataSource8 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource9 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource10 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.usuariosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dsPedidos = New shadow.dsPedidos()
+        Me.agentesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.pedido_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.pedido_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.ELIMINARToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.INSERTARToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmdLineas = New System.Windows.Forms.ToolStripSplitButton()
@@ -75,6 +81,7 @@ Partial Class frPedido
         Me.cmdImprimir = New System.Windows.Forms.ToolStripButton()
         Me.cmdCancelar = New System.Windows.Forms.ToolStripButton()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Label16 = New System.Windows.Forms.Label()
         Me.dtpAcepta = New System.Windows.Forms.DateTimePicker()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.dtpEntrega = New System.Windows.Forms.DateTimePicker()
@@ -167,17 +174,17 @@ Partial Class frPedido
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.usuariosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dsPedidos = New shadow.dsPedidos()
-        Me.agentesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.pedido_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.pedido_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.usuariosTableAdapter = New shadow.dsPedidosTableAdapters.usuariosTableAdapter()
         Me.agentesTableAdapter = New shadow.dsPedidosTableAdapters.agentesTableAdapter()
         Me.pedido_cabTableAdapter = New shadow.dsPedidosTableAdapters.pedido_cabTableAdapter()
         Me.pedido_lineaTableAdapter = New shadow.dsPedidosTableAdapters.pedido_lineaTableAdapter()
         Me.clientesTableAdapter = New shadow.dsPedidosTableAdapters.clientesTableAdapter()
+        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pedido_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pedido_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -193,13 +200,37 @@ Partial Class frPedido
         CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPresupuestos.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsPedidos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pedido_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.pedido_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'usuariosBindingSource
+        '
+        Me.usuariosBindingSource.DataMember = "usuarios"
+        Me.usuariosBindingSource.DataSource = Me.dsPedidos
+        '
+        'dsPedidos
+        '
+        Me.dsPedidos.DataSetName = "dsPedidos"
+        Me.dsPedidos.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'agentesBindingSource
+        '
+        Me.agentesBindingSource.DataMember = "agentes"
+        Me.agentesBindingSource.DataSource = Me.dsPedidos
+        '
+        'pedido_cabBindingSource
+        '
+        Me.pedido_cabBindingSource.DataMember = "pedido_cab"
+        Me.pedido_cabBindingSource.DataSource = Me.dsPedidos
+        '
+        'pedido_lineaBindingSource
+        '
+        Me.pedido_lineaBindingSource.DataMember = "pedido_linea"
+        Me.pedido_lineaBindingSource.DataSource = Me.dsPedidos
+        '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsPedidos
         '
         'ELIMINARToolStripMenuItem
         '
@@ -456,6 +487,7 @@ Partial Class frPedido
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.White
+        Me.TabPage2.Controls.Add(Me.Label16)
         Me.TabPage2.Controls.Add(Me.dtpAcepta)
         Me.TabPage2.Controls.Add(Me.Label15)
         Me.TabPage2.Controls.Add(Me.dtpEntrega)
@@ -490,6 +522,15 @@ Partial Class frPedido
         Me.TabPage2.Size = New System.Drawing.Size(1237, 635)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "PEDIDO"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(37, 126)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(59, 13)
+        Me.Label16.TabIndex = 116
+        Me.Label16.Text = "USUARIO:"
         '
         'dtpAcepta
         '
@@ -993,7 +1034,7 @@ Partial Class frPedido
         '
         'txRecargo
         '
-        Me.txRecargo.Location = New System.Drawing.Point(594, 122)
+        Me.txRecargo.Location = New System.Drawing.Point(528, 122)
         Me.txRecargo.Name = "txRecargo"
         Me.txRecargo.Size = New System.Drawing.Size(48, 20)
         Me.txRecargo.TabIndex = 109
@@ -1002,7 +1043,7 @@ Partial Class frPedido
         'txNumpresBk
         '
         Me.txNumpresBk.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.txNumpresBk.Location = New System.Drawing.Point(102, 122)
+        Me.txNumpresBk.Location = New System.Drawing.Point(598, 122)
         Me.txNumpresBk.Name = "txNumpresBk"
         Me.txNumpresBk.ReadOnly = True
         Me.txNumpresBk.Size = New System.Drawing.Size(114, 20)
@@ -1020,12 +1061,12 @@ Partial Class frPedido
         '
         'txUsuario
         '
-        Me.txUsuario.Location = New System.Drawing.Point(528, 122)
+        Me.txUsuario.BackColor = System.Drawing.SystemColors.ScrollBar
+        Me.txUsuario.Enabled = False
+        Me.txUsuario.Location = New System.Drawing.Point(102, 122)
         Me.txUsuario.Name = "txUsuario"
-        Me.txUsuario.Size = New System.Drawing.Size(59, 20)
+        Me.txUsuario.Size = New System.Drawing.Size(114, 20)
         Me.txUsuario.TabIndex = 105
-        Me.txUsuario.Text = "1"
-        Me.txUsuario.Visible = False
         '
         'txEmpresa
         '
@@ -1033,7 +1074,6 @@ Partial Class frPedido
         Me.txEmpresa.Name = "txEmpresa"
         Me.txEmpresa.Size = New System.Drawing.Size(59, 20)
         Me.txEmpresa.TabIndex = 104
-        Me.txEmpresa.Text = "1"
         Me.txEmpresa.Visible = False
         '
         'txIva
@@ -1427,36 +1467,6 @@ Partial Class frPedido
         Me.ReportViewer1.Size = New System.Drawing.Size(1231, 629)
         Me.ReportViewer1.TabIndex = 0
         '
-        'usuariosBindingSource
-        '
-        Me.usuariosBindingSource.DataMember = "usuarios"
-        Me.usuariosBindingSource.DataSource = Me.dsPedidos
-        '
-        'dsPedidos
-        '
-        Me.dsPedidos.DataSetName = "dsPedidos"
-        Me.dsPedidos.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'agentesBindingSource
-        '
-        Me.agentesBindingSource.DataMember = "agentes"
-        Me.agentesBindingSource.DataSource = Me.dsPedidos
-        '
-        'pedido_cabBindingSource
-        '
-        Me.pedido_cabBindingSource.DataMember = "pedido_cab"
-        Me.pedido_cabBindingSource.DataSource = Me.dsPedidos
-        '
-        'pedido_lineaBindingSource
-        '
-        Me.pedido_lineaBindingSource.DataMember = "pedido_linea"
-        Me.pedido_lineaBindingSource.DataSource = Me.dsPedidos
-        '
-        'clientesBindingSource
-        '
-        Me.clientesBindingSource.DataMember = "clientes"
-        Me.clientesBindingSource.DataSource = Me.dsPedidos
-        '
         'usuariosTableAdapter
         '
         Me.usuariosTableAdapter.ClearBeforeFill = True
@@ -1487,6 +1497,12 @@ Partial Class frPedido
         Me.Name = "frPedido"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "PEDIDO"
+        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsPedidos, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pedido_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pedido_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
         Me.TabPage2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1507,12 +1523,6 @@ Partial Class frPedido
         CType(Me.dgPedidos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPresupuestos.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
-        CType(Me.usuariosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsPedidos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.agentesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pedido_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.pedido_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1648,4 +1658,5 @@ Partial Class frPedido
     Friend WithEvents pedido_cabTableAdapter As dsPedidosTableAdapters.pedido_cabTableAdapter
     Friend WithEvents pedido_lineaTableAdapter As dsPedidosTableAdapters.pedido_lineaTableAdapter
     Friend WithEvents clientesTableAdapter As dsPedidosTableAdapters.clientesTableAdapter
+    Friend WithEvents Label16 As Label
 End Class

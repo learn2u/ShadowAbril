@@ -146,6 +146,8 @@ Public Class frAlbaran
         txNumcli.Text = ""
         txClientepres.Text = ""
         txAgente.Text = ""
+        txUsuario.Text = vCodUser
+        txEmpresa.Text = vEmpresa
         txDtocli.Text = ""
         txIva.Text = "21.00"
         cbEstado.Text = ""
@@ -745,7 +747,7 @@ Public Class frAlbaran
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
+                Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
                 Try
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -956,6 +958,8 @@ Public Class frAlbaran
             txFecha.Text = rdrCab("fecha")
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
+            txUsuario.Text = rdrCab("usuarioID")
+            txEmpresa.Text = rdrCab("empresaID")
             txReferenciapres.Text = rdrCab("referencia")
             txBultos.Text = rdrCab("bultos")
             txObserva.Text = rdrCab("observaciones")

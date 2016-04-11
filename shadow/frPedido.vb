@@ -537,6 +537,8 @@ Public Class frPedido
         cbEstado.Text = "PENDIENTE"
         cbEstado.Enabled = True
         txFecha.Text = Format(Today, "ddMMyyyy")
+        dtpEntrega.Enabled = True
+        dtpAcepta.Enabled = True
         txReferenciapres.Focus()
     End Sub
 
@@ -577,6 +579,8 @@ Public Class frPedido
             Dim guardo_imprec As String = Replace(imprec, ",", ".")
 
             Dim fecha As Date = txFecha.Text
+            Dim fechaEnt As Date = dtpEntrega.Value
+            Dim fechaAcep As Date = dtpAcepta.Value
             Dim vEstado As String
             If cbEstado.Text = "PENDIENTE" Then
                 vEstado = "P"
@@ -591,7 +595,7 @@ Public Class frPedido
             'Guardo cabecera y actualizo número de presupuesto
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
-            Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', '" + vEstado + "')", conexionmy)
+            Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_pedido, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechaentrega, fechaacepta, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalpedido, estado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "','" + fechaEnt.ToString("yyyy-MM-dd") + "','" + fechaAcep.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', '" + vEstado + "')", conexionmy)
             Try
                 cmd.ExecuteNonQuery()
             Catch ex As Exception
@@ -727,6 +731,8 @@ Public Class frPedido
             Dim guardo_imprec As String = Replace(imprec, ",", ".")
 
             Dim fecha As Date = txFecha.Text
+            Dim fechaEnt As Date = dtpEntrega.Value
+            Dim fechaAcep As Date = dtpAcepta.Value
             Dim vEstado As String
             If cbEstado.Text = "PENDIENTE" Then
                 vEstado = "P"
@@ -741,7 +747,7 @@ Public Class frPedido
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
+                Dim cmd As New MySqlCommand("UPDATE pedido_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechaentrega = '" + fechaEnt.ToString("yyyy-MM-dd") + "', fechaacepta = '" + fechaAcep.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalpedido = '" + guardo_imptot + "', estado = '" + vEstado + "' WHERE num_pedido = " + txtNumpres.Text + "", conexionmy)
                 Try
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -765,7 +771,7 @@ Public Class frPedido
                 End Try
 
                 cargoNumero()
-                Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
+                Dim cmd As New MySqlCommand("INSERT INTO pedido_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechaentrega, fechaacepta, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "', '" + fechaEnt.ToString("yyyy-MM-dd") + "','" + fechaAcep.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
                 Try
                     cmd.ExecuteNonQuery()
                 Catch ex As Exception
@@ -955,6 +961,8 @@ Public Class frPedido
             rdrCab = cmdCab.ExecuteReader
             rdrCab.Read()
             txFecha.Text = rdrCab("fecha")
+            dtpEntrega.Text = rdrCab("fechaentrega")
+            dtpAcepta.Text = rdrCab("fechaacepta")
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
             txReferenciapres.Text = rdrCab("referencia")
@@ -1689,6 +1697,8 @@ Public Class frPedido
         cmdCliente.Enabled = True
         cmdPedido.Enabled = True
         cmdAlbaran.Enabled = True
+        dtpEntrega.Enabled = True
+        dtpAcepta.Enabled = True
 
 
         txtNumpres.Text = dgPedidos.CurrentRow.Cells("Column1").Value.ToString
@@ -2430,4 +2440,5 @@ Public Class frPedido
         End If
 
     End Sub
+
 End Class

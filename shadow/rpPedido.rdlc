@@ -348,6 +348,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>cantidad</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -381,6 +384,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>ancho_largo</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -414,6 +420,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>m2_ml</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -447,6 +456,9 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>lote</rd:DefaultName>
+                      <Visibility>
+                        <Hidden>=Fields!cantidad.Value=0</Hidden>
+                      </Visibility>
                       <Style>
                         <Border>
                           <Style>None</Style>
@@ -491,7 +503,7 @@
         </SortExpressions>
         <Top>0.34312cm</Top>
         <Height>1.2cm</Height>
-        <Width>18.9992cm</Width>
+        <Width>18.99921cm</Width>
         <Style>
           <Border>
             <Style>None</Style>

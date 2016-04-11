@@ -42,6 +42,8 @@ Public Class launcher
 
     Private Sub PedidosToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PedidosToolStripMenuItem.Click
         muestroPedidos()
+        PedidosToolStripMenuItem.Enabled = False
+
     End Sub
 
     Private Sub AlbaranesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AlbaranesToolStripMenuItem.Click

@@ -2480,4 +2480,9 @@ Public Class frPedido
     Private Sub dtpAcepta_ValueChanged(sender As Object, e As EventArgs) Handles dtpAcepta.ValueChanged
 
     End Sub
+
+    Private Sub frPedido_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        launcher.PedidosToolStripMenuItem.Enabled = True
+
+    End Sub
 End Class

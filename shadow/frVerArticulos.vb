@@ -200,7 +200,12 @@ Public Class frVerArticulos
             frVerLotes.vReferencia = dgArticulos.CurrentRow.Cells("refpro").Value
             frVerLotes.vPrecio = dgArticulos.CurrentRow.Cells("prec").Value
             frVerLotes.vIva = dgArticulos.CurrentRow.Cells("porciva").Value
-            frVerLotes.vLongitud = dgArticulos.CurrentRow.Cells("longitud").Value
+            If dgArticulos.CurrentRow.Cells("longitud").Value = "" Then
+                frVerLotes.vLongitud = 0
+            Else
+                frVerLotes.vLongitud = dgArticulos.CurrentRow.Cells("longitud").Value
+            End If
+
             frVerLotes.Show()
         Else
             If formArti = "P" Then
@@ -438,7 +443,12 @@ Public Class frVerArticulos
                 frVerLotes.vReferencia = dgArticulos.CurrentRow.Cells("referen").Value
                 frVerLotes.vPrecio = dgArticulos.CurrentRow.Cells("prec").Value
                 frVerLotes.vIva = dgArticulos.CurrentRow.Cells("porciva").Value
-                frVerLotes.vLongitud = dgArticulos.CurrentRow.Cells("longitud").Value
+                If dgArticulos.CurrentRow.Cells("longitud").Value = 0 Then
+                    frVerLotes.vLongitud = 0
+                Else
+                    frVerLotes.vLongitud = dgArticulos.CurrentRow.Cells("longitud").Value
+                End If
+
                 frVerLotes.Show()
             Else
                 If formArti = "P" Then

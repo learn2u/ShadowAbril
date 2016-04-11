@@ -1057,6 +1057,10 @@ Partial Public Class dsPedidos
         
         Private columnobservaciones As Global.System.Data.DataColumn
         
+        Private columnfechaentrega As Global.System.Data.DataColumn
+        
+        Private columnfechaacepta As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -1125,6 +1129,22 @@ Partial Public Class dsPedidos
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property fechaentregaColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfechaentrega
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property fechaaceptaColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnfechaacepta
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1161,9 +1181,9 @@ Partial Public Class dsPedidos
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addpedido_cabRow(ByVal num_pedido As Integer, ByVal fecha As Date, ByVal referencia As String, ByVal observaciones As String) As pedido_cabRow
+        Public Overloads Function Addpedido_cabRow(ByVal num_pedido As Integer, ByVal fecha As Date, ByVal referencia As String, ByVal observaciones As String, ByVal fechaentrega As Date, ByVal fechaacepta As Date) As pedido_cabRow
             Dim rowpedido_cabRow As pedido_cabRow = CType(Me.NewRow,pedido_cabRow)
-            Dim columnValuesArray() As Object = New Object() {num_pedido, fecha, referencia, observaciones}
+            Dim columnValuesArray() As Object = New Object() {num_pedido, fecha, referencia, observaciones, fechaentrega, fechaacepta}
             rowpedido_cabRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowpedido_cabRow)
             Return rowpedido_cabRow
@@ -1196,6 +1216,8 @@ Partial Public Class dsPedidos
             Me.columnfecha = MyBase.Columns("fecha")
             Me.columnreferencia = MyBase.Columns("referencia")
             Me.columnobservaciones = MyBase.Columns("observaciones")
+            Me.columnfechaentrega = MyBase.Columns("fechaentrega")
+            Me.columnfechaacepta = MyBase.Columns("fechaacepta")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1209,6 +1231,10 @@ Partial Public Class dsPedidos
             MyBase.Columns.Add(Me.columnreferencia)
             Me.columnobservaciones = New Global.System.Data.DataColumn("observaciones", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnobservaciones)
+            Me.columnfechaentrega = New Global.System.Data.DataColumn("fechaentrega", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfechaentrega)
+            Me.columnfechaacepta = New Global.System.Data.DataColumn("fechaacepta", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnfechaacepta)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnnum_pedido}, true))
             Me.columnnum_pedido.AllowDBNull = false
             Me.columnnum_pedido.Unique = true
@@ -2285,6 +2311,36 @@ Partial Public Class dsPedidos
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property fechaentrega() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablepedido_cab.fechaentregaColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'fechaentrega' de la tabla 'pedido_cab' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablepedido_cab.fechaentregaColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property fechaacepta() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablepedido_cab.fechaaceptaColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'fechaacepta' de la tabla 'pedido_cab' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablepedido_cab.fechaaceptaColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsfechaNull() As Boolean
             Return Me.IsNull(Me.tablepedido_cab.fechaColumn)
         End Function
@@ -2317,6 +2373,30 @@ Partial Public Class dsPedidos
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetobservacionesNull()
             Me(Me.tablepedido_cab.observacionesColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsfechaentregaNull() As Boolean
+            Return Me.IsNull(Me.tablepedido_cab.fechaentregaColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetfechaentregaNull()
+            Me(Me.tablepedido_cab.fechaentregaColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsfechaaceptaNull() As Boolean
+            Return Me.IsNull(Me.tablepedido_cab.fechaaceptaColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetfechaaceptaNull()
+            Me(Me.tablepedido_cab.fechaaceptaColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -2980,16 +3060,25 @@ Namespace dsPedidosTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT `agenteID`, `agente` FROM `agentes`"
+            Me._commandCollection(0).CommandText = "SELECT        agenteID, agente"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            agentes"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (agenteID ="& _ 
+                " @id_agente_impresion)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@id_agente_impresion"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "agenteID"
+            Me._commandCollection(0).Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.agentesDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.agentesDataTable, ByVal id_agente_impresion As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_agente_impresion,Integer)
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -3001,8 +3090,9 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dsPedidos.agentesDataTable
+        Public Overloads Overridable Function GetData(ByVal id_agente_impresion As Integer) As dsPedidos.agentesDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_agente_impresion,Integer)
             Dim dataTable As dsPedidos.agentesDataTable = New dsPedidos.agentesDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -3554,17 +3644,26 @@ Namespace dsPedidosTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT `clienteID`, `nombre`, `nombrecom`, `direccion`, `cpostal`, `poblacion`, `"& _ 
-                "provincia` FROM `clientes`"
+            Me._commandCollection(0).CommandText = "SELECT        clienteID, nombre, nombrecom, direccion, cpostal, poblacion, provin"& _ 
+                "cia"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            clientes"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (clienteID = @codigo_cliente_impresi"& _ 
+                "on)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@codigo_cliente_impresion"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "clienteID"
+            Me._commandCollection(0).Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.clientesDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.clientesDataTable, ByVal codigo_cliente_impresion As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(codigo_cliente_impresion,Integer)
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -3576,8 +3675,9 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dsPedidos.clientesDataTable
+        Public Overloads Overridable Function GetData(ByVal codigo_cliente_impresion As Integer) As dsPedidos.clientesDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(codigo_cliente_impresion,Integer)
             Dim dataTable As dsPedidos.clientesDataTable = New dsPedidos.clientesDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -3899,12 +3999,15 @@ Namespace dsPedidosTableAdapters
             tableMapping.ColumnMappings.Add("fecha", "fecha")
             tableMapping.ColumnMappings.Add("referencia", "referencia")
             tableMapping.ColumnMappings.Add("observaciones", "observaciones")
+            tableMapping.ColumnMappings.Add("fechaentrega", "fechaentrega")
+            tableMapping.ColumnMappings.Add("fechaacepta", "fechaacepta")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM `pedido_cab` WHERE ((`num_pedido` = @p1) AND ((@p2 = 1 AND `fecha` IS"& _ 
                 " NULL) OR (`fecha` = @p3)) AND ((@p4 = 1 AND `referencia` IS NULL) OR (`referenc"& _ 
-                "ia` = @p5)))"
+                "ia` = @p5)) AND ((@p6 = 1 AND `fechaentrega` IS NULL) OR (`fechaentrega` = @p7))"& _ 
+                " AND ((@p8 = 1 AND `fechaacepta` IS NULL) OR (`fechaacepta` = @p9)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@p1"
@@ -3948,12 +4051,48 @@ Namespace dsPedidosTableAdapters
             param.SourceColumn = "referencia"
             param.SourceVersion = Global.System.Data.DataRowVersion.Original
             Me._adapter.DeleteCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p6"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "fechaentrega"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            param.SourceColumnNullMapping = true
+            Me._adapter.DeleteCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p7"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaentrega"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            Me._adapter.DeleteCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p8"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "fechaacepta"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            param.SourceColumnNullMapping = true
+            Me._adapter.DeleteCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p9"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaacepta"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            Me._adapter.DeleteCommand.Parameters.Add(param)
             Me._adapter.UpdateCommand = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE `pedido_cab` SET `num_pedido` = @p1, `fecha` = @p2, `referencia` = @p3, `o"& _ 
-                "bservaciones` = @p4 WHERE ((`num_pedido` = @p5) AND ((@p6 = 1 AND `fecha` IS NUL"& _ 
-                "L) OR (`fecha` = @p7)) AND ((@p8 = 1 AND `referencia` IS NULL) OR (`referencia` "& _ 
-                "= @p9)))"
+                "bservaciones` = @p4, `fechaentrega` = @p5, `fechaacepta` = @p6 WHERE ((`num_pedi"& _ 
+                "do` = @p7) AND ((@p8 = 1 AND `fecha` IS NULL) OR (`fecha` = @p9)) AND ((@p10 = 1"& _ 
+                " AND `referencia` IS NULL) OR (`referencia` = @p11)) AND ((@p12 = 1 AND `fechaen"& _ 
+                "trega` IS NULL) OR (`fechaentrega` = @p13)) AND ((@p14 = 1 AND `fechaacepta` IS "& _ 
+                "NULL) OR (`fechaacepta` = @p15)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@p1"
@@ -3984,6 +4123,20 @@ Namespace dsPedidosTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@p5"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaentrega"
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p6"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaacepta"
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p7"
             param.DbType = Global.System.Data.DbType.Int32
             param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
             param.IsNullable = true
@@ -3991,7 +4144,7 @@ Namespace dsPedidosTableAdapters
             param.SourceVersion = Global.System.Data.DataRowVersion.Original
             Me._adapter.UpdateCommand.Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
-            param.ParameterName = "@p6"
+            param.ParameterName = "@p8"
             param.DbType = Global.System.Data.DbType.Int32
             param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
             param.IsNullable = true
@@ -4000,7 +4153,7 @@ Namespace dsPedidosTableAdapters
             param.SourceColumnNullMapping = true
             Me._adapter.UpdateCommand.Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
-            param.ParameterName = "@p7"
+            param.ParameterName = "@p9"
             param.DbType = Global.System.Data.DbType.[Date]
             param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
             param.IsNullable = true
@@ -4008,7 +4161,7 @@ Namespace dsPedidosTableAdapters
             param.SourceVersion = Global.System.Data.DataRowVersion.Original
             Me._adapter.UpdateCommand.Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
-            param.ParameterName = "@p8"
+            param.ParameterName = "@p10"
             param.DbType = Global.System.Data.DbType.Int32
             param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
             param.IsNullable = true
@@ -4017,11 +4170,45 @@ Namespace dsPedidosTableAdapters
             param.SourceColumnNullMapping = true
             Me._adapter.UpdateCommand.Parameters.Add(param)
             param = New Global.MySql.Data.MySqlClient.MySqlParameter()
-            param.ParameterName = "@p9"
+            param.ParameterName = "@p11"
             param.DbType = Global.System.Data.DbType.[String]
             param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.VarChar
             param.IsNullable = true
             param.SourceColumn = "referencia"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p12"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "fechaentrega"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            param.SourceColumnNullMapping = true
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p13"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaentrega"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p14"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "fechaacepta"
+            param.SourceVersion = Global.System.Data.DataRowVersion.Original
+            param.SourceColumnNullMapping = true
+            Me._adapter.UpdateCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p15"
+            param.DbType = Global.System.Data.DbType.[Date]
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.[Date]
+            param.IsNullable = true
+            param.SourceColumn = "fechaacepta"
             param.SourceVersion = Global.System.Data.DataRowVersion.Original
             Me._adapter.UpdateCommand.Parameters.Add(param)
         End Sub
@@ -4039,16 +4226,25 @@ Namespace dsPedidosTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT `num_pedido`, `fecha`, `referencia`, `observaciones` FROM `pedido_cab`"
+            Me._commandCollection(0).CommandText = "SELECT        num_pedido, fecha, referencia, observaciones, fechaentrega, fechaac"& _ 
+                "epta"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            pedido_cab"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (num_pedido = @numero_impresion)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@numero_impresion"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "num_pedido"
+            Me._commandCollection(0).Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.pedido_cabDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.pedido_cabDataTable, ByVal numero_impresion As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(numero_impresion,Integer)
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -4060,8 +4256,9 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dsPedidos.pedido_cabDataTable
+        Public Overloads Overridable Function GetData(ByVal numero_impresion As Integer) As dsPedidos.pedido_cabDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(numero_impresion,Integer)
             Dim dataTable As dsPedidos.pedido_cabDataTable = New dsPedidos.pedido_cabDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -4099,7 +4296,7 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal p1 As Integer, ByVal p3 As Global.System.Nullable(Of Date), ByVal p5 As String) As Integer
+        Public Overloads Overridable Function Delete(ByVal p1 As Integer, ByVal p3 As Global.System.Nullable(Of Date), ByVal p5 As String, ByVal p7 As Global.System.Nullable(Of Date), ByVal p9 As Global.System.Nullable(Of Date)) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(p1,Integer)
             If (p3.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0,Object)
@@ -4114,6 +4311,20 @@ Namespace dsPedidosTableAdapters
             Else
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(0,Object)
                 Me.Adapter.DeleteCommand.Parameters(4).Value = CType(p5,String)
+            End If
+            If (p7.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(6).Value = CType(p7.Value,Date)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(6).Value = Global.System.DBNull.Value
+            End If
+            If (p9.HasValue = true) Then
+                Me.Adapter.DeleteCommand.Parameters(7).Value = CType(0,Object)
+                Me.Adapter.DeleteCommand.Parameters(8).Value = CType(p9.Value,Date)
+            Else
+                Me.Adapter.DeleteCommand.Parameters(7).Value = CType(1,Object)
+                Me.Adapter.DeleteCommand.Parameters(8).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
@@ -4134,7 +4345,7 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal p1 As Integer, ByVal p2 As Global.System.Nullable(Of Date), ByVal p3 As String, ByVal p4 As String, ByVal p5 As Integer, ByVal p7 As Global.System.Nullable(Of Date), ByVal p9 As String) As Integer
+        Public Overloads Overridable Function Update(ByVal p1 As Integer, ByVal p2 As Global.System.Nullable(Of Date), ByVal p3 As String, ByVal p4 As String, ByVal p5 As Global.System.Nullable(Of Date), ByVal p6 As Global.System.Nullable(Of Date), ByVal p7 As Integer, ByVal p9 As Global.System.Nullable(Of Date), ByVal p11 As String, ByVal p13 As Global.System.Nullable(Of Date), ByVal p15 As Global.System.Nullable(Of Date)) As Integer
             Me.Adapter.UpdateCommand.Parameters(0).Value = CType(p1,Integer)
             If (p2.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(1).Value = CType(p2.Value,Date)
@@ -4151,20 +4362,44 @@ Namespace dsPedidosTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(3).Value = CType(p4,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(p5,Integer)
-            If (p7.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(p7.Value,Date)
+            If (p5.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(p5.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(6).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(4).Value = Global.System.DBNull.Value
             End If
-            If (p9 Is Nothing) Then
+            If (p6.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(p6.Value,Date)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(5).Value = Global.System.DBNull.Value
+            End If
+            Me.Adapter.UpdateCommand.Parameters(6).Value = CType(p7,Integer)
+            If (p9.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(p9.Value,Date)
+            Else
                 Me.Adapter.UpdateCommand.Parameters(7).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(8).Value = Global.System.DBNull.Value
+            End If
+            If (p11 Is Nothing) Then
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(p9,String)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(p11,String)
+            End If
+            If (p13.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(p13.Value,Date)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+            End If
+            If (p15.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(p15.Value,Date)
+            Else
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
@@ -4185,8 +4420,8 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal p2 As Global.System.Nullable(Of Date), ByVal p3 As String, ByVal p4 As String, ByVal p5 As Integer, ByVal p7 As Global.System.Nullable(Of Date), ByVal p9 As String) As Integer
-            Return Me.Update(p5, p2, p3, p4, p5, p7, p9)
+        Public Overloads Overridable Function Update(ByVal p2 As Global.System.Nullable(Of Date), ByVal p3 As String, ByVal p4 As String, ByVal p5 As Global.System.Nullable(Of Date), ByVal p6 As Global.System.Nullable(Of Date), ByVal p7 As Integer, ByVal p9 As Global.System.Nullable(Of Date), ByVal p11 As String, ByVal p13 As Global.System.Nullable(Of Date), ByVal p15 As Global.System.Nullable(Of Date)) As Integer
+            Return Me.Update(p7, p2, p3, p4, p5, p6, p7, p9, p11, p13, p15)
         End Function
     End Class
     
@@ -4403,17 +4638,26 @@ Namespace dsPedidosTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT `num_pedido`, `codigo`, `descripcion`, `cantidad`, `ancho_largo`, `m2_ml`,"& _ 
-                " `linea`, `lote` FROM `pedido_linea`"
+            Me._commandCollection(0).CommandText = "SELECT        num_pedido, codigo, descripcion, cantidad, ancho_largo, m2_ml, line"& _ 
+                "a, lote"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            pedido_linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (num_pedido = @numero_impres"& _ 
+                "ion)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@numero_impresion"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "num_pedido"
+            Me._commandCollection(0).Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.pedido_lineaDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.pedido_lineaDataTable, ByVal numero_impresion As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(numero_impresion,Integer)
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -4425,8 +4669,9 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dsPedidos.pedido_lineaDataTable
+        Public Overloads Overridable Function GetData(ByVal numero_impresion As Integer) As dsPedidos.pedido_lineaDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(numero_impresion,Integer)
             Dim dataTable As dsPedidos.pedido_lineaDataTable = New dsPedidos.pedido_lineaDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -4710,16 +4955,25 @@ Namespace dsPedidosTableAdapters
             Me._commandCollection = New Global.MySql.Data.MySqlClient.MySqlCommand(0) {}
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT `userID`, `usuario` FROM `usuarios`"
+            Me._commandCollection(0).CommandText = "SELECT        userID, usuario"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            usuarios"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (userID = @"& _ 
+                "id_usuario_impresion)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@id_usuario_impresion"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "userID"
+            Me._commandCollection(0).Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.usuariosDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dsPedidos.usuariosDataTable, ByVal id_usuario_impresion As Integer) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_usuario_impresion,Integer)
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -4731,8 +4985,9 @@ Namespace dsPedidosTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dsPedidos.usuariosDataTable
+        Public Overloads Overridable Function GetData(ByVal id_usuario_impresion As Integer) As dsPedidos.usuariosDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Me.Adapter.SelectCommand.Parameters(0).Value = CType(id_usuario_impresion,Integer)
             Dim dataTable As dsPedidos.usuariosDataTable = New dsPedidos.usuariosDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable

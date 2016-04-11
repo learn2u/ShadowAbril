@@ -18,6 +18,11 @@ Public Class frPedido
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
     Public Shared artiLote As String
+    Public Shared numero_impresion As Integer
+    Public Shared codigo_cliente_impresion As Integer
+    Public Shared id_agente_impresion As Integer
+    Public Shared id_usuario_impresion As Integer
+
 
     Private Sub frPedido_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
@@ -38,12 +43,13 @@ Public Class frPedido
         btBuscar.Visible = False
 
 
+        Me.ReportViewer1.RefreshReport()
     End Sub
     Public Sub deshabilitarBotones()
         cmdGuardar.Enabled = False
         cmdCancelar.Enabled = False
         cmdDelete.Enabled = False
-        cmdImprimir.Enabled = False
+        'cmdImprimir.Enabled = False
         cmdPDF.Enabled = False
         cmdMail.Enabled = False
         cmdPedido.Enabled = False
@@ -2441,4 +2447,32 @@ Public Class frPedido
 
     End Sub
 
+    Private Sub cmdImprimir_Click(sender As Object, e As EventArgs) Handles cmdImprimir.Click
+        numero_impresion = CInt(txtNumpres.Text)
+        codigo_cliente_impresion = CInt(txNumcli.Text)
+        id_agente_impresion = CInt(txAgente.Text)
+        id_usuario_impresion = CInt(txUsuario.Text)
+        tabPresupuestos.SelectedIndex = 2
+
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.clientes' Puede moverla o quitarla según sea necesario.
+        Me.clientesTableAdapter.Fill(Me.dsPedidos.clientes, codigo_cliente_impresion)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_cab' Puede moverla o quitarla según sea necesario.
+        Me.pedido_cabTableAdapter.Fill(Me.dsPedidos.pedido_cab, numero_impresion)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_linea' Puede moverla o quitarla según sea necesario.
+        Me.pedido_lineaTableAdapter.Fill(Me.dsPedidos.pedido_linea, numero_impresion)
+
+        Me.agentesTableAdapter.Fill(Me.dsPedidos.agentes, id_agente_impresion)
+
+        Me.usuariosTableAdapter.Fill(Me.dsPedidos.usuarios, id_usuario_impresion)
+
+        Me.ReportViewer1.RefreshReport()
+    End Sub
+
+    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
+
+    End Sub
+
+    Private Sub dtpAcepta_ValueChanged(sender As Object, e As EventArgs) Handles dtpAcepta.ValueChanged
+
+    End Sub
 End Class

@@ -105,6 +105,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="albaranFactura.vb" />
     <Compile Include="dsAlbaranes.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

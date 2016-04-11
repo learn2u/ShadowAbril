@@ -746,18 +746,17 @@ Public Class frPresupuestos
                                                     presupuesto_cab.clienteID,
                                                     presupuesto_cab.eliminado, 
                                                     clientes.clienteID 
-                                            FROM presupuesto_cab INNER JOIN clientes ON presupuesto_cab.clienteID=clientes.clienteID WHERE eliminado = 'N' ORDER BY presupuesto_cab.num_presupuesto DESC", conexionmy)
+                                            FROM presupuesto_cab INNER JOIN clientes ON presupuesto_cab.clienteID=clientes.clienteID ORDER BY num_presupuesto DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
 
-        Try
-            readermy = consultamy.ExecuteReader
-        Catch ex As Exception
-            MsgBox("Se ha producido un error en la carga de presupuestos (Err_2021). Revise los datos")
-            Exit Sub
-        End Try
+        readermy = consultamy.ExecuteReader
+
+        'MsgBox("Se ha producido un error en la carga de presupuestos (Err_2021). Revise los datos")
+        ' Exit Sub
+
 
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 

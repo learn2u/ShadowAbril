@@ -834,6 +834,11 @@
         </TablixRowHierarchy>
         <RepeatColumnHeaders>true</RepeatColumnHeaders>
         <DataSetName>dsLinPresupuesto</DataSetName>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!linea.Value</Value>
+          </SortExpression>
+        </SortExpressions>
         <Top>0.17639cm</Top>
         <Height>1.25292cm</Height>
         <Width>18.9992cm</Width>
@@ -844,7 +849,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>0.64828in</Height>
+    <Height>1.5337in</Height>
     <Style />
   </Body>
   <Width>7.48in</Width>
@@ -2095,6 +2100,10 @@
         </Field>
         <Field Name="num_presupuesto">
           <DataField>num_presupuesto</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="linea">
+          <DataField>linea</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>

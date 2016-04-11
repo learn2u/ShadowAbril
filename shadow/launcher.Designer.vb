@@ -174,7 +174,7 @@ Partial Class launcher
         'GastosToolStripMenuItem
         '
         Me.GastosToolStripMenuItem.Name = "GastosToolStripMenuItem"
-        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
+        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.GastosToolStripMenuItem.Text = "Gastos"
         '
         'Panel1

@@ -767,6 +767,8 @@ Partial Public Class dsAlbaranes
         
         Private columntotalinea As Global.System.Data.DataColumn
         
+        Private columnlinea As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -883,6 +885,14 @@ Partial Public Class dsAlbaranes
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property lineaColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnlinea
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -919,9 +929,9 @@ Partial Public Class dsAlbaranes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addalbaran_lineaRow(ByVal num_albaran As Integer, ByVal codigo As String, ByVal descripcion As String, ByVal cantidad As Decimal, ByVal ancho_largo As Decimal, ByVal m2_ml As Decimal, ByVal precio As Decimal, ByVal descuento As Decimal, ByVal importe As Decimal, ByVal totalinea As Decimal) As albaran_lineaRow
+        Public Overloads Function Addalbaran_lineaRow(ByVal num_albaran As Integer, ByVal codigo As String, ByVal descripcion As String, ByVal cantidad As Decimal, ByVal ancho_largo As Decimal, ByVal m2_ml As Decimal, ByVal precio As Decimal, ByVal descuento As Decimal, ByVal importe As Decimal, ByVal totalinea As Decimal, ByVal linea As Integer) As albaran_lineaRow
             Dim rowalbaran_lineaRow As albaran_lineaRow = CType(Me.NewRow,albaran_lineaRow)
-            Dim columnValuesArray() As Object = New Object() {num_albaran, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, importe, totalinea}
+            Dim columnValuesArray() As Object = New Object() {num_albaran, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, importe, totalinea, linea}
             rowalbaran_lineaRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowalbaran_lineaRow)
             Return rowalbaran_lineaRow
@@ -954,6 +964,7 @@ Partial Public Class dsAlbaranes
             Me.columndescuento = MyBase.Columns("descuento")
             Me.columnimporte = MyBase.Columns("importe")
             Me.columntotalinea = MyBase.Columns("totalinea")
+            Me.columnlinea = MyBase.Columns("linea")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -979,6 +990,8 @@ Partial Public Class dsAlbaranes
             MyBase.Columns.Add(Me.columnimporte)
             Me.columntotalinea = New Global.System.Data.DataColumn("totalinea", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columntotalinea)
+            Me.columnlinea = New Global.System.Data.DataColumn("linea", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnlinea)
             Me.columnnum_albaran.AllowDBNull = false
             Me.columncodigo.MaxLength = 25
             Me.columndescripcion.MaxLength = 255
@@ -1933,6 +1946,21 @@ Partial Public Class dsAlbaranes
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property linea() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablealbaran_linea.lineaColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("El valor de la columna 'linea' de la tabla 'albaran_linea' es DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablealbaran_linea.lineaColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IscodigoNull() As Boolean
             Return Me.IsNull(Me.tablealbaran_linea.codigoColumn)
         End Function
@@ -2037,6 +2065,18 @@ Partial Public Class dsAlbaranes
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SettotalineaNull()
             Me(Me.tablealbaran_linea.totalineaColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IslineaNull() As Boolean
+            Return Me.IsNull(Me.tablealbaran_linea.lineaColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetlineaNull()
+            Me(Me.tablealbaran_linea.lineaColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -3417,12 +3457,13 @@ Namespace dsAlbaranesTableAdapters
             tableMapping.ColumnMappings.Add("descuento", "descuento")
             tableMapping.ColumnMappings.Add("importe", "importe")
             tableMapping.ColumnMappings.Add("totalinea", "totalinea")
+            tableMapping.ColumnMappings.Add("linea", "linea")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.InsertCommand = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO `albaran_linea` (`num_albaran`, `codigo`, `descripcion`, `cantidad`, "& _ 
-                "`ancho_largo`, `m2_ml`, `precio`, `descuento`, `importe`, `totalinea`) VALUES (@"& _ 
-                "p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10)"
+                "`ancho_largo`, `m2_ml`, `precio`, `descuento`, `importe`, `totalinea`, `linea`) "& _ 
+                "VALUES (@p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@p1"
@@ -3494,6 +3535,13 @@ Namespace dsAlbaranesTableAdapters
             param.IsNullable = true
             param.SourceColumn = "totalinea"
             Me._adapter.InsertCommand.Parameters.Add(param)
+            param = New Global.MySql.Data.MySqlClient.MySqlParameter()
+            param.ParameterName = "@p11"
+            param.DbType = Global.System.Data.DbType.Int32
+            param.MySqlDbType = Global.MySql.Data.MySqlClient.MySqlDbType.Int32
+            param.IsNullable = true
+            param.SourceColumn = "linea"
+            Me._adapter.InsertCommand.Parameters.Add(param)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3510,8 +3558,8 @@ Namespace dsAlbaranesTableAdapters
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        num_albaran, codigo, descripcion, cantidad, ancho_largo, m2_ml, pre"& _ 
-                "cio, descuento, importe, totalinea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            albaran_linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        "& _ 
-                "(num_albaran = @numero_impresion)"
+                "cio, descuento, importe, totalinea,linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            albaran_linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE  "& _ 
+                "      (num_albaran = @numero_impresion)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Dim param As Global.MySql.Data.MySqlClient.MySqlParameter = New Global.MySql.Data.MySqlClient.MySqlParameter()
             param.ParameterName = "@numero_impresion"
@@ -3580,7 +3628,7 @@ Namespace dsAlbaranesTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal p1 As Integer, ByVal p2 As String, ByVal p3 As String, ByVal p4 As Global.System.Nullable(Of Decimal), ByVal p5 As Global.System.Nullable(Of Decimal), ByVal p6 As Global.System.Nullable(Of Decimal), ByVal p7 As Global.System.Nullable(Of Decimal), ByVal p8 As Global.System.Nullable(Of Decimal), ByVal p9 As Global.System.Nullable(Of Decimal), ByVal p10 As Global.System.Nullable(Of Decimal)) As Integer
+        Public Overloads Overridable Function Insert(ByVal p1 As Integer, ByVal p2 As String, ByVal p3 As String, ByVal p4 As Global.System.Nullable(Of Decimal), ByVal p5 As Global.System.Nullable(Of Decimal), ByVal p6 As Global.System.Nullable(Of Decimal), ByVal p7 As Global.System.Nullable(Of Decimal), ByVal p8 As Global.System.Nullable(Of Decimal), ByVal p9 As Global.System.Nullable(Of Decimal), ByVal p10 As Global.System.Nullable(Of Decimal), ByVal p11 As Global.System.Nullable(Of Integer)) As Integer
             Me.Adapter.InsertCommand.Parameters(0).Value = CType(p1,Integer)
             If (p2 Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(1).Value = Global.System.DBNull.Value
@@ -3626,6 +3674,11 @@ Namespace dsAlbaranesTableAdapters
                 Me.Adapter.InsertCommand.Parameters(9).Value = CType(p10.Value,Decimal)
             Else
                 Me.Adapter.InsertCommand.Parameters(9).Value = Global.System.DBNull.Value
+            End If
+            If (p11.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(10).Value = CType(p11.Value,Integer)
+            Else
+                Me.Adapter.InsertCommand.Parameters(10).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _

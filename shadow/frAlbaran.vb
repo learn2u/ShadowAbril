@@ -581,9 +581,11 @@ Public Class frAlbaran
             Dim guardo_imprec As String = Replace(imprec, ",", ".")
 
             Dim fecha As Date = txFecha.Text
+            Dim fechapag As Date
             Dim vPagado As String
             If ckPagado.Checked = True Then
                 vPagado = "S"
+                fechapag = dtpFechaPago.Value
             Else
                 vPagado = "N"
             End If
@@ -592,9 +594,15 @@ Public Class frAlbaran
             'Guardo cabecera y actualizo número de presupuesto
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
-            Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, pagado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N',  '" + vPagado + "')", conexionmy)
+
             Try
-                cmd.ExecuteNonQuery()
+                If vPagado = "S" Then
+                    Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, pagado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "', '" + fechapag.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N',  '" + vPagado + "')", conexionmy)
+                    cmd.ExecuteNonQuery()
+                Else
+                    Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado, pagado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "', '" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "',  '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N',  '" + vPagado + "')", conexionmy)
+                    cmd.ExecuteNonQuery()
+                End If
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la grabación de la cabecera del albarán. Revise los datos")
                 Exit Sub
@@ -732,6 +740,7 @@ Public Class frAlbaran
             Dim vPagado As String
 
             Dim fecha As Date = txFecha.Text
+            Dim fechapag As Date
             Dim vEstado As String
             If cbEstado.Text = "FACTURADO" Then
                 vEstado = "F"
@@ -740,6 +749,7 @@ Public Class frAlbaran
             End If
             If ckPagado.Checked = True Then
                 vPagado = "S"
+                fechapag = dtpFechaPago.Value
             Else
                 vPagado = "N"
             End If
@@ -747,9 +757,14 @@ Public Class frAlbaran
             'Guardo cabecera y actualizo número de presupuesto
 
             If vSerie = serieIni Then
-                Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
                 Try
-                    cmd.ExecuteNonQuery()
+                    If vPagado = "S" Then
+                        Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechapago = '" + fechapag.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
+                        cmd.ExecuteNonQuery()
+                    Else
+                        Dim cmd As New MySqlCommand("UPDATE albaran_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', bultos = '" + txBultos.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalalbaran = '" + guardo_imptot + "', serie = '" + vSerie + "', facturado = '" + vEstado + "', pagado = '" + vPagado + "' WHERE num_albaran = " + txtNumpres.Text + "", conexionmy)
+                        cmd.ExecuteNonQuery()
+                    End If
                 Catch ex As Exception
                     MsgBox("Se ha producido un error en la actualización del número de albarán en el archivo de configuración. Revise los datos")
                     Exit Sub
@@ -771,9 +786,14 @@ Public Class frAlbaran
                 End Try
 
                 cargoNumero()
-                Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "','" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
                 Try
-                    cmd.ExecuteNonQuery()
+                    If vPagado = "S" Then
+                        Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "', '" + fechapag.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "','" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
+                        cmd.ExecuteNonQuery()
+                    Else
+                        Dim cmd As New MySqlCommand("INSERT INTO albaran_cab (num_albaran, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, bultos, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalalbaran, facturado) VALUES (" + txtNumpres.Text + ", '" + vSerie + "'," + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + fecha.ToString("yyyy-MM-dd") + "',  '" + txReferenciapres.Text + "', '" + txBultos.Text + "','" + txObserva.Text + "', '" + guardo_impbru + "', '" + guardo_impdto + "', '" + guardo_impiva + "', '" + guardo_imprec + "', '" + guardo_imptot + "', 'N')", conexionmy)
+                        cmd.ExecuteNonQuery()
+                    End If
                 Catch ex As Exception
                     MsgBox("Se ha producido un error en la actualización de la cabecera del albarán (Err_1051). Revise los datos")
                     Exit Sub
@@ -956,6 +976,11 @@ Public Class frAlbaran
             rdrCab = cmdCab.ExecuteReader
             rdrCab.Read()
             txFecha.Text = rdrCab("fecha")
+            If IsDBNull(rdrCab("fechapago")) = True Then
+                dtpFechaPago.Text = Today
+            Else
+                dtpFechaPago.Text = rdrCab("fechapago")
+            End If
             txNumcli.Text = rdrCab("clienteID")
             txAgente.Text = rdrCab("agenteID")
             txUsuario.Text = rdrCab("usuarioID")

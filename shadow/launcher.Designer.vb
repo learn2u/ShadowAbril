@@ -42,6 +42,8 @@ Partial Class launcher
         Me.ArtículosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ADMINISTRACIÓNToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GastosToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UTILIDADESToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RecalcularTotalesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.txCancelar = New System.Windows.Forms.Button()
         Me.btConectar = New System.Windows.Forms.Button()
@@ -57,7 +59,7 @@ Partial Class launcher
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EmpresaToolStripMenuItem, Me.VENTASToolStripMenuItem, Me.COMPRASToolStripMenuItem, Me.ALMACENToolStripMenuItem, Me.ADMINISTRACIÓNToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EmpresaToolStripMenuItem, Me.VENTASToolStripMenuItem, Me.COMPRASToolStripMenuItem, Me.ALMACENToolStripMenuItem, Me.ADMINISTRACIÓNToolStripMenuItem, Me.UTILIDADESToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(907, 24)
@@ -174,8 +176,22 @@ Partial Class launcher
         'GastosToolStripMenuItem
         '
         Me.GastosToolStripMenuItem.Name = "GastosToolStripMenuItem"
-        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.GastosToolStripMenuItem.Size = New System.Drawing.Size(109, 22)
         Me.GastosToolStripMenuItem.Text = "Gastos"
+        '
+        'UTILIDADESToolStripMenuItem
+        '
+        Me.UTILIDADESToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RecalcularTotalesToolStripMenuItem})
+        Me.UTILIDADESToolStripMenuItem.Name = "UTILIDADESToolStripMenuItem"
+        Me.UTILIDADESToolStripMenuItem.Size = New System.Drawing.Size(82, 20)
+        Me.UTILIDADESToolStripMenuItem.Text = "UTILIDADES"
+        '
+        'RecalcularTotalesToolStripMenuItem
+        '
+        Me.RecalcularTotalesToolStripMenuItem.Enabled = False
+        Me.RecalcularTotalesToolStripMenuItem.Name = "RecalcularTotalesToolStripMenuItem"
+        Me.RecalcularTotalesToolStripMenuItem.Size = New System.Drawing.Size(168, 22)
+        Me.RecalcularTotalesToolStripMenuItem.Text = "Recalcular Totales"
         '
         'Panel1
         '
@@ -319,4 +335,6 @@ Partial Class launcher
     Friend WithEvents Label2 As Label
     Friend WithEvents txUser As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents UTILIDADESToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents RecalcularTotalesToolStripMenuItem As ToolStripMenuItem
 End Class

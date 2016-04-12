@@ -20,11 +20,11 @@ Public Class launcher
         Next
         formArti = "N"
         formCli = "N"
-
         'login.Show()
         Panel1.Show()
         txIp.Text = vServidor
         txUser.Focus()
+
 
     End Sub
 
@@ -291,8 +291,17 @@ Public Class launcher
             MsgBox("El usuario no está registrado en la base de datos. Inténtalo otra vez")
             Exit Sub
         End If
-
+        If vRol = "admin" Then
+            RecalcularTotalesToolStripMenuItem.Enabled = True
+        Else
+            RecalcularTotalesToolStripMenuItem.Enabled = False
+        End If
         conexionmy.Close()
         cargoRecargo()
+    End Sub
+
+    Private Sub RecalcularTotalesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RecalcularTotalesToolStripMenuItem.Click
+        frRecalcular.Show()
+
     End Sub
 End Class

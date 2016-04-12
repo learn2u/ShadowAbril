@@ -222,6 +222,12 @@
       <DependentUpon>frPresupuesto.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frRecalcular.Designer.vb">
+      <DependentUpon>frRecalcular.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frRecalcular.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frVerAgentes.Designer.vb">
       <DependentUpon>frVerAgentes.vb</DependentUpon>
     </Compile>
@@ -332,6 +338,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frPresupuesto.resx">
       <DependentUpon>frPresupuesto.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frRecalcular.resx">
+      <DependentUpon>frRecalcular.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frVerAgentes.resx">
       <DependentUpon>frVerAgentes.vb</DependentUpon>

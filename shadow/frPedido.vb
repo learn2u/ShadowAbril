@@ -706,7 +706,7 @@ Public Class frPedido
                     End Try
                 Else
                     Try
-                    vLote = row.Cells(11).Value
+                        vLote = row.Cells(11).Value
                         descontarStockLote(vLote, lincant)
                     Catch ex As Exception
                     MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
@@ -718,11 +718,11 @@ Public Class frPedido
 
             conexionmy.Close()
 
-            deshabilitarBotones()
-            limpiarFormulario()
+            deshabilitarBotonesLight()
+            'limpiarFormulario()
             cmdNuevo.Enabled = True
             cargoTodosPedidos()
-            tabPresupuestos.SelectTab(0)
+            'tabPresupuestos.SelectTab(0)
         Else
 
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
@@ -913,11 +913,11 @@ Public Class frPedido
             lineasEdit.Clear()
 
 
-            deshabilitarBotones()
-            limpiarFormulario()
+            deshabilitarBotonesLight()
+            'limpiarFormulario()
             cmdNuevo.Enabled = True
             cargoTodosPedidos()
-            tabPresupuestos.SelectTab(0)
+            'tabPresupuestos.SelectTab(0)
             flagEdit = "N"
         End If
     End Sub
@@ -1484,6 +1484,8 @@ Public Class frPedido
             Dim guardo_linimporte As String
             Dim lintotal As String
             Dim guardo_lintotal As String
+            Dim arti As String
+            Dim vLote As String
 
             For Each row In dgLineasPres2.Rows
 
@@ -1512,10 +1514,38 @@ Public Class frPedido
                 lintotal = row.Cells(10).Value.ToString
                 guardo_lintotal = Replace(lintotal, ",", ".")
 
+                arti = row.Cells(2).Value
+
+                If row.Cells(2).Value Is Nothing Then
+                    row.Cells(2).Value = ""
+                End If
+
                 cmdLinea.Connection = conexionmy
                 cmdLinea.CommandText = "INSERT INTO albaran_linea (num_albaran, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
 
-                cmdLinea.ExecuteNonQuery()
+                Try
+                    cmdLinea.ExecuteNonQuery()
+                    descontarStockConversion(arti, lincant)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la grabación de las líneas del pedido actual (Err_3023). Revise los datos")
+                    Exit Sub
+                End Try
+                If row.Cells(11).Value = "" Then
+                    Try
+                        descontarStockConversion(arti, lincant)
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                        Exit Sub
+                    End Try
+                Else
+                    Try
+                        vLote = row.Cells(11).Value
+                        descontarStockLoteConversion(vLote, lincant)
+                    Catch ex As Exception
+                        MsgBox("Se ha producido un error en la actualización del stock de artículos. Revise los datos")
+                        Exit Sub
+                    End Try
+                End If
 
             Next
 
@@ -1970,213 +2000,24 @@ Public Class frPedido
     End Sub
 
     Private Sub txCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles txCliente.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
-            conexionmy.Open()
-
-            Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
-                                                    pedido_cab.referencia,
-                                                    pedido_cab.fecha, 
-                                                    clientes.nombre, 
-                                                    pedido_cab.totalbruto, 
-                                                    pedido_cab.totalpedido, 
-                                                    pedido_cab.clienteID,
-                                                    pedido_cab.eliminado, 
-                                                    clientes.clienteID 
-                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
-
-            Dim readermy As MySqlDataReader
-            Dim dtable As New DataTable
-            Dim bind As New BindingSource()
+        'If e.KeyCode = Keys.Enter Then
 
 
-            readermy = consultamy.ExecuteReader
-            dtable.Load(readermy, LoadOption.OverwriteChanges)
-
-            bind.DataSource = dtable
-
-            dgPedidos.DataSource = bind
-            dgPedidos.EnableHeadersVisualStyles = False
-            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
-            styCabeceras.BackColor = Color.Beige
-            styCabeceras.ForeColor = Color.Black
-            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
-            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
-
-            dgPedidos.Columns(0).HeaderText = "NUMERO"
-            dgPedidos.Columns(0).Name = "Column1"
-            dgPedidos.Columns(0).FillWeight = 90
-            dgPedidos.Columns(0).MinimumWidth = 90
-            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
-            dgPedidos.Columns(1).Name = "Column2"
-            dgPedidos.Columns(1).FillWeight = 190
-            dgPedidos.Columns(1).MinimumWidth = 190
-            dgPedidos.Columns(2).HeaderText = "FECHA"
-            dgPedidos.Columns(2).Name = "Column3"
-            dgPedidos.Columns(2).FillWeight = 90
-            dgPedidos.Columns(2).MinimumWidth = 90
-            dgPedidos.Columns(3).HeaderText = "CLIENTE"
-            dgPedidos.Columns(3).Name = "Column4"
-            dgPedidos.Columns(3).FillWeight = 300
-            dgPedidos.Columns(3).MinimumWidth = 300
-            dgPedidos.Columns(4).HeaderText = "IMPORTE"
-            dgPedidos.Columns(4).Name = "Column5"
-            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(4).FillWeight = 90
-            dgPedidos.Columns(4).MinimumWidth = 90
-            dgPedidos.Columns(5).HeaderText = "TOTAL"
-            dgPedidos.Columns(5).Name = "Column6"
-            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(5).FillWeight = 90
-            dgPedidos.Columns(5).MinimumWidth = 90
-            dgPedidos.Columns(6).Visible = False
-            dgPedidos.Columns(7).Visible = False
-            dgPedidos.Columns(8).Visible = False
-            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            dgPedidos.Visible = True
-            conexionmy.Close()
-
-        End If
+        'End If
     End Sub
 
     Private Sub txNumero_KeyDown(sender As Object, e As KeyEventArgs) Handles txNumero.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
-            conexionmy.Open()
-
-            Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
-                                                    pedido_cab.referencia,
-                                                    pedido_cab.fecha, 
-                                                    clientes.nombre, 
-                                                    pedido_cab.totalbruto, 
-                                                    pedido_cab.totalpedido, 
-                                                    pedido_cab.clienteID,
-                                                    pedido_cab.eliminado, 
-                                                    clientes.clienteID 
-                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.num_pedido LIKE '" & txNumero.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
-
-            Dim readermy As MySqlDataReader
-            Dim dtable As New DataTable
-            Dim bind As New BindingSource()
+        'If e.KeyCode = Keys.Enter Then
 
 
-            readermy = consultamy.ExecuteReader
-            dtable.Load(readermy, LoadOption.OverwriteChanges)
-
-            bind.DataSource = dtable
-
-            dgPedidos.DataSource = bind
-            dgPedidos.EnableHeadersVisualStyles = False
-            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
-            styCabeceras.BackColor = Color.Beige
-            styCabeceras.ForeColor = Color.Black
-            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
-            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
-
-            dgPedidos.Columns(0).HeaderText = "NUMERO"
-            dgPedidos.Columns(0).Name = "Column1"
-            dgPedidos.Columns(0).FillWeight = 90
-            dgPedidos.Columns(0).MinimumWidth = 90
-            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
-            dgPedidos.Columns(1).Name = "Column2"
-            dgPedidos.Columns(1).FillWeight = 190
-            dgPedidos.Columns(1).MinimumWidth = 190
-            dgPedidos.Columns(2).HeaderText = "FECHA"
-            dgPedidos.Columns(2).Name = "Column3"
-            dgPedidos.Columns(2).FillWeight = 90
-            dgPedidos.Columns(2).MinimumWidth = 90
-            dgPedidos.Columns(3).HeaderText = "CLIENTE"
-            dgPedidos.Columns(3).Name = "Column4"
-            dgPedidos.Columns(3).FillWeight = 300
-            dgPedidos.Columns(3).MinimumWidth = 300
-            dgPedidos.Columns(4).HeaderText = "IMPORTE"
-            dgPedidos.Columns(4).Name = "Column5"
-            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(4).FillWeight = 90
-            dgPedidos.Columns(4).MinimumWidth = 90
-            dgPedidos.Columns(5).HeaderText = "TOTAL"
-            dgPedidos.Columns(5).Name = "Column6"
-            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(5).FillWeight = 90
-            dgPedidos.Columns(5).MinimumWidth = 90
-            dgPedidos.Columns(6).Visible = False
-            dgPedidos.Columns(7).Visible = False
-            dgPedidos.Columns(8).Visible = False
-            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            dgPedidos.Visible = True
-            conexionmy.Close()
-
-        End If
+        'End If
     End Sub
 
     Private Sub txReferencia_KeyDown(sender As Object, e As KeyEventArgs) Handles txReferencia.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
-            conexionmy.Open()
-
-            Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
-                                                    pedido_cab.referencia,
-                                                    pedido_cab.fecha, 
-                                                    clientes.nombre, 
-                                                    pedido_cab.totalbruto, 
-                                                    pedido_cab.totalpedido, 
-                                                    pedido_cab.clienteID,
-                                                    pedido_cab.eliminado, 
-                                                    clientes.clienteID 
-                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
-
-            Dim readermy As MySqlDataReader
-            Dim dtable As New DataTable
-            Dim bind As New BindingSource()
+        'If e.KeyCode = Keys.Enter Then
 
 
-            readermy = consultamy.ExecuteReader
-            dtable.Load(readermy, LoadOption.OverwriteChanges)
-
-            bind.DataSource = dtable
-
-            dgPedidos.DataSource = bind
-            dgPedidos.EnableHeadersVisualStyles = False
-            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
-            styCabeceras.BackColor = Color.Beige
-            styCabeceras.ForeColor = Color.Black
-            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
-            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
-
-            dgPedidos.Columns(0).HeaderText = "NUMERO"
-            dgPedidos.Columns(0).Name = "Column1"
-            dgPedidos.Columns(0).FillWeight = 90
-            dgPedidos.Columns(0).MinimumWidth = 90
-            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
-            dgPedidos.Columns(1).Name = "Column2"
-            dgPedidos.Columns(1).FillWeight = 190
-            dgPedidos.Columns(1).MinimumWidth = 190
-            dgPedidos.Columns(2).HeaderText = "FECHA"
-            dgPedidos.Columns(2).Name = "Column3"
-            dgPedidos.Columns(2).FillWeight = 90
-            dgPedidos.Columns(2).MinimumWidth = 90
-            dgPedidos.Columns(3).HeaderText = "CLIENTE"
-            dgPedidos.Columns(3).Name = "Column4"
-            dgPedidos.Columns(3).FillWeight = 300
-            dgPedidos.Columns(3).MinimumWidth = 300
-            dgPedidos.Columns(4).HeaderText = "IMPORTE"
-            dgPedidos.Columns(4).Name = "Column5"
-            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(4).FillWeight = 90
-            dgPedidos.Columns(4).MinimumWidth = 90
-            dgPedidos.Columns(5).HeaderText = "TOTAL"
-            dgPedidos.Columns(5).Name = "Column6"
-            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(5).FillWeight = 90
-            dgPedidos.Columns(5).MinimumWidth = 90
-            dgPedidos.Columns(6).Visible = False
-            dgPedidos.Columns(7).Visible = False
-            dgPedidos.Columns(8).Visible = False
-            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            dgPedidos.Visible = True
-            conexionmy.Close()
-
-        End If
+        'End If
     End Sub
 
     Private Sub txHasta_KeyDown(sender As Object, e As KeyEventArgs) Handles txHasta.KeyDown
@@ -2254,73 +2095,9 @@ Public Class frPedido
     End Sub
 
     Private Sub txGeneral_KeyDown(sender As Object, e As KeyEventArgs) Handles txGeneral.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
-            conexionmy.Open()
+        'If e.KeyCode = Keys.Enter Then
 
-            Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
-                                                    pedido_cab.referencia,
-                                                    pedido_cab.fecha, 
-                                                    clientes.nombre, 
-                                                    pedido_cab.totalbruto, 
-                                                    pedido_cab.totalpedido, 
-                                                    pedido_cab.clienteID,
-                                                    pedido_cab.eliminado, 
-                                                    clientes.clienteID 
-                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
-
-            Dim readermy As MySqlDataReader
-            Dim dtable As New DataTable
-            Dim bind As New BindingSource()
-
-
-            readermy = consultamy.ExecuteReader
-            dtable.Load(readermy, LoadOption.OverwriteChanges)
-
-            bind.DataSource = dtable
-
-            dgPedidos.DataSource = bind
-            dgPedidos.EnableHeadersVisualStyles = False
-            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
-            styCabeceras.BackColor = Color.Beige
-            styCabeceras.ForeColor = Color.Black
-            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
-            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
-
-            dgPedidos.Columns(0).HeaderText = "NUMERO"
-            dgPedidos.Columns(0).Name = "Column1"
-            dgPedidos.Columns(0).FillWeight = 90
-            dgPedidos.Columns(0).MinimumWidth = 90
-            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
-            dgPedidos.Columns(1).Name = "Column2"
-            dgPedidos.Columns(1).FillWeight = 190
-            dgPedidos.Columns(1).MinimumWidth = 190
-            dgPedidos.Columns(2).HeaderText = "FECHA"
-            dgPedidos.Columns(2).Name = "Column3"
-            dgPedidos.Columns(2).FillWeight = 90
-            dgPedidos.Columns(2).MinimumWidth = 90
-            dgPedidos.Columns(3).HeaderText = "CLIENTE"
-            dgPedidos.Columns(3).Name = "Column4"
-            dgPedidos.Columns(3).FillWeight = 300
-            dgPedidos.Columns(3).MinimumWidth = 300
-            dgPedidos.Columns(4).HeaderText = "IMPORTE"
-            dgPedidos.Columns(4).Name = "Column5"
-            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(4).FillWeight = 90
-            dgPedidos.Columns(4).MinimumWidth = 90
-            dgPedidos.Columns(5).HeaderText = "TOTAL"
-            dgPedidos.Columns(5).Name = "Column6"
-            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            dgPedidos.Columns(5).FillWeight = 90
-            dgPedidos.Columns(5).MinimumWidth = 90
-            dgPedidos.Columns(6).Visible = False
-            dgPedidos.Columns(7).Visible = False
-            dgPedidos.Columns(8).Visible = False
-            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-            dgPedidos.Visible = True
-            conexionmy.Close()
-
-        End If
+        'End If
     End Sub
 
     Private Sub dgLineasPres1_KeyDown(sender As Object, e As KeyEventArgs) Handles dgLineasPres1.KeyDown
@@ -2413,7 +2190,7 @@ Public Class frPedido
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock_disp, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
@@ -2424,7 +2201,7 @@ Public Class frPedido
                 linstock = stock.ToString
                 guardo_linstock = Replace(linstock, ",", ".")
 
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock_disp = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
                 cmdActualizo.ExecuteNonQuery()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
@@ -2441,7 +2218,7 @@ Public Class frPedido
             conexionmy.Open()
 
             Try
-                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock_disp, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
 
@@ -2451,7 +2228,7 @@ Public Class frPedido
                 Dim guardo_linstock As String
                 linstock = stock.ToString
                 guardo_linstock = Replace(linstock, ",", ".")
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock_disp = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
                 cmdActualizo.ExecuteNonQuery()
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")
@@ -2494,6 +2271,544 @@ Public Class frPedido
 
     Private Sub frPedido_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         launcher.PedidosToolStripMenuItem.Enabled = True
+
+    End Sub
+    Private Sub descontarStockConversion(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) - unidades).ToString
+                reader.Close()
+
+                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock asociado al pedido (Err_3033). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+    End Sub
+    Private Sub aumentarStockConversion(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) + unidades).ToString
+                reader.Close()
+
+                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock asociado al pedido (Err_3034). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+    End Sub
+    Public Sub descontarStockLoteConversion(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) - unidades).ToString
+                reader.Close()
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
+
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+
+    End Sub
+    Public Sub aumentarStockLoteConversion(codArti As String, unidades As Decimal)
+        If codArti <> "" Then
+            Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+            conexionmy.Open()
+
+            Try
+                Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
+                Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
+                reader.Read()
+
+                Dim stock As String = (reader.GetString(1) + unidades).ToString
+                reader.Close()
+                Dim linstock As String
+                Dim guardo_linstock As String
+                linstock = stock.ToString
+                guardo_linstock = Replace(linstock, ",", ".")
+                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                cmdActualizo.ExecuteNonQuery()
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")
+                Exit Sub
+            End Try
+
+            conexionmy.Close()
+        End If
+
+    End Sub
+    Public Sub cargoPedidosSerie1()
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.serie, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE serie = '1' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+        Try
+            readermy = consultamy.ExecuteReader
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgPedidos.DataSource = bind
+            dgPedidos.EnableHeadersVisualStyles = False
+            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+            styCabeceras.BackColor = Color.Beige
+            styCabeceras.ForeColor = Color.Black
+            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+            dgPedidos.Columns(0).HeaderText = "NUMERO"
+            dgPedidos.Columns(0).Name = "Column1"
+            dgPedidos.Columns(0).FillWeight = 90
+            dgPedidos.Columns(0).MinimumWidth = 90
+            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+            dgPedidos.Columns(1).Name = "Column2"
+            dgPedidos.Columns(1).FillWeight = 190
+            dgPedidos.Columns(1).MinimumWidth = 190
+            dgPedidos.Columns(2).HeaderText = "FECHA"
+            dgPedidos.Columns(2).Name = "Column3"
+            dgPedidos.Columns(2).FillWeight = 90
+            dgPedidos.Columns(2).MinimumWidth = 90
+            dgPedidos.Columns(3).HeaderText = "CLIENTE"
+            dgPedidos.Columns(3).Name = "Column4"
+            dgPedidos.Columns(3).FillWeight = 300
+            dgPedidos.Columns(3).MinimumWidth = 300
+            dgPedidos.Columns(4).HeaderText = "IMPORTE"
+            dgPedidos.Columns(4).Name = "Column5"
+            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgPedidos.Columns(4).FillWeight = 90
+            dgPedidos.Columns(4).MinimumWidth = 90
+            dgPedidos.Columns(5).HeaderText = "TOTAL"
+            dgPedidos.Columns(5).Name = "Column6"
+            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgPedidos.Columns(5).FillWeight = 90
+            dgPedidos.Columns(5).MinimumWidth = 90
+            dgPedidos.Columns(6).Visible = False
+            dgPedidos.Columns(7).Visible = False
+            dgPedidos.Columns(8).Visible = False
+            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dgPedidos.Visible = True
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de pedidos (Err_3001). Revise los datos")
+            Exit Sub
+
+        End Try
+
+        conexionmy.Close()
+    End Sub
+    Public Sub cargoPedidosSerie2()
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.serie, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE serie = '2' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+        Try
+            readermy = consultamy.ExecuteReader
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgPedidos.DataSource = bind
+            dgPedidos.EnableHeadersVisualStyles = False
+            Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+            styCabeceras.BackColor = Color.Beige
+            styCabeceras.ForeColor = Color.Black
+            styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+            dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+            dgPedidos.Columns(0).HeaderText = "NUMERO"
+            dgPedidos.Columns(0).Name = "Column1"
+            dgPedidos.Columns(0).FillWeight = 90
+            dgPedidos.Columns(0).MinimumWidth = 90
+            dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+            dgPedidos.Columns(1).Name = "Column2"
+            dgPedidos.Columns(1).FillWeight = 190
+            dgPedidos.Columns(1).MinimumWidth = 190
+            dgPedidos.Columns(2).HeaderText = "FECHA"
+            dgPedidos.Columns(2).Name = "Column3"
+            dgPedidos.Columns(2).FillWeight = 90
+            dgPedidos.Columns(2).MinimumWidth = 90
+            dgPedidos.Columns(3).HeaderText = "CLIENTE"
+            dgPedidos.Columns(3).Name = "Column4"
+            dgPedidos.Columns(3).FillWeight = 300
+            dgPedidos.Columns(3).MinimumWidth = 300
+            dgPedidos.Columns(4).HeaderText = "IMPORTE"
+            dgPedidos.Columns(4).Name = "Column5"
+            dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgPedidos.Columns(4).FillWeight = 90
+            dgPedidos.Columns(4).MinimumWidth = 90
+            dgPedidos.Columns(5).HeaderText = "TOTAL"
+            dgPedidos.Columns(5).Name = "Column6"
+            dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            dgPedidos.Columns(5).FillWeight = 90
+            dgPedidos.Columns(5).MinimumWidth = 90
+            dgPedidos.Columns(6).Visible = False
+            dgPedidos.Columns(7).Visible = False
+            dgPedidos.Columns(8).Visible = False
+            dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+            dgPedidos.Visible = True
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de pedidos (Err_3001). Revise los datos")
+            Exit Sub
+
+        End Try
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles rbSerie1.CheckedChanged
+        If rbSerie1.Checked = True Then
+            cargoPedidosSerie1()
+        End If
+    End Sub
+
+    Private Sub rbSerie2_CheckedChanged(sender As Object, e As EventArgs) Handles rbSerie2.CheckedChanged
+        If rbSerie2.Checked = True Then
+            cargoPedidosSerie2()
+        End If
+    End Sub
+    Public Sub deshabilitarBotonesLight()
+        cmdGuardar.Enabled = False
+        'cmdCancelar.Enabled = False
+        cmdDelete.Enabled = False
+        'cmdImprimir.Enabled = False
+        'cmdPDF.Enabled = False
+        'cmdMail.Enabled = False
+        cmdPedido.Enabled = False
+        cmdAlbaran.Enabled = False
+        cmdToldos.Enabled = False
+        cmdCliente.Enabled = False
+        cmdRentabilidad.Enabled = False
+        cmdLineas.Enabled = False
+    End Sub
+
+    Private Sub txCliente_TextChanged(sender As Object, e As EventArgs) Handles txCliente.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.eliminado, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgPedidos.DataSource = bind
+        dgPedidos.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgPedidos.Columns(0).HeaderText = "NUMERO"
+        dgPedidos.Columns(0).Name = "Column1"
+        dgPedidos.Columns(0).FillWeight = 90
+        dgPedidos.Columns(0).MinimumWidth = 90
+        dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+        dgPedidos.Columns(1).Name = "Column2"
+        dgPedidos.Columns(1).FillWeight = 190
+        dgPedidos.Columns(1).MinimumWidth = 190
+        dgPedidos.Columns(2).HeaderText = "FECHA"
+        dgPedidos.Columns(2).Name = "Column3"
+        dgPedidos.Columns(2).FillWeight = 90
+        dgPedidos.Columns(2).MinimumWidth = 90
+        dgPedidos.Columns(3).HeaderText = "CLIENTE"
+        dgPedidos.Columns(3).Name = "Column4"
+        dgPedidos.Columns(3).FillWeight = 300
+        dgPedidos.Columns(3).MinimumWidth = 300
+        dgPedidos.Columns(4).HeaderText = "IMPORTE"
+        dgPedidos.Columns(4).Name = "Column5"
+        dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(4).FillWeight = 90
+        dgPedidos.Columns(4).MinimumWidth = 90
+        dgPedidos.Columns(5).HeaderText = "TOTAL"
+        dgPedidos.Columns(5).Name = "Column6"
+        dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(5).FillWeight = 90
+        dgPedidos.Columns(5).MinimumWidth = 90
+        dgPedidos.Columns(6).Visible = False
+        dgPedidos.Columns(7).Visible = False
+        dgPedidos.Columns(8).Visible = False
+        dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgPedidos.Visible = True
+        conexionmy.Close()
+    End Sub
+
+    Private Sub txNumero_TextChanged(sender As Object, e As EventArgs) Handles txNumero.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.eliminado, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.num_pedido LIKE '" & txNumero.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgPedidos.DataSource = bind
+        dgPedidos.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgPedidos.Columns(0).HeaderText = "NUMERO"
+        dgPedidos.Columns(0).Name = "Column1"
+        dgPedidos.Columns(0).FillWeight = 90
+        dgPedidos.Columns(0).MinimumWidth = 90
+        dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+        dgPedidos.Columns(1).Name = "Column2"
+        dgPedidos.Columns(1).FillWeight = 190
+        dgPedidos.Columns(1).MinimumWidth = 190
+        dgPedidos.Columns(2).HeaderText = "FECHA"
+        dgPedidos.Columns(2).Name = "Column3"
+        dgPedidos.Columns(2).FillWeight = 90
+        dgPedidos.Columns(2).MinimumWidth = 90
+        dgPedidos.Columns(3).HeaderText = "CLIENTE"
+        dgPedidos.Columns(3).Name = "Column4"
+        dgPedidos.Columns(3).FillWeight = 300
+        dgPedidos.Columns(3).MinimumWidth = 300
+        dgPedidos.Columns(4).HeaderText = "IMPORTE"
+        dgPedidos.Columns(4).Name = "Column5"
+        dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(4).FillWeight = 90
+        dgPedidos.Columns(4).MinimumWidth = 90
+        dgPedidos.Columns(5).HeaderText = "TOTAL"
+        dgPedidos.Columns(5).Name = "Column6"
+        dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(5).FillWeight = 90
+        dgPedidos.Columns(5).MinimumWidth = 90
+        dgPedidos.Columns(6).Visible = False
+        dgPedidos.Columns(7).Visible = False
+        dgPedidos.Columns(8).Visible = False
+        dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgPedidos.Visible = True
+        conexionmy.Close()
+    End Sub
+
+    Private Sub txReferencia_TextChanged(sender As Object, e As EventArgs) Handles txReferencia.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.eliminado, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgPedidos.DataSource = bind
+        dgPedidos.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgPedidos.Columns(0).HeaderText = "NUMERO"
+        dgPedidos.Columns(0).Name = "Column1"
+        dgPedidos.Columns(0).FillWeight = 90
+        dgPedidos.Columns(0).MinimumWidth = 90
+        dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+        dgPedidos.Columns(1).Name = "Column2"
+        dgPedidos.Columns(1).FillWeight = 190
+        dgPedidos.Columns(1).MinimumWidth = 190
+        dgPedidos.Columns(2).HeaderText = "FECHA"
+        dgPedidos.Columns(2).Name = "Column3"
+        dgPedidos.Columns(2).FillWeight = 90
+        dgPedidos.Columns(2).MinimumWidth = 90
+        dgPedidos.Columns(3).HeaderText = "CLIENTE"
+        dgPedidos.Columns(3).Name = "Column4"
+        dgPedidos.Columns(3).FillWeight = 300
+        dgPedidos.Columns(3).MinimumWidth = 300
+        dgPedidos.Columns(4).HeaderText = "IMPORTE"
+        dgPedidos.Columns(4).Name = "Column5"
+        dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(4).FillWeight = 90
+        dgPedidos.Columns(4).MinimumWidth = 90
+        dgPedidos.Columns(5).HeaderText = "TOTAL"
+        dgPedidos.Columns(5).Name = "Column6"
+        dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(5).FillWeight = 90
+        dgPedidos.Columns(5).MinimumWidth = 90
+        dgPedidos.Columns(6).Visible = False
+        dgPedidos.Columns(7).Visible = False
+        dgPedidos.Columns(8).Visible = False
+        dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgPedidos.Visible = True
+        conexionmy.Close()
+    End Sub
+
+    Private Sub txGeneral_TextChanged(sender As Object, e As EventArgs) Handles txGeneral.TextChanged
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+
+        Dim consultamy As New MySqlCommand("SELECT pedido_cab.num_pedido, 
+                                                    pedido_cab.referencia,
+                                                    pedido_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    pedido_cab.totalbruto, 
+                                                    pedido_cab.totalpedido, 
+                                                    pedido_cab.clienteID,
+                                                    pedido_cab.eliminado, 
+                                                    clientes.clienteID 
+                                            FROM pedido_cab INNER JOIN clientes ON pedido_cab.clienteID=clientes.clienteID WHERE pedido_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY pedido_cab.num_pedido DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+
+        readermy = consultamy.ExecuteReader
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgPedidos.DataSource = bind
+        dgPedidos.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgPedidos.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgPedidos.Columns(0).HeaderText = "NUMERO"
+        dgPedidos.Columns(0).Name = "Column1"
+        dgPedidos.Columns(0).FillWeight = 90
+        dgPedidos.Columns(0).MinimumWidth = 90
+        dgPedidos.Columns(1).HeaderText = "REFERENCIA"
+        dgPedidos.Columns(1).Name = "Column2"
+        dgPedidos.Columns(1).FillWeight = 190
+        dgPedidos.Columns(1).MinimumWidth = 190
+        dgPedidos.Columns(2).HeaderText = "FECHA"
+        dgPedidos.Columns(2).Name = "Column3"
+        dgPedidos.Columns(2).FillWeight = 90
+        dgPedidos.Columns(2).MinimumWidth = 90
+        dgPedidos.Columns(3).HeaderText = "CLIENTE"
+        dgPedidos.Columns(3).Name = "Column4"
+        dgPedidos.Columns(3).FillWeight = 300
+        dgPedidos.Columns(3).MinimumWidth = 300
+        dgPedidos.Columns(4).HeaderText = "IMPORTE"
+        dgPedidos.Columns(4).Name = "Column5"
+        dgPedidos.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(4).FillWeight = 90
+        dgPedidos.Columns(4).MinimumWidth = 90
+        dgPedidos.Columns(5).HeaderText = "TOTAL"
+        dgPedidos.Columns(5).Name = "Column6"
+        dgPedidos.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgPedidos.Columns(5).FillWeight = 90
+        dgPedidos.Columns(5).MinimumWidth = 90
+        dgPedidos.Columns(6).Visible = False
+        dgPedidos.Columns(7).Visible = False
+        dgPedidos.Columns(8).Visible = False
+        dgPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgPedidos.Visible = True
+        conexionmy.Close()
 
     End Sub
 End Class

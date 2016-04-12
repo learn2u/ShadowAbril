@@ -80,6 +80,7 @@ Partial Class frAlbaran
         Me.cmdImprimir = New System.Windows.Forms.ToolStripButton()
         Me.cmdCancelar = New System.Windows.Forms.ToolStripButton()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.dtpFechaPago = New System.Windows.Forms.DateTimePicker()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.ckPagado = New System.Windows.Forms.CheckBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -199,7 +200,6 @@ Partial Class frAlbaran
         Me.albaran_lineaTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_lineaTableAdapter()
         Me.clientesTableAdapter = New shadow.dsAlbaranesTableAdapters.clientesTableAdapter()
         Me.albaran_cabTableAdapter = New shadow.dsAlbaranesTableAdapters.albaran_cabTableAdapter()
-        Me.dtpFechaPago = New System.Windows.Forms.DateTimePicker()
         CType(Me.albaran_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dsAlbaranes, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -521,6 +521,14 @@ Partial Class frAlbaran
         Me.TabPage2.Size = New System.Drawing.Size(1237, 563)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "ALBARÁN"
+        '
+        'dtpFechaPago
+        '
+        Me.dtpFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtpFechaPago.Location = New System.Drawing.Point(1087, 125)
+        Me.dtpFechaPago.Name = "dtpFechaPago"
+        Me.dtpFechaPago.Size = New System.Drawing.Size(106, 20)
+        Me.dtpFechaPago.TabIndex = 117
         '
         'Label13
         '
@@ -1265,7 +1273,6 @@ Partial Class frAlbaran
         Me.txAgente.Name = "txAgente"
         Me.txAgente.Size = New System.Drawing.Size(68, 20)
         Me.txAgente.TabIndex = 74
-        Me.txAgente.Visible = False
         '
         'cbEstado
         '
@@ -1692,14 +1699,6 @@ Partial Class frAlbaran
         'albaran_cabTableAdapter
         '
         Me.albaran_cabTableAdapter.ClearBeforeFill = True
-        '
-        'dtpFechaPago
-        '
-        Me.dtpFechaPago.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpFechaPago.Location = New System.Drawing.Point(1087, 125)
-        Me.dtpFechaPago.Name = "dtpFechaPago"
-        Me.dtpFechaPago.Size = New System.Drawing.Size(106, 20)
-        Me.dtpFechaPago.TabIndex = 117
         '
         'frAlbaran
         '

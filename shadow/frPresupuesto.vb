@@ -996,8 +996,14 @@ Public Class frPresupuestos
                 Try
                     dgLineasPres1.CurrentRow.Cells(3).Value = rdrArt("descripcion")
                     dgLineasPres1.CurrentRow.Cells(4).Value = 1
-                    dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                    dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
+                    If rdrArt("familia") = 7 Or rdrArt("familia") = 3 Then
+                        dgLineasPres1.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                        dgLineasPres1.CurrentRow.Cells(6).Value = dgLineasPres1.CurrentRow.Cells(4).Value * dgLineasPres1.CurrentRow.Cells(5).Value
+                    Else
+                        dgLineasPres1.CurrentRow.Cells(5).Value = 0
+                        dgLineasPres1.CurrentRow.Cells(6).Value = 0
+                    End If
+
                     dgLineasPres1.CurrentRow.Cells(7).Value = rdrArt("pvp")
                     dgLineasPres1.CurrentRow.Cells(8).Value = txDtocli.Text
                     dgLineasPres1.CurrentRow.Cells(9).Value = 0
@@ -1015,8 +1021,14 @@ Public Class frPresupuestos
                 Try
                     dgLineasPres2.CurrentRow.Cells(3).Value = rdrArt("descripcion")
                     dgLineasPres2.CurrentRow.Cells(4).Value = 1
-                    dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
-                    dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
+                    If rdrArt("familia") = 7 Or rdrArt("familia") = 3 Then
+                        dgLineasPres2.CurrentRow.Cells(5).Value = rdrArt("medidaID") / 100
+                        dgLineasPres2.CurrentRow.Cells(6).Value = dgLineasPres2.CurrentRow.Cells(4).Value * dgLineasPres2.CurrentRow.Cells(5).Value
+                    Else
+                        dgLineasPres2.CurrentRow.Cells(5).Value = 0
+                        dgLineasPres2.CurrentRow.Cells(6).Value = 0
+                    End If
+
                     dgLineasPres2.CurrentRow.Cells(7).Value = rdrArt("pvp")
                     dgLineasPres2.CurrentRow.Cells(8).Value = txDtocli.Text
                     dgLineasPres2.CurrentRow.Cells(9).Value = 0

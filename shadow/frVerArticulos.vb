@@ -189,10 +189,7 @@ Public Class frVerArticulos
 
             conexionmy.Close()
         Else
-
         End If
-
-
     End Sub
 
     Private Sub dgArticulos_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgArticulos.CellDoubleClick
@@ -416,9 +413,6 @@ Public Class frVerArticulos
                 End If
             End If
         End If
-
-
-
     End Sub
 
     Private Sub txArticulo_KeyDown(sender As Object, e As KeyEventArgs) Handles txArticulo.KeyDown
@@ -659,10 +653,7 @@ Public Class frVerArticulos
                     End If
                 End If
             End If
-
-
         End If
-
     End Sub
 
     Private Sub txCodigo_KeyDown(sender As Object, e As KeyEventArgs) Handles txCodigo.KeyDown
@@ -897,12 +888,6 @@ Public Class frVerArticulos
                     End If
                 End If
             End If
-
-
         End If
-    End Sub
-
-    Private Sub dgArticulos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgArticulos.CellContentClick
-
     End Sub
 End Class

@@ -58,6 +58,7 @@ Partial Class frFacturaAlbaran
         Me.cmdRentabilidad = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.txCliente = New System.Windows.Forms.TextBox()
+        Me.txAgente = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgClientes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -236,7 +237,7 @@ Partial Class frFacturaAlbaran
         'txCodcli
         '
         Me.txCodcli.BackColor = System.Drawing.Color.White
-        Me.txCodcli.Location = New System.Drawing.Point(367, 59)
+        Me.txCodcli.Location = New System.Drawing.Point(330, 53)
         Me.txCodcli.Name = "txCodcli"
         Me.txCodcli.ReadOnly = True
         Me.txCodcli.Size = New System.Drawing.Size(42, 20)
@@ -245,10 +246,13 @@ Partial Class frFacturaAlbaran
         '
         'dgClientes
         '
+        Me.dgClientes.AllowUserToAddRows = False
+        Me.dgClientes.AllowUserToDeleteRows = False
         Me.dgClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgClientes.Location = New System.Drawing.Point(29, 111)
         Me.dgClientes.Name = "dgClientes"
-        Me.dgClientes.Size = New System.Drawing.Size(472, 103)
+        Me.dgClientes.ReadOnly = True
+        Me.dgClientes.Size = New System.Drawing.Size(472, 290)
         Me.dgClientes.TabIndex = 116
         '
         'dgAlbaranes
@@ -398,12 +402,21 @@ Partial Class frFacturaAlbaran
         Me.txCliente.Size = New System.Drawing.Size(314, 20)
         Me.txCliente.TabIndex = 6
         '
+        'txAgente
+        '
+        Me.txAgente.Location = New System.Drawing.Point(378, 53)
+        Me.txAgente.Name = "txAgente"
+        Me.txAgente.Size = New System.Drawing.Size(67, 20)
+        Me.txAgente.TabIndex = 121
+        Me.txAgente.Visible = False
+        '
         'frFacturaAlbaran
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(834, 541)
+        Me.Controls.Add(Me.txAgente)
         Me.Controls.Add(Me.dgClientes)
         Me.Controls.Add(Me.txCliente)
         Me.Controls.Add(Me.tsBotones)
@@ -470,4 +483,5 @@ Partial Class frFacturaAlbaran
     Friend WithEvents txFechaD As MaskedTextBox
     Friend WithEvents txAlbaH As TextBox
     Friend WithEvents txAlbaD As TextBox
+    Friend WithEvents txAgente As TextBox
 End Class

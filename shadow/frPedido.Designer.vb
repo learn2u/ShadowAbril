@@ -1099,7 +1099,6 @@ Partial Class frPedido
         Me.txAgente.Name = "txAgente"
         Me.txAgente.Size = New System.Drawing.Size(68, 20)
         Me.txAgente.TabIndex = 74
-        Me.txAgente.Visible = False
         '
         'cbEstado
         '

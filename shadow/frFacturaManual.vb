@@ -18,6 +18,7 @@ Public Class frFacturaManual
     Public Shared vtosEdit As New List(Of vtosEditados)
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
+    Public Shared artiLote As String
     Private Sub frFacturaManual_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
         grPlazos.Visible = False
@@ -279,13 +280,14 @@ Public Class frFacturaManual
 
         If flagEdit = "N" Then
             For Each row2 As DataGridViewRow In dgLineasPres1.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
             Next
         Else
             For Each row2 As DataGridViewRow In dgLineasPres2.Rows
-                totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
+                totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
             Next
         End If
 
@@ -885,17 +887,31 @@ Public Class frFacturaManual
             recalcularTotales()
         End If
         If (e.ColumnIndex = 4) Then
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                artiLote = "N"
+            Else
+                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                artiLote = "S"
+            End If
             cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
             lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
-            'MsgBox(artiEdit)
-            'MsgBox(cantIni)
-            'MsgBox(cantFin)
         End If
         If (e.ColumnIndex = 2) Then
             Dim vRef As String = dgLineasPres2.CurrentCell.Value
             cargarArticulos(vRef)
             actualizarLinea()
             recalcularTotales()
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                artiLote = "N"
+            Else
+                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                artiLote = "S"
+            End If
+            cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+
         End If
     End Sub
     Public Sub recalcularDescuentos()

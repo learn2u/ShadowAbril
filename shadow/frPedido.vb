@@ -335,8 +335,8 @@ Public Class frPedido
         If flagEdit = "N" Then
             Try
                 For Each row2 As DataGridViewRow In dgLineasPres1.Rows
-                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                    totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                    dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
                 Next
             Catch ex As Exception
                 MsgBox("Se ha producido un error en el recálculo de totales en pedidos (Err_3006). Revise los datos")
@@ -346,8 +346,9 @@ Public Class frPedido
         Else
             Try
                 For Each row2 As DataGridViewRow In dgLineasPres2.Rows
-                    totalLinea = totalLinea + Decimal.Parse(row2.Cells(9).Value)
-                    dtoLinea = dtoLinea + (Decimal.Parse(row2.Cells(9).Value) * Decimal.Parse(row2.Cells(8).Value)) / 100
+                    'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
+                    totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                    dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
                 Next
             Catch ex As Exception
                 MsgBox("Se ha producido un error en el recálculo de totales en pedidos (Err_3007). Revise los datos")
@@ -1141,6 +1142,16 @@ Public Class frPedido
             cargarArticulos(vRef)
             actualizarLinea()
             recalcularTotales()
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                artiLote = "N"
+            Else
+                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                artiLote = "S"
+            End If
+            cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
+
         End If
     End Sub
     Public Sub recalcularDescuentos()

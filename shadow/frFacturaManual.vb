@@ -756,6 +756,7 @@ Public Class frFacturaManual
         txAgente.Text = rdrCab("agenteID")
         txUsuario.Text = rdrCab("usuarioID")
         txEmpresa.Text = rdrCab("empresaID")
+        txManual.Text = rdrCab("manual")
         txReferenciapres.Text = rdrCab("referencia")
         txObserva.Text = rdrCab("observaciones")
 
@@ -1621,8 +1622,10 @@ Public Class frFacturaManual
 
             Dim cmdEliminar As New MySqlCommand("DELETE FROM factura_cab WHERE num_factura = '" + txtNumpres.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
+            If txManual.Text = "S" Then
+                eliminarFacturaEditStock()
+            End If
 
-            eliminarFacturaEditStock()
 
             Dim cmdEliminarLineas As New MySqlCommand("DELETE FROM factura_linea WHERE num_factura = '" + txtNumpres.Text + "'", conexionmy)
             cmdEliminarLineas.ExecuteNonQuery()

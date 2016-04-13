@@ -1355,7 +1355,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!totalbruto.Value, "dsAlbaranCab")-First(Fields!totaldto.Value, "dsAlbaranCab")</Value>
+                  <Value>=round(Sum(Fields!totalinea.Value, "dsAlbaranLin"),2, MidpointRounding.AwayFromZero)</Value>
                   <Style>
                     <FontSize>11pt</FontSize>
                     <FontWeight>Bold</FontWeight>

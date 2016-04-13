@@ -1025,6 +1025,7 @@ Public Class frAlbaran
             txNumcli.Text = rdrCli("clienteID")
             txClientepres.Text = rdrCli("nombre")
             txDtocli.Text = rdrCli("descuento")
+            txRecargo.Text = rdrCli("recargo")
         Catch ex As Exception
             MsgBox("Se ha producido un error en la carga del albarán (Err_1083). Revise los datos")
             Exit Sub

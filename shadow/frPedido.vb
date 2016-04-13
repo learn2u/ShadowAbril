@@ -1027,6 +1027,7 @@ Public Class frPedido
             txNumcli.Text = rdrCli("clienteID")
             txClientepres.Text = rdrCli("nombre")
             txDtocli.Text = rdrCli("descuento")
+            txRecargo.Text = rdrCli("recargo")
         Catch ex As Exception
             MsgBox("Se ha producido un error al cargar los datos del pedido (Err_3030). Revise los datos")
             Exit Sub

@@ -866,6 +866,7 @@ Public Class frPresupuestos
             txNumcli.Text = rdrCli("clienteID")
             txClientepres.Text = rdrCli("nombre")
             txDtocli.Text = rdrCli("descuento")
+            txRecargo.Text = rdrCli("recargo")
         Catch ex As Exception
             MsgBox("Se ha producido un error en la carga de clientes del presupuesto seleccionado (Err_2023). Revise los datos")
             Exit Sub

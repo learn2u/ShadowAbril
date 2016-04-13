@@ -809,6 +809,7 @@ Public Class frFacturaManual
         txClientepres.Text = rdrCli("nombre")
         txDtocli.Text = rdrCli("descuento")
         txDiapago.Text = rdrCli("diapago")
+        txRecargo.Text = rdrCli("recargo")
         rdrCli.Close()
 
         conexionmy.Close()

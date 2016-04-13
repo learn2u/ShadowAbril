@@ -469,13 +469,14 @@ Public Class frFacturaAlbaran
         If rdrAlb.HasRows = True Then
             linea = linea + 1
             Dim vAlb As String = nAlb.ToString
-            Dim vDescrip As String = "Albarán Nº " + vAlb
+            Dim vFechaAlb As Date = rdrAlb("fecha").ToString
+            Dim vDescrip As String = "***** ALBARAN Nº: " + vAlb + " DE: " + vFechaAlb + " *****"
 
             rdrAlb.Close()
 
             Dim cmdLinea As New MySqlCommand
             cmdLinea.CommandType = System.Data.CommandType.Text
-            cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, articuloID, descripcion, cantidad, precio, descuento, ivalinea, totalinea, linea) VALUES (" + txNumero.Text + " , '99999' , '" + vDescrip + "', 1, '0', '0', '0', '0', '" + linea.ToString + "')"
+            cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, articuloID, descripcion, cantidad, precio, descuento, ivalinea, totalinea, linea) VALUES (" + txNumero.Text + " , '99999' , '" + vDescrip + "', 0, '0', '0', '0', '0', '" + linea.ToString + "')"
             cmdLinea.Connection = conexionmy
             cmdLinea.ExecuteNonQuery()
             graboLineas(vAlb)

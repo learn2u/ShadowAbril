@@ -1428,6 +1428,9 @@ Public Class frPedido
             Dim cmdEliminar As New MySqlCommand("DELETE FROM pedido_cab WHERE num_pedido = '" + txtNumpres.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
 
+
+            eliminarPedidoEditStock()
+
             Dim cmdEliminarLineas As New MySqlCommand("DELETE FROM pedido_linea WHERE num_pedido = '" + txtNumpres.Text + "'", conexionmy)
             cmdEliminarLineas.ExecuteNonQuery()
 
@@ -2822,5 +2825,25 @@ Public Class frPedido
         dgPedidos.Visible = True
         conexionmy.Close()
 
+    End Sub
+    Public Sub eliminarPedidoEditStock()
+        Dim row As New DataGridViewRow
+        For Each row In dgLineasPres2.Rows
+            Try
+                If row.Cells(11).Value = "" Then
+                    artiEdit = row.Cells(2).Value
+                    cantIni = Decimal.Parse(row.Cells(4).Value)
+                    aumentarStock(artiEdit, cantIni)
+                Else
+                    artiEdit = row.Cells(11).Value
+                    cantIni = Decimal.Parse(row.Cells(4).Value)
+                    aumentarStockLote(artiEdit, cantIni)
+                End If
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en la actualización de stocks (Err_1151). Revise los datos")
+                Exit Sub
+            End Try
+
+        Next
     End Sub
 End Class

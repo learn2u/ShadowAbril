@@ -238,19 +238,19 @@ Public Class frPresupuestos
 
         Try
             If totalLinea < 1 Then
-                txImpBruto.Text = totalLinea.ToString("0.00")
+                txImpBruto.Text = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero).ToString("0.00")
             Else
-                txImpBruto.Text = totalLinea.ToString("#,###.00")
+                txImpBruto.Text = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
             If dtoLinea < 1 Then
-                txImpDto.Text = dtoLinea.ToString("0.00")
+                txImpDto.Text = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero).ToString("0.00")
             Else
-                txImpDto.Text = dtoLinea.ToString("#,###.00")
+                txImpDto.Text = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
             If (totalLinea - dtoLinea) < 1 Then
-                txImponible.Text = (totalLinea - dtoLinea).ToString("0.00")
+                txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("0.00")
             Else
-                txImponible.Text = (totalLinea - dtoLinea).ToString("#,###.00")
+                txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
 
             'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
@@ -258,16 +258,16 @@ Public Class frPresupuestos
             If txRecargo.Text = "S" Then
                 reclinea = (Decimal.Parse(txImponible.Text) * vRecargo) / 100
                 If reclinea < 1 Then
-                    txImpRecargo.Text = reclinea.ToString("0.00")
+                    txImpRecargo.Text = Math.Round(reclinea, 2, MidpointRounding.AwayFromZero).ToString("0.00")
                 Else
-                    txImpRecargo.Text = reclinea.ToString("#,###.00")
+                    txImpRecargo.Text = Math.Round(reclinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
                 End If
 
             End If
             If ivaLinea < 1 Then
-                txImpIva.Text = ivaLinea.ToString("0.00")
+                txImpIva.Text = Math.Round(ivaLinea, 2, MidpointRounding.AwayFromZero).ToString("0.00")
             Else
-                txImpIva.Text = ivaLinea.ToString("#,###.00")
+                txImpIva.Text = Math.Round(ivaLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
             If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
                 txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")

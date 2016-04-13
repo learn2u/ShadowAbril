@@ -51,7 +51,7 @@ Partial Class frVerClientes
         Me.txCliente.Location = New System.Drawing.Point(73, 43)
         Me.txCliente.Name = "txCliente"
         Me.txCliente.Size = New System.Drawing.Size(449, 20)
-        Me.txCliente.TabIndex = 2
+        Me.txCliente.TabIndex = 0
         '
         'frVerClientes
         '

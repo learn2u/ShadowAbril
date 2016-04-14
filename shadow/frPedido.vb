@@ -12,6 +12,7 @@ Public Class frPedido
     Public Shared lineasElim As New List(Of lineasEliminadas)
     Public Shared artiEdit As String
     Public Shared cantIni As Decimal
+    Public Shared cantidadInicialEdit As String = "N"
     Public Shared cantFin As Decimal
     Public Shared serieIni As String
     Public Shared posicion As Integer
@@ -216,6 +217,7 @@ Public Class frPedido
                     dgLineasPres2.Rows.Add()
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                    cantidadInicialEdit = "S"
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
@@ -250,11 +252,11 @@ Public Class frPedido
             Try
                 dgLineasPres1.Rows.Insert(dgLineasPres1.CurrentRow.Index)
                 renumerar()
-                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(4)
+                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(2)
 
                 pos = dgLineasPres1.CurrentRow.Index
 
-                dgLineasPres1.CurrentRow.Cells(4).Value = 0
+                dgLineasPres1.CurrentRow.Cells(4).Value = 1
                 dgLineasPres1.CurrentRow.Cells(5).Value = 0
                 dgLineasPres1.CurrentRow.Cells(6).Value = 0
                 dgLineasPres1.CurrentRow.Cells(7).Value = 0
@@ -277,11 +279,12 @@ Public Class frPedido
             Try
                 dgLineasPres2.Rows.Insert(dgLineasPres2.CurrentRow.Index)
                 renumerar()
-                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(4)
+                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(2)
 
                 pos = dgLineasPres2.CurrentRow.Index
 
-                dgLineasPres2.CurrentRow.Cells(4).Value = 0
+                dgLineasPres2.CurrentRow.Cells(4).Value = 1
+                cantidadInicialEdit = "S"
                 dgLineasPres2.CurrentRow.Cells(5).Value = 0
                 dgLineasPres2.CurrentRow.Cells(6).Value = 0
                 dgLineasPres2.CurrentRow.Cells(7).Value = 0
@@ -504,8 +507,8 @@ Public Class frPedido
                 Exit Sub
             End Try
 
-            renumerar()
-            recalcularTotales()
+            'renumerar()
+            'recalcularTotales()
         Else
             'Cargo los datos de la linea para el control de stocks
             Try
@@ -693,7 +696,6 @@ Public Class frPedido
                 cmdLinea.CommandText = "INSERT INTO pedido_linea (num_pedido, linea, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, lote) VALUES ('" + txtNumpres.Text + "', " + row.Cells(0).Value.ToString + ", '" + row.Cells(2).Value + "', '" + row.Cells(3).Value + "', '" + guardo_lincant + "', '" + guardo_linancho + "', '" + guardo_linmetros + "', '" + guardo_linprec + "', '" + guardo_lindto + "', '" + guardo_liniva + "', '" + guardo_linimporte + "', '" + guardo_lintotal + "', '" + row.Cells(11).Value + "')"
                 Try
                     cmdLinea.ExecuteNonQuery()
-                    descontarStock(arti, lincant)
                 Catch ex As Exception
                     MsgBox("Se ha producido un error en la grabación de las líneas del pedido actual (Err_3023). Revise los datos")
                     Exit Sub
@@ -1130,12 +1132,15 @@ Public Class frPedido
                     artiLote = "S"
                 End If
                 cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                If cantidadInicialEdit = "S" Then
+                    cantIni = cantIni - 1
+                End If
                 lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la edición de los datos de las líneas del pedido (Err_3032). Revise los datos")
                 Exit Sub
             End Try
-
+            cantidadInicialEdit = "N"
         End If
         If (e.ColumnIndex = 2) Then
             Dim vRef As String = dgLineasPres2.CurrentCell.Value
@@ -1209,14 +1214,23 @@ Public Class frPedido
 
     Private Sub dgLineasPres2_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres2.CellEnter
         If (e.ColumnIndex = 4) Then
-            Try
-                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
-                cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-            Catch ex As Exception
-                MsgBox("Se ha producido un error en la actualización de las líneas del pedido (Err_3035). Revise los datos")
-                Exit Sub
-            End Try
-
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_3035). Revise los datos")
+                    Exit Sub
+                End Try
+            Else
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_3036). Revise los datos")
+                    Exit Sub
+                End Try
+            End If
         End If
     End Sub
     Public Sub cargarArticulos(refer As String)

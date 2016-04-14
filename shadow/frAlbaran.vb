@@ -13,6 +13,7 @@ Public Class frAlbaran
     Public Shared artiEdit As String
     Public Shared cantIni As Decimal
     Public Shared cantFin As Decimal
+    Public Shared cantidadInicialEdit As String = "N"
     Public Shared serieIni As String
     Public Shared posicion As Integer
     Public Shared newLinea As String = "N"
@@ -218,6 +219,7 @@ Public Class frAlbaran
                     dgLineasPres2.Rows.Add()
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                    cantidadInicialEdit = "S"
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
                     dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
@@ -251,7 +253,7 @@ Public Class frAlbaran
             Try
                 dgLineasPres1.Rows.Insert(dgLineasPres1.CurrentRow.Index)
                 renumerar()
-                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(4)
+                dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(2)
 
                 pos = dgLineasPres1.CurrentRow.Index
 
@@ -278,11 +280,12 @@ Public Class frAlbaran
             Try
                 dgLineasPres2.Rows.Insert(dgLineasPres2.CurrentRow.Index)
                 renumerar()
-                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(4)
+                dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(2)
 
                 pos = dgLineasPres2.CurrentRow.Index
 
                 dgLineasPres2.CurrentRow.Cells(4).Value = 1
+                cantidadInicialEdit = "S"
                 dgLineasPres2.CurrentRow.Cells(5).Value = 0
                 dgLineasPres2.CurrentRow.Cells(6).Value = 0
                 dgLineasPres2.CurrentRow.Cells(7).Value = 0
@@ -296,6 +299,7 @@ Public Class frAlbaran
             End Try
 
         End If
+
         newLinea = "N"
     End Sub
     Public Sub renumerar()
@@ -499,8 +503,8 @@ Public Class frAlbaran
                 MsgBox("Se ha producido un error en la eliminación de líneas de albarán. Revise los datos")
                 Exit Sub
             End Try
-            renumerar()
-            recalcularTotales()
+            'renumerar()
+            'recalcularTotales()
         Else
             'Cargo los datos de la linea para el control de stocks
             Try
@@ -1134,12 +1138,16 @@ Public Class frAlbaran
                     artiLote = "S"
                 End If
                 cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                If cantidadInicialEdit = "S" Then
+                    cantIni = cantIni - 1
+                End If
+                'MsgBox(cantIni & " - " & cantFin)
                 lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la edición del grid (Err_1092). Revise los datos")
                 Exit Sub
             End Try
-
+            cantidadInicialEdit = "N"
         End If
         If (e.ColumnIndex = 2) Then
             Dim vRef As String = dgLineasPres2.CurrentCell.Value
@@ -1156,6 +1164,7 @@ Public Class frAlbaran
             cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
             lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
         End If
+
     End Sub
     Public Sub recalcularDescuentos()
         For Each row2 As DataGridViewRow In dgLineasPres2.Rows

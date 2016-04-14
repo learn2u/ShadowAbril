@@ -12,6 +12,7 @@ Public Class frFacturaManual
     Public Shared lineasElim As New List(Of lineasEliminadas)
     Public Shared artiEdit As String
     Public Shared cantIni As Decimal
+    Public Shared cantidadInicialEdit As String = "N"
     Public Shared cantFin As Decimal
     Public Shared serieIni As String
     Public Shared fechadiapago As Date
@@ -192,6 +193,7 @@ Public Class frFacturaManual
                 dgLineasPres2.Rows.Add()
                 dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(0).Value = lineas
                 dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(4).Value = 1
+                cantidadInicialEdit = "S"
                 dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(5).Value = 0
                 dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(6).Value = 0
                 dgLineasPres2.Rows(dgLineasPres2.Rows.Count - 1).Cells(7).Value = 0
@@ -218,7 +220,7 @@ Public Class frFacturaManual
             Next
             dgLineasPres1.Rows.Insert(dgLineasPres1.CurrentRow.Index)
             renumerar()
-            dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(4)
+            dgLineasPres1.CurrentCell = dgLineasPres1.Rows(dgLineasPres1.CurrentRow.Index - 1).Cells(2)
 
             pos = dgLineasPres1.CurrentRow.Index
 
@@ -239,11 +241,12 @@ Public Class frFacturaManual
             Next
             dgLineasPres2.Rows.Insert(dgLineasPres2.CurrentRow.Index)
             renumerar()
-            dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(4)
+            dgLineasPres2.CurrentCell = dgLineasPres2.Rows(dgLineasPres2.CurrentRow.Index - 1).Cells(2)
 
             pos = dgLineasPres2.CurrentRow.Index
 
             dgLineasPres2.CurrentRow.Cells(4).Value = 1
+            cantidadInicialEdit = "S"
             dgLineasPres2.CurrentRow.Cells(5).Value = 0
             dgLineasPres2.CurrentRow.Cells(6).Value = 0
             dgLineasPres2.CurrentRow.Cells(7).Value = 0
@@ -421,21 +424,21 @@ Public Class frFacturaManual
             recalcularTotales()
         Else
             'Cargo los datos de la linea para el control de stocks
-            artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                artiLote = "N"
+            Else
+                artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                artiLote = "S"
+            End If
             cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
             cantFin = 0
-            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
 
             dgLineasPres2.Rows.RemoveAt(dgLineasPres2.CurrentRow.Index)
             renumerar()
             recalcularTotales()
         End If
-        'If dgLineasPres1.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
-        ' If dgLineasPres2.RowCount = 0 Then
-        ' lineas = 0
-        ' End If
     End Sub
 
     Private Sub cmdNuevo_Click(sender As Object, e As EventArgs) Handles cmdNuevo.Click
@@ -724,15 +727,25 @@ Public Class frFacturaManual
 
             If lineasEdit.Count > 0 Then
                 For Each itemlineas As lineasEditadas In lineasEdit
-                    If row.Cells(11).Value = "" Then
-                        aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
-                        descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
-                    Else
-                        vLote = row.Cells(11).Value
-                        aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
-                        descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
-                    End If
+                    If itemlineas.esLote = "N" Then
+                        Try
+                            aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1060). Revise los datos")
+                            Exit Sub
+                        End Try
 
+                    Else
+                        Try
+                            'vLote = row.Cells(11).Value
+                            aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
+                            descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
+                        Catch ex As Exception
+                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1061). Revise los datos")
+                            Exit Sub
+                        End Try
+                    End If
                 Next
             End If
 
@@ -936,7 +949,11 @@ Public Class frFacturaManual
                 artiLote = "S"
             End If
             cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+            If cantidadInicialEdit = "S" Then
+                cantIni = cantIni - 1
+            End If
+            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
+            cantidadInicialEdit = "N"
         End If
         If (e.ColumnIndex = 2) Then
             Dim vRef As String = dgLineasPres2.CurrentCell.Value
@@ -951,7 +968,7 @@ Public Class frFacturaManual
                 artiLote = "S"
             End If
             cantFin = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
-            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin})
+            lineasEdit.Add(New lineasEditadas() With {.codigoArt = artiEdit, .cantAntes = cantIni, .cantDespues = cantFin, .esLote = artiLote})
 
         End If
     End Sub
@@ -1002,8 +1019,23 @@ Public Class frFacturaManual
 
     Private Sub dgLineasPres2_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres2.CellEnter
         If (e.ColumnIndex = 4) Then
-            artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
-            cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+            If dgLineasPres2.CurrentRow.Cells(11).Value = "" Then
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(2).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_4095). Revise los datos")
+                    Exit Sub
+                End Try
+            Else
+                Try
+                    artiEdit = dgLineasPres2.CurrentRow.Cells(11).Value
+                    cantIni = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)
+                Catch ex As Exception
+                    MsgBox("Se ha producido un error en la edición del grid (Err_4096). Revise los datos")
+                    Exit Sub
+                End Try
+            End If
         End If
     End Sub
     Public Sub cargarArticulos(refer As String)

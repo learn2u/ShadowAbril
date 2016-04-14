@@ -285,7 +285,7 @@ Public Class launcher
             vUser = rdr("usuario")
             vContra = rdr("password")
             vRol = rdr("rol")
-            MsgBox("El login de usuario a sido correcto")
+            MsgBox("El login de usuario ha sido correcto")
             Panel1.Hide()
         Else
             MsgBox("El usuario no está registrado en la base de datos. Inténtalo otra vez")

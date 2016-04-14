@@ -2328,12 +2328,13 @@ Public Class frPedido
                 Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
+                If reader.HasRows Then
+                    Dim stock As String = (reader.GetString(1) - unidades).ToString
+                    reader.Close()
 
-                Dim stock As String = (reader.GetString(1) - unidades).ToString
-                reader.Close()
-
-                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-                cmdActualizo.ExecuteNonQuery()
+                    Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                    cmdActualizo.ExecuteNonQuery()
+                End If
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock asociado al pedido (Err_3033). Revise los datos")
                 Exit Sub
@@ -2350,12 +2351,13 @@ Public Class frPedido
                 Dim cmdLastId As New MySqlCommand("SELECT ref_proveedor, stock FROM articulos2 WHERE ref_proveedor = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
+                If reader.HasRows Then
+                    Dim stock As String = (reader.GetString(1) + unidades).ToString
+                    reader.Close()
 
-                Dim stock As String = (reader.GetString(1) + unidades).ToString
-                reader.Close()
-
-                Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
-                cmdActualizo.ExecuteNonQuery()
+                    Dim cmdActualizo As New MySqlCommand("UPDATE articulos2 SET stock = '" + stock + "' WHERE ref_proveedor = '" + codArti + "'", conexionmy)
+                    cmdActualizo.ExecuteNonQuery()
+                End If
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock asociado al pedido (Err_3034). Revise los datos")
                 Exit Sub
@@ -2373,16 +2375,17 @@ Public Class frPedido
                 Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
+                If reader.HasRows Then
+                    Dim stock As String = (reader.GetString(1) - unidades).ToString
+                    reader.Close()
+                    Dim linstock As String
+                    Dim guardo_linstock As String
+                    linstock = stock.ToString
+                    guardo_linstock = Replace(linstock, ",", ".")
 
-                Dim stock As String = (reader.GetString(1) - unidades).ToString
-                reader.Close()
-                Dim linstock As String
-                Dim guardo_linstock As String
-                linstock = stock.ToString
-                guardo_linstock = Replace(linstock, ",", ".")
-
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
-                cmdActualizo.ExecuteNonQuery()
+                    Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                    cmdActualizo.ExecuteNonQuery()
+                End If
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1131). Revise los datos")
                 Exit Sub
@@ -2401,15 +2404,16 @@ Public Class frPedido
                 Dim cmdLastId As New MySqlCommand("SELECT referencia, stock, lote FROM lotes WHERE lote = '" + codArti + "'", conexionmy)
                 Dim reader As MySqlDataReader = cmdLastId.ExecuteReader()
                 reader.Read()
-
-                Dim stock As String = (reader.GetString(1) + unidades).ToString
-                reader.Close()
-                Dim linstock As String
-                Dim guardo_linstock As String
-                linstock = stock.ToString
-                guardo_linstock = Replace(linstock, ",", ".")
-                Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
-                cmdActualizo.ExecuteNonQuery()
+                If reader.HasRows Then
+                    Dim stock As String = (reader.GetString(1) + unidades).ToString
+                    reader.Close()
+                    Dim linstock As String
+                    Dim guardo_linstock As String
+                    linstock = stock.ToString
+                    guardo_linstock = Replace(linstock, ",", ".")
+                    Dim cmdActualizo As New MySqlCommand("UPDATE lotes SET stock = '" + guardo_linstock + "' WHERE lote = '" + codArti + "'", conexionmy)
+                    cmdActualizo.ExecuteNonQuery()
+                End If
             Catch ex As Exception
                 MsgBox("Se ha producido un error en la actualización del stock en lotes del albarán (Err_1132). Revise los datos")
                 Exit Sub

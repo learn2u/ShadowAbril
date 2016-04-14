@@ -1109,4 +1109,55 @@ Public Class frArticulos
             txStockLote.Text = CDbl(txStockLote.Text - txCorte.Text)
         End If
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim conexionmy2 As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy2.Open()
+        Dim cmdLinea As New MySqlCommand
+
+        cmdLinea = New MySqlCommand("SELECT ref_proveedor, proveedorID, familia, precio_compra, pcr FROM articulos2 WHERE proveedorID = '" + txpro.Text + "' AND familia = '" + txfam.Text + "' ORDER BY proveedorID", conexionmy)
+
+        cmdLinea.CommandType = CommandType.Text
+        cmdLinea.Connection = conexionmy
+
+        Dim precom As Decimal
+        Dim prepcr As Decimal
+        Dim porcen As Decimal
+        Dim resultado As Decimal
+        Dim referencia As String
+        Dim contador As Integer = 0
+
+        Dim rdrLin As MySqlDataReader
+        rdrLin = cmdLinea.ExecuteReader
+        If rdrLin.HasRows Then
+            Do While rdrLin.Read()
+                'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
+                contador = contador + 1
+                referencia = rdrLin("ref_proveedor")
+                prepcr = rdrLin("pcr")
+                porcen = Decimal.Parse(txpor.Text)
+                resultado = Decimal.Parse((rdrLin("pcr") * porcen) / 100)
+                precom = Math.Round((prepcr + resultado), 3, MidpointRounding.AwayFromZero)
+
+                Dim precio As String = Decimal.Parse(precom.ToString("0.000"))
+                Dim guardo_precio As String = Replace(precio, ",", ".")
+
+                'MsgBox(referencia & " " & prepcr & " " & resultado & " " & precom & " " & guardo_precio)
+
+                Dim cmdActualizar As New MySqlCommand("UPDATE articulos2 SET precio_compra = '" + guardo_precio + "' WHERE ref_proveedor = '" + referencia + "'", conexionmy2)
+                cmdActualizar.ExecuteNonQuery()
+            Loop
+        Else
+
+        End If
+
+        rdrLin.Close()
+        conexionmy.Close()
+        conexionmy2.Close()
+        MsgBox("El recálculo de precio se ha realizado correctamente en " & contador & " registros")
+        Me.Close()
+
+    End Sub
 End Class

@@ -85,7 +85,9 @@ Partial Class frArticulos
         Me.Label24 = New System.Windows.Forms.Label()
         Me.ckControlStock = New System.Windows.Forms.CheckBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.cbTejido2 = New System.Windows.Forms.ComboBox()
         Me.cbTejido = New System.Windows.Forms.ComboBox()
+        Me.cbModelos = New System.Windows.Forms.ComboBox()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.Label45 = New System.Windows.Forms.Label()
         Me.Label46 = New System.Windows.Forms.Label()
@@ -123,8 +125,13 @@ Partial Class frArticulos
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.cbModelos = New System.Windows.Forms.ComboBox()
-        Me.cbTejido2 = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txpro = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txfam = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txpor = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgArticulos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -573,6 +580,13 @@ Partial Class frArticulos
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.txpor)
+        Me.TabPage4.Controls.Add(Me.Label27)
+        Me.TabPage4.Controls.Add(Me.Button1)
+        Me.TabPage4.Controls.Add(Me.txfam)
+        Me.TabPage4.Controls.Add(Me.Label26)
+        Me.TabPage4.Controls.Add(Me.txpro)
+        Me.TabPage4.Controls.Add(Me.Label25)
         Me.TabPage4.Controls.Add(Me.cbColores)
         Me.TabPage4.Controls.Add(Me.cbMedidas)
         Me.TabPage4.Controls.Add(Me.txTejidoID)
@@ -762,6 +776,14 @@ Partial Class frArticulos
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "LONAS"
         '
+        'cbTejido2
+        '
+        Me.cbTejido2.FormattingEnabled = True
+        Me.cbTejido2.Location = New System.Drawing.Point(80, 82)
+        Me.cbTejido2.Name = "cbTejido2"
+        Me.cbTejido2.Size = New System.Drawing.Size(353, 21)
+        Me.cbTejido2.TabIndex = 149
+        '
         'cbTejido
         '
         Me.cbTejido.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -771,6 +793,14 @@ Partial Class frArticulos
         Me.cbTejido.Name = "cbTejido"
         Me.cbTejido.Size = New System.Drawing.Size(352, 21)
         Me.cbTejido.TabIndex = 97
+        '
+        'cbModelos
+        '
+        Me.cbModelos.FormattingEnabled = True
+        Me.cbModelos.Location = New System.Drawing.Point(80, 56)
+        Me.cbModelos.Name = "cbModelos"
+        Me.cbModelos.Size = New System.Drawing.Size(353, 21)
+        Me.cbModelos.TabIndex = 148
         '
         'Label44
         '
@@ -1089,21 +1119,65 @@ Partial Class frArticulos
         Me.Label1.TabIndex = 46
         Me.Label1.Text = "DESCRIPCION:"
         '
-        'cbModelos
+        'Label25
         '
-        Me.cbModelos.FormattingEnabled = True
-        Me.cbModelos.Location = New System.Drawing.Point(80, 56)
-        Me.cbModelos.Name = "cbModelos"
-        Me.cbModelos.Size = New System.Drawing.Size(353, 21)
-        Me.cbModelos.TabIndex = 148
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(550, 431)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(78, 13)
+        Me.Label25.TabIndex = 144
+        Me.Label25.Text = "PROVEEDOR:"
         '
-        'cbTejido2
+        'txpro
         '
-        Me.cbTejido2.FormattingEnabled = True
-        Me.cbTejido2.Location = New System.Drawing.Point(80, 82)
-        Me.cbTejido2.Name = "cbTejido2"
-        Me.cbTejido2.Size = New System.Drawing.Size(353, 21)
-        Me.cbTejido2.TabIndex = 149
+        Me.txpro.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txpro.Location = New System.Drawing.Point(630, 425)
+        Me.txpro.Name = "txpro"
+        Me.txpro.Size = New System.Drawing.Size(72, 20)
+        Me.txpro.TabIndex = 145
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(718, 431)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(51, 13)
+        Me.Label26.TabIndex = 146
+        Me.Label26.Text = "FAMILIA:"
+        '
+        'txfam
+        '
+        Me.txfam.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txfam.Location = New System.Drawing.Point(780, 424)
+        Me.txfam.Name = "txfam"
+        Me.txfam.Size = New System.Drawing.Size(74, 20)
+        Me.txfam.TabIndex = 147
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(780, 450)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 148
+        Me.Button1.Text = "CALCULAR"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(547, 455)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(81, 13)
+        Me.Label27.TabIndex = 149
+        Me.Label27.Text = "PORCENTAJE:"
+        '
+        'txpor
+        '
+        Me.txpor.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txpor.Location = New System.Drawing.Point(630, 450)
+        Me.txpor.Name = "txpor"
+        Me.txpor.Size = New System.Drawing.Size(72, 20)
+        Me.txpor.TabIndex = 150
         '
         'frArticulos
         '
@@ -1235,4 +1309,11 @@ Partial Class frArticulos
     Friend WithEvents txCorte As TextBox
     Friend WithEvents cbTejido2 As ComboBox
     Friend WithEvents cbModelos As ComboBox
+    Friend WithEvents txpor As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents txfam As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents txpro As TextBox
+    Friend WithEvents Label25 As Label
 End Class

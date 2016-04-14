@@ -71,6 +71,13 @@ Partial Class frArticulos
         Me.cmdDuplicar = New System.Windows.Forms.ToolStripButton()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.txpor = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.txfam = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txpro = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
         Me.cbColores = New System.Windows.Forms.ComboBox()
         Me.cbMedidas = New System.Windows.Forms.ComboBox()
         Me.txTejidoID = New System.Windows.Forms.TextBox()
@@ -125,13 +132,6 @@ Partial Class frArticulos
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.txpro = New System.Windows.Forms.TextBox()
-        Me.Label26 = New System.Windows.Forms.Label()
-        Me.txfam = New System.Windows.Forms.TextBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.txpor = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgArticulos, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -643,6 +643,73 @@ Partial Class frArticulos
         Me.TabPage4.Text = "GENERAL"
         Me.TabPage4.UseVisualStyleBackColor = True
         '
+        'txpor
+        '
+        Me.txpor.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txpor.Location = New System.Drawing.Point(630, 450)
+        Me.txpor.Name = "txpor"
+        Me.txpor.Size = New System.Drawing.Size(72, 20)
+        Me.txpor.TabIndex = 150
+        Me.txpor.Visible = False
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(547, 455)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(81, 13)
+        Me.Label27.TabIndex = 149
+        Me.Label27.Text = "PORCENTAJE:"
+        Me.Label27.Visible = False
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(780, 450)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 148
+        Me.Button1.Text = "CALCULAR"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
+        '
+        'txfam
+        '
+        Me.txfam.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txfam.Location = New System.Drawing.Point(780, 424)
+        Me.txfam.Name = "txfam"
+        Me.txfam.Size = New System.Drawing.Size(74, 20)
+        Me.txfam.TabIndex = 147
+        Me.txfam.Visible = False
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(718, 431)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(51, 13)
+        Me.Label26.TabIndex = 146
+        Me.Label26.Text = "FAMILIA:"
+        Me.Label26.Visible = False
+        '
+        'txpro
+        '
+        Me.txpro.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.txpro.Location = New System.Drawing.Point(630, 425)
+        Me.txpro.Name = "txpro"
+        Me.txpro.Size = New System.Drawing.Size(72, 20)
+        Me.txpro.TabIndex = 145
+        Me.txpro.Visible = False
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(550, 431)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(78, 13)
+        Me.Label25.TabIndex = 144
+        Me.Label25.Text = "PROVEEDOR:"
+        Me.Label25.Visible = False
+        '
         'cbColores
         '
         Me.cbColores.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -1118,66 +1185,6 @@ Partial Class frArticulos
         Me.Label1.Size = New System.Drawing.Size(83, 13)
         Me.Label1.TabIndex = 46
         Me.Label1.Text = "DESCRIPCION:"
-        '
-        'Label25
-        '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(550, 431)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(78, 13)
-        Me.Label25.TabIndex = 144
-        Me.Label25.Text = "PROVEEDOR:"
-        '
-        'txpro
-        '
-        Me.txpro.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.txpro.Location = New System.Drawing.Point(630, 425)
-        Me.txpro.Name = "txpro"
-        Me.txpro.Size = New System.Drawing.Size(72, 20)
-        Me.txpro.TabIndex = 145
-        '
-        'Label26
-        '
-        Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(718, 431)
-        Me.Label26.Name = "Label26"
-        Me.Label26.Size = New System.Drawing.Size(51, 13)
-        Me.Label26.TabIndex = 146
-        Me.Label26.Text = "FAMILIA:"
-        '
-        'txfam
-        '
-        Me.txfam.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.txfam.Location = New System.Drawing.Point(780, 424)
-        Me.txfam.Name = "txfam"
-        Me.txfam.Size = New System.Drawing.Size(74, 20)
-        Me.txfam.TabIndex = 147
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(780, 450)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 148
-        Me.Button1.Text = "CALCULAR"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(547, 455)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(81, 13)
-        Me.Label27.TabIndex = 149
-        Me.Label27.Text = "PORCENTAJE:"
-        '
-        'txpor
-        '
-        Me.txpor.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.txpor.Location = New System.Drawing.Point(630, 450)
-        Me.txpor.Name = "txpor"
-        Me.txpor.Size = New System.Drawing.Size(72, 20)
-        Me.txpor.TabIndex = 150
         '
         'frArticulos
         '

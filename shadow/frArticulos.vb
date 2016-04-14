@@ -1117,7 +1117,7 @@ Public Class frArticulos
         conexionmy2.Open()
         Dim cmdLinea As New MySqlCommand
 
-        cmdLinea = New MySqlCommand("SELECT ref_proveedor, proveedorID, familia, precio_compra, pcr FROM articulos2 WHERE proveedorID = '" + txpro.Text + "' AND familia = '" + txfam.Text + "' ORDER BY proveedorID", conexionmy)
+        cmdLinea = New MySqlCommand("SELECT ref_proveedor, proveedorID, familia, pvp, pcr FROM articulos2 WHERE proveedorID = '" + txpro.Text + "' AND familia = '" + txfam.Text + "' ORDER BY proveedorID", conexionmy)
 
         cmdLinea.CommandType = CommandType.Text
         cmdLinea.Connection = conexionmy
@@ -1146,7 +1146,7 @@ Public Class frArticulos
 
                 'MsgBox(referencia & " " & prepcr & " " & resultado & " " & precom & " " & guardo_precio)
 
-                Dim cmdActualizar As New MySqlCommand("UPDATE articulos2 SET precio_compra = '" + guardo_precio + "' WHERE ref_proveedor = '" + referencia + "'", conexionmy2)
+                Dim cmdActualizar As New MySqlCommand("UPDATE articulos2 SET pvp = '" + guardo_precio + "' WHERE ref_proveedor = '" + referencia + "'", conexionmy2)
                 cmdActualizar.ExecuteNonQuery()
             Loop
         Else

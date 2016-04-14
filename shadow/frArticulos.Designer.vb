@@ -32,6 +32,18 @@ Partial Class frArticulos
         Me.Label13 = New System.Windows.Forms.Label()
         Me.dgArticulos = New System.Windows.Forms.DataGridView()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.tsBotones = New System.Windows.Forms.ToolStrip()
+        Me.cmdNuevo = New System.Windows.Forms.ToolStripButton()
+        Me.cmdGuardar = New System.Windows.Forms.ToolStripButton()
+        Me.cmdCancelar = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdLotes = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdFlechas = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdLonas = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmdDuplicar = New System.Windows.Forms.ToolStripButton()
         Me.pnLotes = New System.Windows.Forms.Panel()
         Me.txCorte = New System.Windows.Forms.TextBox()
         Me.txBakLote = New System.Windows.Forms.TextBox()
@@ -57,20 +69,9 @@ Partial Class frArticulos
         Me.lote = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.stock = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ubicacion = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.tsBotones = New System.Windows.Forms.ToolStrip()
-        Me.cmdNuevo = New System.Windows.Forms.ToolStripButton()
-        Me.cmdGuardar = New System.Windows.Forms.ToolStripButton()
-        Me.cmdCancelar = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmdLotes = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmdFlechas = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmdLonas = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.cmdDuplicar = New System.Windows.Forms.ToolStripButton()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.txIdarticulo = New System.Windows.Forms.TextBox()
         Me.txpor = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -136,9 +137,9 @@ Partial Class frArticulos
         Me.TabPage1.SuspendLayout()
         CType(Me.dgArticulos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
+        Me.tsBotones.SuspendLayout()
         Me.pnLotes.SuspendLayout()
         CType(Me.dgLotes, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tsBotones.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TabPage4.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -212,8 +213,8 @@ Partial Class frArticulos
         '
         'TabPage2
         '
-        Me.TabPage2.Controls.Add(Me.pnLotes)
         Me.TabPage2.Controls.Add(Me.tsBotones)
+        Me.TabPage2.Controls.Add(Me.pnLotes)
         Me.TabPage2.Controls.Add(Me.TabControl2)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
@@ -222,6 +223,123 @@ Partial Class frArticulos
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "DATOS ARTICULO"
         Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'tsBotones
+        '
+        Me.tsBotones.AutoSize = False
+        Me.tsBotones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdNuevo, Me.cmdGuardar, Me.cmdCancelar, Me.ToolStripSeparator1, Me.cmdLotes, Me.ToolStripSeparator2, Me.cmdFlechas, Me.ToolStripButton2, Me.cmdLonas, Me.ToolStripSeparator3, Me.cmdDuplicar})
+        Me.tsBotones.Location = New System.Drawing.Point(3, 3)
+        Me.tsBotones.Name = "tsBotones"
+        Me.tsBotones.Size = New System.Drawing.Size(922, 38)
+        Me.tsBotones.TabIndex = 56
+        Me.tsBotones.Text = "ToolStrip1"
+        '
+        'cmdNuevo
+        '
+        Me.cmdNuevo.AutoSize = False
+        Me.cmdNuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdNuevo.Image = CType(resources.GetObject("cmdNuevo.Image"), System.Drawing.Image)
+        Me.cmdNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdNuevo.Name = "cmdNuevo"
+        Me.cmdNuevo.Size = New System.Drawing.Size(33, 30)
+        Me.cmdNuevo.Text = "ToolStripButton1"
+        Me.cmdNuevo.ToolTipText = "Nuevo Artículo"
+        '
+        'cmdGuardar
+        '
+        Me.cmdGuardar.AutoSize = False
+        Me.cmdGuardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdGuardar.Image = CType(resources.GetObject("cmdGuardar.Image"), System.Drawing.Image)
+        Me.cmdGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdGuardar.Name = "cmdGuardar"
+        Me.cmdGuardar.Size = New System.Drawing.Size(33, 30)
+        Me.cmdGuardar.Text = "ToolStripButton1"
+        Me.cmdGuardar.ToolTipText = "Guardar Artículo"
+        '
+        'cmdCancelar
+        '
+        Me.cmdCancelar.AutoSize = False
+        Me.cmdCancelar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdCancelar.Image = CType(resources.GetObject("cmdCancelar.Image"), System.Drawing.Image)
+        Me.cmdCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdCancelar.Name = "cmdCancelar"
+        Me.cmdCancelar.Size = New System.Drawing.Size(33, 30)
+        Me.cmdCancelar.Text = "ToolStripButton1"
+        Me.cmdCancelar.ToolTipText = "Cancelar Artículo"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.AutoSize = False
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(33, 30)
+        '
+        'cmdLotes
+        '
+        Me.cmdLotes.AutoSize = False
+        Me.cmdLotes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdLotes.Image = CType(resources.GetObject("cmdLotes.Image"), System.Drawing.Image)
+        Me.cmdLotes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdLotes.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdLotes.Name = "cmdLotes"
+        Me.cmdLotes.Size = New System.Drawing.Size(33, 30)
+        Me.cmdLotes.Text = "ToolStripButton1"
+        Me.cmdLotes.ToolTipText = "Creación / Consulta de lotes"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.AutoSize = False
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(33, 30)
+        '
+        'cmdFlechas
+        '
+        Me.cmdFlechas.AutoSize = False
+        Me.cmdFlechas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdFlechas.Image = CType(resources.GetObject("cmdFlechas.Image"), System.Drawing.Image)
+        Me.cmdFlechas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdFlechas.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdFlechas.Name = "cmdFlechas"
+        Me.cmdFlechas.Size = New System.Drawing.Size(33, 30)
+        Me.cmdFlechas.Text = "ToolStripButton1"
+        Me.cmdFlechas.ToolTipText = "Imprimir"
+        '
+        'ToolStripButton2
+        '
+        Me.ToolStripButton2.AutoSize = False
+        Me.ToolStripButton2.Name = "ToolStripButton2"
+        Me.ToolStripButton2.Size = New System.Drawing.Size(33, 30)
+        '
+        'cmdLonas
+        '
+        Me.cmdLonas.AutoSize = False
+        Me.cmdLonas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdLonas.Image = CType(resources.GetObject("cmdLonas.Image"), System.Drawing.Image)
+        Me.cmdLonas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdLonas.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdLonas.Name = "cmdLonas"
+        Me.cmdLonas.Size = New System.Drawing.Size(33, 30)
+        Me.cmdLonas.Text = "ToolStripButton1"
+        Me.cmdLonas.ToolTipText = "Activar Lonas"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.AutoSize = False
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(33, 30)
+        '
+        'cmdDuplicar
+        '
+        Me.cmdDuplicar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.cmdDuplicar.Image = Global.shadow.My.Resources.Resources.interface24
+        Me.cmdDuplicar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
+        Me.cmdDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.cmdDuplicar.Name = "cmdDuplicar"
+        Me.cmdDuplicar.Size = New System.Drawing.Size(28, 35)
+        Me.cmdDuplicar.Text = "ToolStripButton1"
+        Me.cmdDuplicar.ToolTipText = "Duplicar Artículo"
         '
         'pnLotes
         '
@@ -245,7 +363,7 @@ Partial Class frArticulos
         Me.pnLotes.Controls.Add(Me.btNuevaLinea)
         Me.pnLotes.Controls.Add(Me.btCloseLotes)
         Me.pnLotes.Controls.Add(Me.dgLotes)
-        Me.pnLotes.Location = New System.Drawing.Point(50, 49)
+        Me.pnLotes.Location = New System.Drawing.Point(49, 44)
         Me.pnLotes.Name = "pnLotes"
         Me.pnLotes.Size = New System.Drawing.Size(830, 415)
         Me.pnLotes.TabIndex = 147
@@ -452,123 +570,6 @@ Partial Class frArticulos
         Me.ubicacion.Name = "ubicacion"
         Me.ubicacion.Width = 150
         '
-        'tsBotones
-        '
-        Me.tsBotones.AutoSize = False
-        Me.tsBotones.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmdNuevo, Me.cmdGuardar, Me.cmdCancelar, Me.ToolStripSeparator1, Me.cmdLotes, Me.ToolStripSeparator2, Me.cmdFlechas, Me.ToolStripButton2, Me.cmdLonas, Me.ToolStripSeparator3, Me.cmdDuplicar})
-        Me.tsBotones.Location = New System.Drawing.Point(3, 3)
-        Me.tsBotones.Name = "tsBotones"
-        Me.tsBotones.Size = New System.Drawing.Size(922, 38)
-        Me.tsBotones.TabIndex = 56
-        Me.tsBotones.Text = "ToolStrip1"
-        '
-        'cmdNuevo
-        '
-        Me.cmdNuevo.AutoSize = False
-        Me.cmdNuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdNuevo.Image = CType(resources.GetObject("cmdNuevo.Image"), System.Drawing.Image)
-        Me.cmdNuevo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdNuevo.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdNuevo.Name = "cmdNuevo"
-        Me.cmdNuevo.Size = New System.Drawing.Size(33, 30)
-        Me.cmdNuevo.Text = "ToolStripButton1"
-        Me.cmdNuevo.ToolTipText = "Nuevo Artículo"
-        '
-        'cmdGuardar
-        '
-        Me.cmdGuardar.AutoSize = False
-        Me.cmdGuardar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdGuardar.Image = CType(resources.GetObject("cmdGuardar.Image"), System.Drawing.Image)
-        Me.cmdGuardar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdGuardar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdGuardar.Name = "cmdGuardar"
-        Me.cmdGuardar.Size = New System.Drawing.Size(33, 30)
-        Me.cmdGuardar.Text = "ToolStripButton1"
-        Me.cmdGuardar.ToolTipText = "Guardar Artículo"
-        '
-        'cmdCancelar
-        '
-        Me.cmdCancelar.AutoSize = False
-        Me.cmdCancelar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdCancelar.Image = CType(resources.GetObject("cmdCancelar.Image"), System.Drawing.Image)
-        Me.cmdCancelar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdCancelar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdCancelar.Name = "cmdCancelar"
-        Me.cmdCancelar.Size = New System.Drawing.Size(33, 30)
-        Me.cmdCancelar.Text = "ToolStripButton1"
-        Me.cmdCancelar.ToolTipText = "Cancelar Artículo"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.AutoSize = False
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(33, 30)
-        '
-        'cmdLotes
-        '
-        Me.cmdLotes.AutoSize = False
-        Me.cmdLotes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdLotes.Image = CType(resources.GetObject("cmdLotes.Image"), System.Drawing.Image)
-        Me.cmdLotes.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdLotes.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdLotes.Name = "cmdLotes"
-        Me.cmdLotes.Size = New System.Drawing.Size(33, 30)
-        Me.cmdLotes.Text = "ToolStripButton1"
-        Me.cmdLotes.ToolTipText = "Creación / Consulta de lotes"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.AutoSize = False
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(33, 30)
-        '
-        'cmdFlechas
-        '
-        Me.cmdFlechas.AutoSize = False
-        Me.cmdFlechas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdFlechas.Image = CType(resources.GetObject("cmdFlechas.Image"), System.Drawing.Image)
-        Me.cmdFlechas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdFlechas.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdFlechas.Name = "cmdFlechas"
-        Me.cmdFlechas.Size = New System.Drawing.Size(33, 30)
-        Me.cmdFlechas.Text = "ToolStripButton1"
-        Me.cmdFlechas.ToolTipText = "Imprimir"
-        '
-        'ToolStripButton2
-        '
-        Me.ToolStripButton2.AutoSize = False
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(33, 30)
-        '
-        'cmdLonas
-        '
-        Me.cmdLonas.AutoSize = False
-        Me.cmdLonas.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdLonas.Image = CType(resources.GetObject("cmdLonas.Image"), System.Drawing.Image)
-        Me.cmdLonas.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdLonas.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdLonas.Name = "cmdLonas"
-        Me.cmdLonas.Size = New System.Drawing.Size(33, 30)
-        Me.cmdLonas.Text = "ToolStripButton1"
-        Me.cmdLonas.ToolTipText = "Activar Lonas"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.AutoSize = False
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(33, 30)
-        '
-        'cmdDuplicar
-        '
-        Me.cmdDuplicar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.cmdDuplicar.Image = Global.shadow.My.Resources.Resources.interface24
-        Me.cmdDuplicar.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
-        Me.cmdDuplicar.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.cmdDuplicar.Name = "cmdDuplicar"
-        Me.cmdDuplicar.Size = New System.Drawing.Size(28, 35)
-        Me.cmdDuplicar.Text = "ToolStripButton1"
-        Me.cmdDuplicar.ToolTipText = "Duplicar Artículo"
-        '
         'TabControl2
         '
         Me.TabControl2.Controls.Add(Me.TabPage4)
@@ -580,6 +581,7 @@ Partial Class frArticulos
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.txIdarticulo)
         Me.TabPage4.Controls.Add(Me.txpor)
         Me.TabPage4.Controls.Add(Me.Label27)
         Me.TabPage4.Controls.Add(Me.Button1)
@@ -642,6 +644,14 @@ Partial Class frArticulos
         Me.TabPage4.TabIndex = 0
         Me.TabPage4.Text = "GENERAL"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'txIdarticulo
+        '
+        Me.txIdarticulo.Location = New System.Drawing.Point(747, 18)
+        Me.txIdarticulo.Name = "txIdarticulo"
+        Me.txIdarticulo.Size = New System.Drawing.Size(96, 20)
+        Me.txIdarticulo.TabIndex = 151
+        Me.txIdarticulo.Visible = False
         '
         'txpor
         '
@@ -1201,11 +1211,11 @@ Partial Class frArticulos
         Me.TabPage1.PerformLayout()
         CType(Me.dgArticulos, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
+        Me.tsBotones.ResumeLayout(False)
+        Me.tsBotones.PerformLayout()
         Me.pnLotes.ResumeLayout(False)
         Me.pnLotes.PerformLayout()
         CType(Me.dgLotes, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tsBotones.ResumeLayout(False)
-        Me.tsBotones.PerformLayout()
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
@@ -1323,4 +1333,5 @@ Partial Class frArticulos
     Friend WithEvents Label26 As Label
     Friend WithEvents txpro As TextBox
     Friend WithEvents Label25 As Label
+    Friend WithEvents txIdarticulo As TextBox
 End Class

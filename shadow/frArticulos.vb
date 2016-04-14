@@ -18,7 +18,7 @@ Public Class frArticulos
 
         conexionmy.Open()
 
-        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp FROM articulos2 ORDER BY ref_proveedor", conexionmy)
+        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp, articuloID FROM articulos2 ORDER BY descripcion", conexionmy)
 
 
         Dim readercli As MySqlDataReader
@@ -62,6 +62,7 @@ Public Class frArticulos
         dgArticulos.Columns(4).Name = "Column5"
         dgArticulos.Columns(4).FillWeight = 75
         dgArticulos.Columns(4).MinimumWidth = 75
+        dgArticulos.Columns(5).Visible = False
         'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         'gridcliente.Columns(4).Visible = False
         'gridcliente.Columns(5).Visible = False
@@ -286,7 +287,7 @@ Public Class frArticulos
                                                 pvp = '" + guardo_precio + "',
                                                 stock = '" + guardo_stock + "',
                                                 stock_min = '" + guardo_stockmin + "',
-                                                stock_ini = '" + guardo_stockini + "' WHERE ref_proveedor = '" + txRefProv.Text + "'", conexionmy)
+                                                stock_ini = '" + guardo_stockini + "' WHERE articuloID = '" + txIdarticulo.Text + "'", conexionmy)
             cmdActualizar.ExecuteNonQuery()
 
             MsgBox("Los datos del artículo se han actualizado correctamente")
@@ -466,7 +467,7 @@ Public Class frArticulos
 
 
         conexionmy.Open()
-        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp FROM articulos2 WHERE ref_proveedor LIKE'" & txCodigo1.Text & "%'  ORDER BY ref_proveedor", conexionmy)
+        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp, articuloID FROM articulos2 WHERE ref_proveedor LIKE'" & txCodigo1.Text & "%'  ORDER BY descripcion", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -508,6 +509,7 @@ Public Class frArticulos
         dgArticulos.Columns(4).Name = "Column5"
         dgArticulos.Columns(4).FillWeight = 75
         dgArticulos.Columns(4).MinimumWidth = 75
+        dgArticulos.Columns(5).Visible = False
         'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         'gridcliente.Columns(4).Visible = False
         'gridcliente.Columns(5).Visible = False
@@ -523,7 +525,7 @@ Public Class frArticulos
 
 
         conexionmy.Open()
-        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp FROM articulos2 WHERE descripcion LIKE'" & txArticulo.Text & "%'  ORDER BY ref_proveedor", conexionmy)
+        Dim consultacli As New MySqlCommand("SELECT ref_proveedor, grupoID, descripcion, color, pvp, articuloID FROM articulos2 WHERE descripcion LIKE'" & txArticulo.Text & "%'  ORDER BY descripcion", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -565,6 +567,7 @@ Public Class frArticulos
         dgArticulos.Columns(4).Name = "Column5"
         dgArticulos.Columns(4).FillWeight = 75
         dgArticulos.Columns(4).MinimumWidth = 75
+        dgArticulos.Columns(5).Visible = False
         'gridcliente.Columns(3).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         'gridcliente.Columns(4).Visible = False
         'gridcliente.Columns(5).Visible = False
@@ -590,6 +593,7 @@ Public Class frArticulos
 
         rdr.Read()
 
+        txIdarticulo.Text = rdr("articuloID")
         txCodigo.Text = rdr("referencia")
         txGrupo.Text = rdr("grupoID")
         txNumPro.Text = rdr("proveedorID")
@@ -607,7 +611,7 @@ Public Class frArticulos
         cargoFamilia(rdr("familia"))
         txDescripcion.Text = rdr("descripcion")
         cbColores.Text = rdr("color")
-        cbMedidas.Text = rdr("medida")
+        cbMedidas.SelectedValue = rdr("medida")
         cbUnidad.Text = rdr("ud_medida")
         txIva.Text = rdr("iva")
         txCompra.Text = rdr("precio_compra")

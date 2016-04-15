@@ -9,19 +9,14 @@ Public Class frVerArticulos
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
         conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
+
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
-        If formArti = "R" Then
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.precio_compra, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        ElseIf formArti = "D" Then
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock_disp, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        Else
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        End If
+
+
+        readermy = consultamy.ExecuteReader
 
 
         dtable.Load(readermy, LoadOption.OverwriteChanges)
@@ -43,20 +38,11 @@ Public Class frVerArticulos
         dgArticulos.Columns(2).Name = "prov"
         dgArticulos.Columns(2).FillWeight = 180
         dgArticulos.Columns(2).MinimumWidth = 180
-        If formArti = "D" Then
-            dgArticulos.Columns(3).HeaderText = "STOCK DISP"
-        Else
-            dgArticulos.Columns(3).HeaderText = "STOCK"
-        End If
-
+        dgArticulos.Columns(3).HeaderText = "STOCK"
         dgArticulos.Columns(3).Name = "stock"
         dgArticulos.Columns(3).FillWeight = 50
         dgArticulos.Columns(3).MinimumWidth = 50
-        If formArti = "R" Then
-            dgArticulos.Columns(4).HeaderText = "PREC.COMPRA"
-        Else
-            dgArticulos.Columns(4).HeaderText = "PVP"
-        End If
+        dgArticulos.Columns(4).HeaderText = "PVP"
         dgArticulos.Columns(4).Name = "prec"
         dgArticulos.Columns(4).FillWeight = 50
         dgArticulos.Columns(4).MinimumWidth = 50
@@ -87,19 +73,14 @@ Public Class frVerArticulos
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
 
         conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID WHERE ref_proveedor LIKE'" & txCodigo.Text & "%'", conexionmy)
+
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
         Dim bind As New BindingSource()
-        If formArti = "R" Then
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.precio_compra, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        ElseIf formArti = "D" Then
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock_disp, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        Else
-            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-            readermy = consultamy.ExecuteReader
-        End If
+
+
+        readermy = consultamy.ExecuteReader
 
         dtable.Load(readermy, LoadOption.OverwriteChanges)
 
@@ -119,19 +100,11 @@ Public Class frVerArticulos
         dgArticulos.Columns(2).Name = "prov"
         dgArticulos.Columns(2).FillWeight = 180
         dgArticulos.Columns(2).MinimumWidth = 180
-        If formArti = "D" Then
-            dgArticulos.Columns(3).HeaderText = "STOCK DISP"
-        Else
-            dgArticulos.Columns(3).HeaderText = "STOCK"
-        End If
+        dgArticulos.Columns(3).HeaderText = "STOCK"
         dgArticulos.Columns(3).Name = "stock"
         dgArticulos.Columns(3).FillWeight = 50
         dgArticulos.Columns(3).MinimumWidth = 50
-        If formArti = "R" Then
-            dgArticulos.Columns(4).HeaderText = "PREC.COMPRA"
-        Else
-            dgArticulos.Columns(4).HeaderText = "PVP"
-        End If
+        dgArticulos.Columns(4).HeaderText = "PVP"
         dgArticulos.Columns(4).Name = "prec"
         dgArticulos.Columns(4).FillWeight = 50
         dgArticulos.Columns(4).MinimumWidth = 50
@@ -162,20 +135,14 @@ Public Class frVerArticulos
             Dim vFiltro As String
             vFiltro = txArticulo.Text
             conexionmy.Open()
+            Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID WHERE descripcion LIKE'" & vFiltro & "%'", conexionmy)
+
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
             Dim bind As New BindingSource()
 
-            If formArti = "R" Then
-                Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.precio_compra, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-                readermy = consultamy.ExecuteReader
-            ElseIf formArti = "D" Then
-                Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock_disp, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-                readermy = consultamy.ExecuteReader
-            Else
-                Dim consultamy As New MySqlCommand("SELECT articulos2.ref_proveedor,articulos2.descripcion,proveedores.nombre, articulos2.stock, articulos2.pvp, proveedores.proveedorID, articulos2.stock_disp, articulos2.iva, articulos2.medidaID, articulos2.familia FROM articulos2 INNER JOIN proveedores ON articulos2.proveedorID=proveedores.proveedorID", conexionmy)
-                readermy = consultamy.ExecuteReader
-            End If
+
+            readermy = consultamy.ExecuteReader
 
             dtable.Load(readermy, LoadOption.OverwriteChanges)
 
@@ -196,19 +163,11 @@ Public Class frVerArticulos
             dgArticulos.Columns(2).Name = "prov"
             dgArticulos.Columns(2).FillWeight = 180
             dgArticulos.Columns(2).MinimumWidth = 180
-            If formArti = "D" Then
-                dgArticulos.Columns(3).HeaderText = "STOCK DISP"
-            Else
-                dgArticulos.Columns(3).HeaderText = "STOCK"
-            End If
+            dgArticulos.Columns(3).HeaderText = "STOCK"
             dgArticulos.Columns(3).Name = "stock"
             dgArticulos.Columns(3).FillWeight = 50
             dgArticulos.Columns(3).MinimumWidth = 50
-            If formArti = "R" Then
-                dgArticulos.Columns(4).HeaderText = "PREC.COMPRA"
-            Else
-                dgArticulos.Columns(4).HeaderText = "PVP"
-            End If
+            dgArticulos.Columns(4).HeaderText = "PVP"
             dgArticulos.Columns(4).Name = "prec"
             dgArticulos.Columns(4).FillWeight = 50
             dgArticulos.Columns(4).MinimumWidth = 50

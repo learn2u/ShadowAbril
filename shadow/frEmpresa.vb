@@ -74,6 +74,10 @@ Public Class frEmpresa
         If editEmpresa = False Then
 
         Else
+            Dim impbru As String = Replace(txPorciva.Text.ToString, ".", "")
+            Dim guardo_impbru As String = Replace(impbru, ",", ".")
+            Dim impbru2 As String = Replace(txPorcrec.Text.ToString, ".", "")
+            Dim guardo_impbru2 As String = Replace(impbru2, ",", ".")
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
             conexionmy.Open()
 
@@ -101,8 +105,8 @@ Public Class frEmpresa
                                                 usuario = '" + txUsuario.Text + "',
                                                 password = '" + txPassword.Text + "',
                                                 basedatos = '" + txBasedatos.Text + "',
-                                                iva = '" + txPorciva.Text + "',
-                                                recargo = '" + txPorcrec.Text + "',
+                                                iva = '" + guardo_impbru + "',
+                                                recargo = '" + guardo_impbru2 + "',
                                                 telefono3 = '" + txMovil.Text + "',
                                                 fax = '" + txFax.Text + "',
                                                 email = '" + txEmail.Text + "',

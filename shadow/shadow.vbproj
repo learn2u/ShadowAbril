@@ -240,6 +240,18 @@
     <Compile Include="frVerArticulos.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frVerArticulosPed.Designer.vb">
+      <DependentUpon>frVerArticulosPed.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frVerArticulosPed.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frVerArticulosPProv.Designer.vb">
+      <DependentUpon>frVerArticulosPProv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frVerArticulosPProv.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frVerClientes.Designer.vb">
       <DependentUpon>frVerClientes.vb</DependentUpon>
     </Compile>
@@ -347,6 +359,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frVerArticulos.resx">
       <DependentUpon>frVerArticulos.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frVerArticulosPed.resx">
+      <DependentUpon>frVerArticulosPed.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frVerArticulosPProv.resx">
+      <DependentUpon>frVerArticulosPProv.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frVerClientes.resx">
       <DependentUpon>frVerClientes.vb</DependentUpon>

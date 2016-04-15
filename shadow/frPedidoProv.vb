@@ -383,7 +383,7 @@ Public Class frPedidoProv
     Private Sub dgLineasPres1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellClick
         If (e.ColumnIndex = 1) Then
             formArti = "R"
-            frVerArticulos.Show()
+            frVerArticulosPProv.Show()
         End If
         If (e.ColumnIndex = 11) Then
             dgLineasPres1.CurrentRow.Cells(13).Value = Decimal.Parse(dgLineasPres1.CurrentRow.Cells(4).Value)
@@ -842,7 +842,7 @@ Public Class frPedidoProv
     Private Sub dgLineasPres2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres2.CellClick
         If (e.ColumnIndex = 1) Then
             formArti = "R"
-            frVerArticulos.Show()
+            frVerArticulosPProv.Show()
         End If
         If (e.ColumnIndex = 11) Then
             dgLineasPres2.CurrentRow.Cells(13).Value = Decimal.Parse(dgLineasPres2.CurrentRow.Cells(4).Value)

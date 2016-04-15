@@ -487,7 +487,7 @@ Public Class frPedido
     Private Sub dgLineasPres1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres1.CellClick
         If (e.ColumnIndex = 1) Then
             formArti = "D"
-            frVerArticulos.Show()
+            frVerArticulosPed.Show()
         End If
         If (dgLineasPres1.CurrentRow.Index = 0) Then
 
@@ -1101,7 +1101,7 @@ Public Class frPedido
     Private Sub dgLineasPres2_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgLineasPres2.CellClick
         If (e.ColumnIndex = 1) Then
             formArti = "D"
-            frVerArticulos.Show()
+            frVerArticulosPed.Show()
         End If
         If (e.ColumnIndex = 12) Then
             formArti = "D"

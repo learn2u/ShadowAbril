@@ -3010,49 +3010,57 @@ Public Class frAlbaran
     End Sub
 
     Private Sub btFacturarTodos_Click(sender As Object, e As EventArgs) Handles btFacturarTodos.Click
-        Dim numAlb As Integer
-        Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
-        Dim row As New DataGridViewRow
+        Dim respuesta As String
+        respuesta = MsgBox("Se van a facturar todos los albaranes del cliente seleccionado. ¿Estás seguro?", vbYesNo)
+        If respuesta = vbYes Then
+            Dim numAlb As Integer
+            Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
+            Dim row As New DataGridViewRow
 
-        If selectedRowCount = 0 Then
-            cargoNumeroF()
+            If selectedRowCount = 0 Then
+                cargoNumeroF()
 
-            For Each row In dgAlbaranes.Rows
-                numAlb = row.Cells(0).Value
-                'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
-                guardoDatosAlbaran(numAlb)
-                'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
-                facturoAlbaran(numAlb)
-            Next
-            'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
-            sumoLineas(numAlb)
+                For Each row In dgAlbaranes.Rows
+                    numAlb = row.Cells(0).Value
+                    'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
+                    guardoDatosAlbaran(numAlb)
+                    'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
+                    facturoAlbaran(numAlb)
+                Next
+                'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
+                sumoLineas(numAlb)
+            End If
+            MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+            'Me.Close()
         End If
-        MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
-        'Me.Close()
     End Sub
 
     Private Sub btFacturarSelec_Click(sender As Object, e As EventArgs) Handles btFacturarSelec.Click
-        Dim numAlb As Integer
-        Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
-        Dim albaranes(selectedRowCount) As Integer
+        Dim respuesta As String
+        respuesta = MsgBox("Se van a facturar todos los albaranes seleccionados. ¿Estás seguro?", vbYesNo)
+        If respuesta = vbYes Then
+            Dim numAlb As Integer
+            Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
+            Dim albaranes(selectedRowCount) As Integer
 
-        If selectedRowCount > 0 Then
-            Dim contador As Integer
-            cargoNumeroF()
-            For contador = 0 To selectedRowCount - 1
-                albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
-                numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
-                'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
-                guardoDatosAlbaran(numAlb)
-                'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
-                facturoAlbaran(numAlb)
-            Next
-            'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
-            sumoLineas(numAlb)
+            If selectedRowCount > 0 Then
+                Dim contador As Integer
+                cargoNumeroF()
+                For contador = 0 To selectedRowCount - 1
+                    albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                    numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                    'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
+                    guardoDatosAlbaran(numAlb)
+                    'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
+                    facturoAlbaran(numAlb)
+                Next
+                'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
+                sumoLineas(numAlb)
+            End If
+
+            MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+            'Me.Close()
         End If
-
-        MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
-        'Me.Close()
     End Sub
     Public Sub graboLineas(nAlba As Integer)
         'linea = 1

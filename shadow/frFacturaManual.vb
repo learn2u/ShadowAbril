@@ -626,10 +626,11 @@ Public Class frFacturaManual
 
             If vSerie = serieIni Then
                 If vPagado = "S" Then
-                    Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechapago = '" + fechapag.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedIndex.ToString + "', pagado = '" + vPagado + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
+                    Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', fechapago = '" + fechapag.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedValue.ToString + "', pagado = '" + vPagado + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
                     cmd.ExecuteNonQuery()
                 Else
-                    Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedIndex.ToString + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
+                    'MsgBox(cbFormapago.SelectedValue.ToString)
+                    Dim cmd As New MySqlCommand("UPDATE factura_cab SET fecha = '" + fecha.ToString("yyyy-MM-dd") + "', clienteID = " + txNumcli.Text + ", agenteID = " + txAgente.Text + ", usuarioID = " + txUsuario.Text + ", empresaID = " + txEmpresa.Text + ", referencia = '" + txReferenciapres.Text + "', observaciones = '" + txObserva.Text + "', totalbruto = '" + guardo_impbru + "', totaldto = '" + guardo_impdto + "', totaliva = '" + guardo_impiva + "', totalrecargo = '" + guardo_imprec + "', totalfactura = '" + guardo_imptot + "', serie = '" + vSerie + "', formapago = '" + cbFormapago.SelectedValue.ToString + "' WHERE num_factura = " + txtNumpres.Text + "", conexionmy)
                     cmd.ExecuteNonQuery()
                 End If
             Else
@@ -1253,14 +1254,19 @@ Public Class frFacturaManual
     Public Sub recalcularPlazos()
         'Recalcular lo plazos de pago y el grid con los vencimientos
         dgPlazos.Rows.Clear()
+        Dim vDia As String
+        Dim vMes As String
+        Dim vYear As String
+        Dim vFechahoy As String = txFecha.Text
 
         If txDiapago.Text = "" Then
-            MsgBox("Para calcular los vencimientos es necesario introducir un día de pago")
+            'MsgBox("Para calcular los vencimientos es necesario introducir un día de pago")
+            txDiapago.Text = vFechahoy.Substring(0, 2)
         Else
-            Dim vDia As String
-            Dim vMes As String
-            Dim vYear As String
-            Dim vFechahoy As String = txFecha.Text
+            'Dim vDia As String
+            'Dim vMes As String
+            'Dim vYear As String
+            'Dim vFechahoy As String = txFecha.Text
 
 
 
@@ -1273,7 +1279,7 @@ Public Class frFacturaManual
             If cbFormapago.SelectedValue = 1 Then
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = txFecha.Text
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = txTotalAlbaran.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
             End If
@@ -1282,7 +1288,7 @@ Public Class frFacturaManual
                 Dim fechaplazo As Date = DateAdd(DateInterval.Month, 1, fechahoy)
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = txTotalAlbaran.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
             End If
@@ -1291,7 +1297,7 @@ Public Class frFacturaManual
                 Dim fechaplazo As Date = DateAdd(DateInterval.Month, 2, fechahoy)
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = txTotalAlbaran.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
             End If
@@ -1300,7 +1306,7 @@ Public Class frFacturaManual
                 Dim fechaplazo As Date = DateAdd(DateInterval.Month, 3, fechahoy)
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = txTotalAlbaran.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
             End If
@@ -1313,13 +1319,13 @@ Public Class frFacturaManual
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo1.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo2.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
             End If
@@ -1333,19 +1339,19 @@ Public Class frFacturaManual
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo1.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo2.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo3.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
@@ -1361,25 +1367,25 @@ Public Class frFacturaManual
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo1.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo2.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo3.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo4.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
@@ -1396,31 +1402,31 @@ Public Class frFacturaManual
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo1.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo2.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo3.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo4.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo5.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
@@ -1438,37 +1444,37 @@ Public Class frFacturaManual
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo1.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo2.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo3.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo4.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo5.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
                 dgPlazos.Rows.Add()
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(0).Value = fechaplazo6.ToString("dd/MM/yyyy")
-                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "Pago fra. referencia:" + txReferenciapres.Text
+                dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(1).Value = "PAGO FACTURA Nº: " + txtNumpres.Text
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(2).Value = vImportePlazo.ToString("0.00")
                 dgPlazos.Rows(dgPlazos.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
 
@@ -1482,6 +1488,7 @@ Public Class frFacturaManual
         Dim vPagado As String
         Dim orden As Int16 = 0
         Dim linImporte As String
+        Dim guardo_linImporte As String
         Dim vtoRow As New DataGridViewRow
 
 
@@ -1497,6 +1504,7 @@ Public Class frFacturaManual
             Dim vVtoPagado As String
             Dim fecha As Date = vtoRow.Cells(0).Value
             linImporte = vtoRow.Cells(2).Value.ToString
+            guardo_linImporte = Replace(linImporte, ",", ".")
 
             If vtoRow.Cells(3).Style.BackColor = Color.Red Then
                 vVtoPagado = "N"
@@ -1504,7 +1512,7 @@ Public Class frFacturaManual
                 vVtoPagado = "S"
             End If
 
-            Dim cmd As New MySqlCommand("INSERT INTO vto_cobros (documentoID, tipodoc, concepto, vencimiento, importe, orden, pagado) VALUES (" + txtNumpres.Text + ", 'F', '" + vtoRow.Cells(1).Value + "', '" + fecha.ToString("yyyy-MM-dd") + "', '" + linImporte + "', '" + orden.ToString + "', '" + vVtoPagado + "')", conexionmy)
+            Dim cmd As New MySqlCommand("INSERT INTO vto_cobros (documentoID, tipodoc, concepto, vencimiento, importe, orden, pagado) VALUES (" + txtNumpres.Text + ", 'F', '" + vtoRow.Cells(1).Value + "', '" + fecha.ToString("yyyy-MM-dd") + "', '" + guardo_linImporte + "', '" + orden.ToString + "', '" + vVtoPagado + "')", conexionmy)
             cmd.ExecuteNonQuery()
         Next
         conexionmy.Close()
@@ -1513,8 +1521,8 @@ Public Class frFacturaManual
 
     Private Sub ckPagado_CheckedChanged(sender As Object, e As EventArgs) Handles ckPagado.CheckedChanged
         If ckPagado.Checked = True Then
-            cargoFormaPago()
-            cbFormapago.SelectedIndex = 0
+            'cargoFormaPago()
+            'cbFormapago.SelectedIndex = 0
             Dim vFechahoy As String = txFecha.Text
             Dim vDia As String
             vDia = vFechahoy.Substring(0, 2)
@@ -1522,6 +1530,7 @@ Public Class frFacturaManual
             dgPlazos.Rows.Clear()
             recalcularPlazos()
             cbFormapago.Enabled = False
+            btRecalcular.Enabled = False
             txDiapago.Enabled = False
         Else
             cbFormapago.Enabled = True
@@ -1665,6 +1674,11 @@ Public Class frFacturaManual
                 dgPlazos.CurrentRow.Cells(3).Style.BackColor = Color.Green
                 recalcularPendiente()
                 btActualizar.Enabled = True
+                If txPendiente.Text = "0" Then
+                    ckPagado.Checked = True
+                Else
+                    ckPagado.Checked = False
+                End If
             Else
                 dgPlazos.CurrentRow.Cells(3).Style.BackColor = Color.Red
             End If
@@ -2411,4 +2425,6 @@ Public Class frFacturaManual
         ' Me.ReportViewer2.RefreshReport()
         ' End If
     End Sub
+
+
 End Class

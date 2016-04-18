@@ -268,7 +268,7 @@ Public Class frArticulos
                                                 grupoID = '" + txGrupo.Text + "', 
                                                 proveedorID = '" + txNumPro.Text + "',
                                                 medidaID= '" + cbMedidas.SelectedValue.ToString + "',
-                                                medida = '" + cbMedidas.Text + "',
+                                                medida = '" + cbMedidas.SelectedValue.ToString + "',
                                                 tejido = '" + vTejido + "',
                                                 tejido = '" + cbTejido2.SelectedValue.ToString + "',
                                                 modelo = '" + cbModelos.SelectedValue.ToString + "',

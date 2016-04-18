@@ -1513,6 +1513,7 @@ Public Class frFacturaManual
 
     Private Sub ckPagado_CheckedChanged(sender As Object, e As EventArgs) Handles ckPagado.CheckedChanged
         If ckPagado.Checked = True Then
+            cargoFormaPago()
             cbFormapago.SelectedIndex = 0
             Dim vFechahoy As String = txFecha.Text
             Dim vDia As String

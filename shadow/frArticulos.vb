@@ -611,13 +611,22 @@ Public Class frArticulos
         cargoFamilia(rdr("familia"))
         txDescripcion.Text = rdr("descripcion")
         cbColores.Text = rdr("color")
-        cbMedidas.SelectedValue = rdr("medida")
+        If rdr("medida") = "" Then
+            cbMedidas.SelectedValue = "000"
+        Else
+            cbMedidas.SelectedValue = rdr("medida")
+        End If
+
         cbUnidad.Text = rdr("ud_medida")
         txIva.Text = rdr("iva")
         txCompra.Text = rdr("precio_compra")
         txDto.Text = rdr("dto_prov")
         txMargenPor.Text = rdr("porc_margen")
-        txMargenEuro.Text = rdr("euro_margen")
+        If rdr("euro_margen") = "" Then
+            txMargenEuro.Text = "0,00"
+        Else
+            txMargenEuro.Text = rdr("euro_margen")
+        End If
         txPrecio.Text = rdr("pvp")
         txUbicacion.Text = rdr("ubicacion")
         txStock.Text = rdr("stock")

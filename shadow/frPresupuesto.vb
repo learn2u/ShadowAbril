@@ -905,8 +905,8 @@ Public Class frPresupuestos
         cmdLinea.Connection = conexionmy
 
         Dim rdrLin As MySqlDataReader
-        'Try
-        rdrLin = cmdLinea.ExecuteReader
+        Try
+            rdrLin = cmdLinea.ExecuteReader
             If rdrLin.HasRows Then
                 Do While rdrLin.Read()
                     lineas = lineas + 1
@@ -927,10 +927,10 @@ Public Class frPresupuestos
             Else
 
             End If
-        'Catch ex As Exception
-        'MsgBox("Se ha producido un error en la carga de líneas del presupuesto seleccionado (Err_2024). Revise los datos")
-        'Exit Sub
-        'End Try
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en la carga de líneas del presupuesto seleccionado (Err_2024). Revise los datos")
+            Exit Sub
+        End Try
 
 
         rdrLin.Close()

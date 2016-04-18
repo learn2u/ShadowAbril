@@ -77,7 +77,8 @@ Public Class frAlbaran
                                                     albaran_cab.clienteID,
                                                     albaran_cab.eliminado,
                                                     albaran_cab.serie, 
-                                                    clientes.clienteID
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE eliminado = 'N' AND serie = '1' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
@@ -124,10 +125,13 @@ Public Class frAlbaran
             dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
             dgAlbaranes.Columns(5).FillWeight = 90
             dgAlbaranes.Columns(5).MinimumWidth = 90
+            dgAlbaranes.Columns(6).Name = "Column7"
             dgAlbaranes.Columns(6).Visible = False
             dgAlbaranes.Columns(7).Visible = False
             dgAlbaranes.Columns(8).Visible = False
             dgAlbaranes.Columns(9).Visible = False
+            dgAlbaranes.Columns(10).Name = "Column10"
+            dgAlbaranes.Columns(10).Visible = False
             dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
             dgAlbaranes.Visible = True
         Catch ex As Exception
@@ -2262,8 +2266,10 @@ Public Class frAlbaran
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.facturado,
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
@@ -2315,9 +2321,13 @@ Public Class frAlbaran
         dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
         dgAlbaranes.Columns(5).FillWeight = 90
         dgAlbaranes.Columns(5).MinimumWidth = 90
+        dgAlbaranes.Columns(6).Name = "Column7"
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 
@@ -2880,6 +2890,93 @@ Public Class frAlbaran
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgAlbaranes.Visible = True
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub dgAlbaranes_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgAlbaranes.CellClick
+        If rbNofacturados.Checked = True Then
+            txCodcli.Text = dgAlbaranes.CurrentRow.Cells(6).Value
+            txAgenteF.Text = dgAlbaranes.CurrentRow.Cells(10).Value
+            rbNofacturados.Checked = False
+            cargoParaFacturar()
+
+        End If
+    End Sub
+    Public Sub cargoParaFacturar()
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
+        conexionmy.Open()
+        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.facturado,
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = '1' AND albaran_cab.clienteID = '" + txCodcli.Text + "' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+
+        Dim readermy As MySqlDataReader
+        Dim dtable As New DataTable
+        Dim bind As New BindingSource()
+
+        Try
+            readermy = consultamy.ExecuteReader
+        Catch ex As Exception
+            MsgBox("Se ha producido un error en el filtro de albaranes no facturados(Err_1171). Revise los datos")
+            Exit Sub
+        End Try
+
+        dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+        bind.DataSource = dtable
+
+        dgAlbaranes.DataSource = bind
+        dgAlbaranes.EnableHeadersVisualStyles = False
+        Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
+        styCabeceras.BackColor = Color.Beige
+        styCabeceras.ForeColor = Color.Black
+        styCabeceras.Font = New Font("Verdana", 9, FontStyle.Bold)
+        dgAlbaranes.ColumnHeadersDefaultCellStyle = styCabeceras
+
+        dgAlbaranes.Columns(0).HeaderText = "NUMERO"
+        dgAlbaranes.Columns(0).Name = "Column1"
+        dgAlbaranes.Columns(0).FillWeight = 90
+        dgAlbaranes.Columns(0).MinimumWidth = 90
+        dgAlbaranes.Columns(1).HeaderText = "REFERENCIA"
+        dgAlbaranes.Columns(1).Name = "Column2"
+        dgAlbaranes.Columns(1).FillWeight = 190
+        dgAlbaranes.Columns(1).MinimumWidth = 190
+        dgAlbaranes.Columns(2).HeaderText = "FECHA"
+        dgAlbaranes.Columns(2).Name = "Column3"
+        dgAlbaranes.Columns(2).FillWeight = 90
+        dgAlbaranes.Columns(2).MinimumWidth = 90
+        dgAlbaranes.Columns(3).HeaderText = "CLIENTE"
+        dgAlbaranes.Columns(3).Name = "Column4"
+        dgAlbaranes.Columns(3).FillWeight = 300
+        dgAlbaranes.Columns(3).MinimumWidth = 300
+        dgAlbaranes.Columns(4).HeaderText = "IMPORTE"
+        dgAlbaranes.Columns(4).Name = "Column5"
+        dgAlbaranes.Columns(4).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgAlbaranes.Columns(4).FillWeight = 90
+        dgAlbaranes.Columns(4).MinimumWidth = 90
+        dgAlbaranes.Columns(5).HeaderText = "TOTAL"
+        dgAlbaranes.Columns(5).Name = "Column6"
+        dgAlbaranes.Columns(5).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+        dgAlbaranes.Columns(5).FillWeight = 90
+        dgAlbaranes.Columns(5).MinimumWidth = 90
+        dgAlbaranes.Columns(6).Name = "Column7"
+        dgAlbaranes.Columns(6).Visible = False
+        dgAlbaranes.Columns(7).Visible = False
+        dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 

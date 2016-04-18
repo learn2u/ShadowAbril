@@ -3716,7 +3716,7 @@ Namespace dsFacturasTableAdapters
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        num_factura, fecha, totaliva, totalrecargo, formapago, totalfactura"& _ 
-                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            factura_cab"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (num_factura = 1001)"
+                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            factura_cab"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (num_factura = 1002)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         
@@ -4075,7 +4075,7 @@ Namespace dsFacturasTableAdapters
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        num_factura, codigo, descripcion, cantidad, ancho_largo, m2_ml, pre"& _ 
                 "cio, descuento, importe, totalinea, linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            factura_linea"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE "& _ 
-                "       (num_factura = 1001)"
+                "       (num_factura = 1002)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         
@@ -4293,7 +4293,7 @@ Namespace dsFacturasTableAdapters
             Me._commandCollection(0) = New Global.MySql.Data.MySqlClient.MySqlCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT        documentoID, tipodoc, vencimiento, importe, orden"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            "& _ 
-                "vto_cobros"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (documentoID = 1001)"
+                "vto_cobros"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (documentoID = 1002)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         

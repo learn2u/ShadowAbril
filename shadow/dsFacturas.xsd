@@ -102,7 +102,7 @@ WHERE        (clienteID = 173)</CommandText>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        num_factura, fecha, totaliva, totalrecargo, formapago, totalfactura
 FROM            factura_cab
-WHERE        (num_factura = 1001)</CommandText>
+WHERE        (num_factura = 1002)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -149,7 +149,7 @@ WHERE        (num_factura = 1001)</CommandText>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        num_factura, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, importe, totalinea, linea
 FROM            factura_linea
-WHERE        (num_factura = 1001)</CommandText>
+WHERE        (num_factura = 1002)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -189,7 +189,7 @@ WHERE        (num_factura = 1001)</CommandText>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        documentoID, tipodoc, vencimiento, importe, orden
 FROM            vto_cobros
-WHERE        (documentoID = 1001)</CommandText>
+WHERE        (documentoID = 1002)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -212,7 +212,7 @@ WHERE        (documentoID = 1001)</CommandText>
   <xs:element name="dsFacturas" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="dsFacturas" msprop:Generator_UserDSName="dsFacturas">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="clientes" msprop:Generator_TableClassName="clientesDataTable" msprop:Generator_TableVarName="tableclientes" msprop:Generator_TablePropName="clientes" msprop:Generator_RowDeletingName="clientesRowDeleting" msprop:Generator_RowChangingName="clientesRowChanging" msprop:Generator_RowEvHandlerName="clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="clientesRowDeleted" msprop:Generator_UserTableName="clientes" msprop:Generator_RowChangedName="clientesRowChanged" msprop:Generator_RowEvArgName="clientesRowChangeEvent" msprop:Generator_RowClassName="clientesRow">
+        <xs:element name="clientes" msprop:Generator_TableClassName="clientesDataTable" msprop:Generator_TableVarName="tableclientes" msprop:Generator_RowChangedName="clientesRowChanged" msprop:Generator_TablePropName="clientes" msprop:Generator_RowDeletingName="clientesRowDeleting" msprop:Generator_RowChangingName="clientesRowChanging" msprop:Generator_RowEvHandlerName="clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="clientesRowDeleted" msprop:Generator_RowClassName="clientesRow" msprop:Generator_UserTableName="clientes" msprop:Generator_RowEvArgName="clientesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="clienteID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnclienteID" msprop:Generator_ColumnPropNameInRow="clienteID" msprop:Generator_ColumnPropNameInTable="clienteIDColumn" msprop:Generator_UserColumnName="clienteID" type="xs:int" />
@@ -261,7 +261,7 @@ WHERE        (documentoID = 1001)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="factura_cab" msprop:Generator_TableClassName="factura_cabDataTable" msprop:Generator_TableVarName="tablefactura_cab" msprop:Generator_TablePropName="factura_cab" msprop:Generator_RowDeletingName="factura_cabRowDeleting" msprop:Generator_RowChangingName="factura_cabRowChanging" msprop:Generator_RowEvHandlerName="factura_cabRowChangeEventHandler" msprop:Generator_RowDeletedName="factura_cabRowDeleted" msprop:Generator_UserTableName="factura_cab" msprop:Generator_RowChangedName="factura_cabRowChanged" msprop:Generator_RowEvArgName="factura_cabRowChangeEvent" msprop:Generator_RowClassName="factura_cabRow">
+        <xs:element name="factura_cab" msprop:Generator_TableClassName="factura_cabDataTable" msprop:Generator_TableVarName="tablefactura_cab" msprop:Generator_RowChangedName="factura_cabRowChanged" msprop:Generator_TablePropName="factura_cab" msprop:Generator_RowDeletingName="factura_cabRowDeleting" msprop:Generator_RowChangingName="factura_cabRowChanging" msprop:Generator_RowEvHandlerName="factura_cabRowChangeEventHandler" msprop:Generator_RowDeletedName="factura_cabRowDeleted" msprop:Generator_RowClassName="factura_cabRow" msprop:Generator_UserTableName="factura_cab" msprop:Generator_RowEvArgName="factura_cabRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="num_factura" msprop:Generator_ColumnVarNameInTable="columnnum_factura" msprop:Generator_ColumnPropNameInRow="num_factura" msprop:Generator_ColumnPropNameInTable="num_facturaColumn" msprop:Generator_UserColumnName="num_factura" type="xs:int" />
@@ -273,7 +273,7 @@ WHERE        (documentoID = 1001)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="factura_linea" msprop:Generator_TableClassName="factura_lineaDataTable" msprop:Generator_TableVarName="tablefactura_linea" msprop:Generator_TablePropName="factura_linea" msprop:Generator_RowDeletingName="factura_lineaRowDeleting" msprop:Generator_RowChangingName="factura_lineaRowChanging" msprop:Generator_RowEvHandlerName="factura_lineaRowChangeEventHandler" msprop:Generator_RowDeletedName="factura_lineaRowDeleted" msprop:Generator_UserTableName="factura_linea" msprop:Generator_RowChangedName="factura_lineaRowChanged" msprop:Generator_RowEvArgName="factura_lineaRowChangeEvent" msprop:Generator_RowClassName="factura_lineaRow">
+        <xs:element name="factura_linea" msprop:Generator_TableClassName="factura_lineaDataTable" msprop:Generator_TableVarName="tablefactura_linea" msprop:Generator_RowChangedName="factura_lineaRowChanged" msprop:Generator_TablePropName="factura_linea" msprop:Generator_RowDeletingName="factura_lineaRowDeleting" msprop:Generator_RowChangingName="factura_lineaRowChanging" msprop:Generator_RowEvHandlerName="factura_lineaRowChangeEventHandler" msprop:Generator_RowDeletedName="factura_lineaRowDeleted" msprop:Generator_RowClassName="factura_lineaRow" msprop:Generator_UserTableName="factura_linea" msprop:Generator_RowEvArgName="factura_lineaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="num_factura" msprop:Generator_ColumnVarNameInTable="columnnum_factura" msprop:Generator_ColumnPropNameInRow="num_factura" msprop:Generator_ColumnPropNameInTable="num_facturaColumn" msprop:Generator_UserColumnName="num_factura" type="xs:int" />
@@ -302,7 +302,7 @@ WHERE        (documentoID = 1001)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="vto_cobros" msprop:Generator_TableClassName="vto_cobrosDataTable" msprop:Generator_TableVarName="tablevto_cobros" msprop:Generator_TablePropName="vto_cobros" msprop:Generator_RowDeletingName="vto_cobrosRowDeleting" msprop:Generator_RowChangingName="vto_cobrosRowChanging" msprop:Generator_RowEvHandlerName="vto_cobrosRowChangeEventHandler" msprop:Generator_RowDeletedName="vto_cobrosRowDeleted" msprop:Generator_UserTableName="vto_cobros" msprop:Generator_RowChangedName="vto_cobrosRowChanged" msprop:Generator_RowEvArgName="vto_cobrosRowChangeEvent" msprop:Generator_RowClassName="vto_cobrosRow">
+        <xs:element name="vto_cobros" msprop:Generator_TableClassName="vto_cobrosDataTable" msprop:Generator_TableVarName="tablevto_cobros" msprop:Generator_RowChangedName="vto_cobrosRowChanged" msprop:Generator_TablePropName="vto_cobros" msprop:Generator_RowDeletingName="vto_cobrosRowDeleting" msprop:Generator_RowChangingName="vto_cobrosRowChanging" msprop:Generator_RowEvHandlerName="vto_cobrosRowChangeEventHandler" msprop:Generator_RowDeletedName="vto_cobrosRowDeleted" msprop:Generator_RowClassName="vto_cobrosRow" msprop:Generator_UserTableName="vto_cobros" msprop:Generator_RowEvArgName="vto_cobrosRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="documentoID" msprop:Generator_ColumnVarNameInTable="columndocumentoID" msprop:Generator_ColumnPropNameInRow="documentoID" msprop:Generator_ColumnPropNameInTable="documentoIDColumn" msprop:Generator_UserColumnName="documentoID" type="xs:int" />

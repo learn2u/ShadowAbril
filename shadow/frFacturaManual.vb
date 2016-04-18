@@ -40,12 +40,13 @@ Public Class frFacturaManual
         btBuscar.Visible = False
 
 
+        Me.ReportViewer1.RefreshReport()
     End Sub
     Public Sub deshabilitarBotones()
         cmdGuardar.Enabled = False
         cmdCancelar.Enabled = False
         cmdDelete.Enabled = False
-        cmdImprimir.Enabled = False
+        'cmdImprimir.Enabled = False
         cmdPDF.Enabled = False
         cmdMail.Enabled = False
         cmdPedido.Enabled = False
@@ -2379,5 +2380,34 @@ Public Class frFacturaManual
         dgFacturas.Visible = True
 
         conexionmy.Close()
+    End Sub
+
+    Private Sub cmdImprimir_Click(sender As Object, e As EventArgs) Handles cmdImprimir.Click
+        'numero_impresion = CInt(txtNumpres.Text)
+        'codigo_cliente_impresion = CInt(txNumcli.Text)
+        tabPresupuestos.SelectedIndex = 2
+
+
+        'Me.clientesTableAdapter.Fill(Me.dsFacturas.clientes, codigo_cliente_impresion)
+        Me.clientesTableAdapter.Fill(Me.dsFacturas.clientes)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_cab' Puede moverla o quitarla según sea necesario.
+        Me.factura_cabTableAdapter.Fill(Me.dsFacturas.factura_cab)
+        'Me.albaran_cabTableAdapter.Fill(Me.dsAlbaranes.albaran_cab, numero_impresion)
+        'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_linea' Puede moverla o quitarla según sea necesario.
+        Me.factura_lineaTableAdapter.Fill(Me.dsFacturas.factura_linea)
+        'Me.albaran_lineaTableAdapter.Fill(Me.dsAlbaranes.albaran_linea, numero_impresion)
+
+        'If cbSerie.Text = "S1" Then
+        ' Me.ReportViewer1.Visible = True
+        ' Me.ReportViewer2.Visible = False
+        ' Me.ReportViewer1.Dock = DockStyle.Fill
+        Me.ReportViewer1.RefreshReport()
+
+        'Else
+        'Me.ReportViewer2.Visible = True
+        ' Me.ReportViewer1.Visible = False
+        ' Me.ReportViewer2.Dock = DockStyle.Fill
+        ' Me.ReportViewer2.RefreshReport()
+        ' End If
     End Sub
 End Class

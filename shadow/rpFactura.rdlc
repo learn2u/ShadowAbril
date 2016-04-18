@@ -702,7 +702,7 @@
         <DataSetName>dsLineas</DataSetName>
         <Top>0.10583cm</Top>
         <Height>1.2cm</Height>
-        <Width>19.0209cm</Width>
+        <Width>19.02088cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -982,7 +982,9 @@
               <TextRuns>
                 <TextRun>
                   <Value>=First(Fields!fecha.Value, "dsCabecera")</Value>
-                  <Style />
+                  <Style>
+                    <Format>dd/MM/yyyy</Format>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style>
@@ -1770,7 +1772,7 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Sum(Fields!formapago.Value, "dsCabecera")</Value>
+                  <Value>=first(Fields!formapago.Value, "dsCabecera")</Value>
                   <Style />
                 </TextRun>
               </TextRuns>

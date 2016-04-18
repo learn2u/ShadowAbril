@@ -1574,7 +1574,7 @@ Public Class frAlbaran
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ".", "")
             Dim guardo_vTotal As String = Replace(vTotal.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_vBruto + "', '" + guardo_vDto + "', '" + guardo_vIva + "', '" + guardo_vRec + "', '" + guardo_vTotal + "', 'N', 'N', " + txNumpresBk.Text + ")"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran, pagado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_vBruto + "', '" + guardo_vDto + "', '" + guardo_vIva + "', '" + guardo_vRec + "', '" + guardo_vTotal + "', 'N', 'N', " + txNumpresBk.Text + ", 'N')"
             cmd.Connection = conexionmy
             Try
                 cmd.ExecuteNonQuery()

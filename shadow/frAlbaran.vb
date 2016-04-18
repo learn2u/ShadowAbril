@@ -21,6 +21,18 @@ Public Class frAlbaran
     Public Shared artiLote As String
     Public Shared numero_impresion As Integer
     Public Shared codigo_cliente_impresion As Integer
+    Public Shared linea As Int16 = 0
+    Public Shared vTotalBruto As Decimal = 0
+    Public Shared vTotalDto As Decimal = 0
+    Public Shared vTotalIva As Decimal = 0
+    Public Shared vTotalRecargo As Decimal = 0
+    Public Shared vTotalAlbaran As Decimal = 0
+    Public Shared vTotalBrutoFac As Decimal = 0
+    Public Shared vTotalDtoFac As Decimal = 0
+    Public Shared vTotalIvaFac As Decimal = 0
+    Public Shared vTotalRecargoFac As Decimal = 0
+    Public Shared vTotalFactura As Decimal = 0
+    Public Shared albaFactu As New List(Of albaranFactura)
 
 
     Private Sub frAlbaran_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -1574,7 +1586,7 @@ Public Class frAlbaran
             Dim vTotal As String = Replace(txTotalAlbaran.Text.ToString, ".", "")
             Dim guardo_vTotal As String = Replace(vTotal.ToString, ",", ".")
 
-            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran, pagado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_vBruto + "', '" + guardo_vDto + "', '" + guardo_vIva + "', '" + guardo_vRec + "', '" + guardo_vTotal + "', 'N', 'N', " + txNumpresBk.Text + ", 'N')"
+            cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, referencia, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, num_albaran, formapago, pagado) VALUES (" + txtNumpres.Text + " , '" + vSelecSerie + "', " + txNumcli.Text + ", " + cbEnvio.SelectedValue.ToString + ", " + txEmpresa.Text + ", " + txAgente.Text + ", " + txUsuario.Text + ", '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + vFechaHoy.ToString("yyyy-MM-dd") + "', '" + txReferenciapres.Text + "', '" + txObserva.Text + "', '" + guardo_vBruto + "', '" + guardo_vDto + "', '" + guardo_vIva + "', '" + guardo_vRec + "', '" + guardo_vTotal + "', 'N', 'N', " + txNumpresBk.Text + ", 1, 'N')"
             cmd.Connection = conexionmy
             Try
                 cmd.ExecuteNonQuery()
@@ -2981,5 +2993,234 @@ Public Class frAlbaran
         dgAlbaranes.Visible = True
 
         conexionmy.Close()
+    End Sub
+    Public Sub cargoNumeroF()
+
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+
+        Dim cmdLastId As New MySqlCommand("SELECT num_factura FROM configuracion  ", conexionmy)
+        Dim numid As Int32
+
+        numid = cmdLastId.ExecuteScalar()
+
+        txNFac.Text = numid + 1
+
+        conexionmy.Close()
+    End Sub
+
+    Private Sub btFacturarTodos_Click(sender As Object, e As EventArgs) Handles btFacturarTodos.Click
+        Dim numAlb As Integer
+        Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
+        Dim row As New DataGridViewRow
+
+        If selectedRowCount = 0 Then
+            cargoNumeroF()
+
+            For Each row In dgAlbaranes.Rows
+                numAlb = row.Cells(0).Value
+                'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
+                guardoDatosAlbaran(numAlb)
+                'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
+                facturoAlbaran(numAlb)
+            Next
+            'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
+            sumoLineas(numAlb)
+        End If
+        MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+        'Me.Close()
+    End Sub
+
+    Private Sub btFacturarSelec_Click(sender As Object, e As EventArgs) Handles btFacturarSelec.Click
+        Dim numAlb As Integer
+        Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
+        Dim albaranes(selectedRowCount) As Integer
+
+        If selectedRowCount > 0 Then
+            Dim contador As Integer
+            cargoNumeroF()
+            For contador = 0 To selectedRowCount - 1
+                albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
+                guardoDatosAlbaran(numAlb)
+                'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
+                facturoAlbaran(numAlb)
+            Next
+            'sumoLineas - Totaliza las líneas y graba a cabecera de la factura
+            sumoLineas(numAlb)
+        End If
+
+        MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+        'Me.Close()
+    End Sub
+    Public Sub graboLineas(nAlba As Integer)
+        'linea = 1
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim conexionmy2 As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy2.Open()
+        Dim cmdAlb As New MySqlCommand()
+
+
+        Dim rdrAlb As MySqlDataReader
+        cmdAlb = New MySqlCommand("SELECT * FROM albaran_linea WHERE num_albaran = '" & nAlba & "'", conexionmy)
+
+
+        cmdAlb.CommandType = CommandType.Text
+        cmdAlb.Connection = conexionmy
+        rdrAlb = cmdAlb.ExecuteReader
+        If rdrAlb.HasRows Then
+            Do While rdrAlb.Read()
+
+                linea = linea + 1
+                Dim vCantidad As String = Replace(rdrAlb("cantidad").ToString, ",", ".")
+                Dim vAncho As String = Replace(rdrAlb("ancho_largo").ToString, ",", ".")
+                Dim vMl As String = Replace(rdrAlb("m2_ml").ToString, ",", ".")
+                Dim vPrecio As String = Replace(rdrAlb("precio").ToString, ",", ".")
+                Dim vDescuento As String = Replace(rdrAlb("descuento").ToString, ",", ".")
+                Dim vIva As String = Replace(rdrAlb("ivalinea").ToString, ",", ".")
+                Dim vImporte As String = Replace(rdrAlb("importe").ToString, ",", ".")
+                Dim vTotal As String = Replace(rdrAlb("totalinea").ToString, ",", ".")
+                Dim cmdLinea As New MySqlCommand
+                cmdLinea.CommandType = System.Data.CommandType.Text
+                cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, codigo, descripcion, cantidad, ancho_largo, m2_ml, precio, descuento, ivalinea, importe, totalinea, linea, lote, num_albaran) VALUES (" + txNFac.Text + " , '" + rdrAlb("codigo") + "' , '" + rdrAlb("descripcion") + "', '" + vCantidad + "' , '" + vAncho + "', '" + vMl + "', '" + vPrecio + "', '" + vDescuento + "', '" + vIva + "', '" + vImporte + "', '" + vTotal + "', '" + linea.ToString + "', '" + rdrAlb("lote") + "', '" + nAlba.ToString + "')"
+                cmdLinea.Connection = conexionmy2
+                cmdLinea.ExecuteNonQuery()
+
+            Loop
+        End If
+        conexionmy.Close()
+
+    End Sub
+    Public Sub guardoDatosAlbaran(nAlbaran As Integer)
+        vTotalBruto = 0
+        vTotalDto = 0
+        vTotalIva = 0
+        vTotalRecargo = 0
+        vTotalAlbaran = 0
+
+
+
+        Dim vNdeAlbaran As Integer
+        vNdeAlbaran = nAlbaran
+
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim cmdAlb As New MySqlCommand
+
+
+        Dim rdrAlb As MySqlDataReader
+        cmdAlb = New MySqlCommand("SELECT * FROM albaran_cab WHERE num_albaran = '" & nAlbaran & "'", conexionmy)
+
+
+        cmdAlb.CommandType = CommandType.Text
+        cmdAlb.Connection = conexionmy
+        rdrAlb = cmdAlb.ExecuteReader
+        rdrAlb.Read()
+
+        If rdrAlb.HasRows = True Then
+
+            vTotalBruto = vTotalBruto + rdrAlb("totalbruto")
+            vTotalDto = vTotalDto + rdrAlb("totaldto")
+            vTotalIva = vTotalIva + rdrAlb("totaliva")
+            vTotalRecargo = vTotalRecargo + rdrAlb("totalrecargo")
+            vTotalAlbaran = vTotalAlbaran + rdrAlb("totalalbaran")
+
+            albaFactu.Add(New albaranFactura() With {.numAlba = vNdeAlbaran, .totbrut = vTotalBruto, .totdto = vTotalDto, .totiva = vTotalIva, .totrec = vTotalRecargo, .totalb = vTotalAlbaran})
+
+            rdrAlb.Close()
+
+        Else
+            'Por si no encuentra el albaran
+            MsgBox("Albarán no disponible en la base de datos")
+        End If
+
+
+
+    End Sub
+    Public Sub sumoLineas(nAlba As Integer)
+        vTotalBrutoFac = 0
+        vTotalDtoFac = 0
+        vTotalIvaFac = 0
+        vTotalRecargoFac = 0
+        vTotalFactura = 0
+        Dim vFecha As Date = Today
+
+        For Each itemlineas As albaranFactura In albaFactu
+            'Calculo los totales de la factura
+            vTotalBrutoFac = vTotalBrutoFac + itemlineas.totbrut
+            vTotalDtoFac = vTotalDtoFac + itemlineas.totdto
+            vTotalIvaFac = vTotalIvaFac + itemlineas.totiva
+            vTotalRecargoFac = vTotalRecargoFac + itemlineas.totrec
+            vTotalFactura = vTotalFactura + itemlineas.totalb
+        Next
+        'Genero la cabecera del albarán
+
+        Dim vTotalBF As String = Replace(vTotalBrutoFac.ToString, ",", ".")
+        Dim vTotalDF As String = Replace(vTotalDtoFac.ToString, ",", ".")
+        Dim vTotalIF As String = Replace(vTotalIvaFac.ToString, ",", ".")
+        Dim vTotalRF As String = Replace(vTotalRecargoFac.ToString, ",", ".")
+        Dim vTotalF As String = Replace(vTotalFactura.ToString, ",", ".")
+        Dim vObserva As String = " "
+
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim cmd As New MySqlCommand
+        cmd.CommandType = System.Data.CommandType.Text
+
+        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNFac.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgenteF.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
+        cmd.Connection = conexionmy
+        cmd.ExecuteNonQuery()
+
+        conexionmy.Close()
+
+    End Sub
+    Public Sub facturoAlbaran(nAlb As Integer)
+        Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
+        conexionmy.Open()
+        Dim cmdAlb As New MySqlCommand
+
+        Dim rdrAlb As MySqlDataReader
+        cmdAlb = New MySqlCommand("SELECT * FROM albaran_cab WHERE num_albaran = '" & nAlb & "'", conexionmy)
+
+
+        cmdAlb.CommandType = CommandType.Text
+        cmdAlb.Connection = conexionmy
+        rdrAlb = cmdAlb.ExecuteReader
+        rdrAlb.Read()
+
+
+
+        If rdrAlb.HasRows = True Then
+            linea = linea + 1
+            Dim vAlb As String = nAlb.ToString
+            Dim vFechaAlb As Date = rdrAlb("fecha").ToString
+            Dim vDescrip As String = "***** ALBARAN Nº: " + vAlb + " DE: " + vFechaAlb + " *****"
+
+            rdrAlb.Close()
+
+            Dim cmdLinea As New MySqlCommand
+            cmdLinea.CommandType = System.Data.CommandType.Text
+            cmdLinea.CommandText = "INSERT INTO factura_linea (num_factura, articuloID, descripcion, cantidad, precio, descuento, ivalinea, totalinea, linea) VALUES (" + txNFac.Text + " , '99999' , '" + vDescrip + "', 0, '0', '0', '0', '0', '" + linea.ToString + "')"
+            cmdLinea.Connection = conexionmy
+            cmdLinea.ExecuteNonQuery()
+            graboLineas(vAlb)
+        Else
+            'Por si no encuentra el albaran
+            MsgBox("Albarán no disponible en la base de datos")
+        End If
+
+        Dim cmdupdate As New MySqlCommand
+        cmdupdate.CommandType = System.Data.CommandType.Text
+        cmdupdate.CommandText = "UPDATE albaran_cab SET facturado = 'S' WHERE num_albaran = '" & nAlb & "'"
+        cmdupdate.Connection = conexionmy
+        cmdupdate.ExecuteNonQuery()
+
+        Dim cmdActualizar As New MySqlCommand("UPDATE configuracion SET num_factura = '" + txNFac.Text + "'  ", conexionmy)
+        cmdActualizar.ExecuteNonQuery()
+
+        conexionmy.Close()
+
     End Sub
 End Class

@@ -613,7 +613,7 @@ Public Class frFacturaAlbaran
         Dim cmd As New MySqlCommand
         cmd.CommandType = System.Data.CommandType.Text
 
-        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, pagado) VALUES (" + txNumero.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgente.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 'N')"
+        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNumero.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgente.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
         cmd.Connection = conexionmy
         cmd.ExecuteNonQuery()
 

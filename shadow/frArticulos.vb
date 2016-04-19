@@ -264,6 +264,7 @@ Public Class frArticulos
             End If
 
             Dim cmdActualizar As New MySqlCommand("UPDATE articulos2 SET descripcion = '" + txDescripcion.Text + "', 
+                                                ref_proveedor = '" + txRefProv.Text + "',
                                                 referencia = '" + txCodigo.Text + "',
                                                 grupoID = '" + txGrupo.Text + "', 
                                                 proveedorID = '" + txNumPro.Text + "',

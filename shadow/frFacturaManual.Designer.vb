@@ -43,11 +43,7 @@ Partial Class frFacturaManual
         Dim ReportDataSource2 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
-        Me.factura_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.dsFacturas = New shadow.dsFacturas()
-        Me.factura_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.vto_cobrosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Me.cbSerie = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txObserva = New System.Windows.Forms.TextBox()
@@ -175,15 +171,17 @@ Partial Class frFacturaManual
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
+        Me.dsFacturas = New shadow.dsFacturas()
+        Me.factura_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.factura_cabTableAdapter = New shadow.dsFacturasTableAdapters.factura_cabTableAdapter()
+        Me.factura_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.factura_lineaTableAdapter = New shadow.dsFacturasTableAdapters.factura_lineaTableAdapter()
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.clientesTableAdapter = New shadow.dsFacturasTableAdapters.clientesTableAdapter()
+        Me.vto_cobrosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.vto_cobrosTableAdapter = New shadow.dsFacturasTableAdapters.vto_cobrosTableAdapter()
-        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.formapagoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.formapagoTableAdapter = New shadow.dsFacturasTableAdapters.formapagoTableAdapter()
         Me.Panel4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -197,32 +195,13 @@ Partial Class frFacturaManual
         Me.TabPage1.SuspendLayout()
         Me.tabPresupuestos.SuspendLayout()
         Me.TabPage3.SuspendLayout()
+        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'factura_cabBindingSource
-        '
-        Me.factura_cabBindingSource.DataMember = "factura_cab"
-        Me.factura_cabBindingSource.DataSource = Me.dsFacturas
-        '
-        'dsFacturas
-        '
-        Me.dsFacturas.DataSetName = "dsFacturas"
-        Me.dsFacturas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'factura_lineaBindingSource
-        '
-        Me.factura_lineaBindingSource.DataMember = "factura_linea"
-        Me.factura_lineaBindingSource.DataSource = Me.dsFacturas
-        '
-        'clientesBindingSource
-        '
-        Me.clientesBindingSource.DataMember = "clientes"
-        Me.clientesBindingSource.DataSource = Me.dsFacturas
-        '
-        'vto_cobrosBindingSource
-        '
-        Me.vto_cobrosBindingSource.DataMember = "vto_cobros"
-        Me.vto_cobrosBindingSource.DataSource = Me.dsFacturas
         '
         'cbSerie
         '
@@ -1476,31 +1455,68 @@ Partial Class frFacturaManual
         ReportDataSource3.Value = Me.clientesBindingSource
         ReportDataSource4.Name = "dsVencimientos"
         ReportDataSource4.Value = Me.vto_cobrosBindingSource
+        ReportDataSource5.Name = "formapago"
+        ReportDataSource5.Value = Me.formapagoBindingSource
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource1)
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource2)
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource3)
         Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource4)
+        Me.ReportViewer1.LocalReport.DataSources.Add(ReportDataSource5)
         Me.ReportViewer1.LocalReport.ReportEmbeddedResource = "shadow.rpFactura.rdlc"
         Me.ReportViewer1.Location = New System.Drawing.Point(3, 3)
         Me.ReportViewer1.Name = "ReportViewer1"
         Me.ReportViewer1.Size = New System.Drawing.Size(1207, 533)
         Me.ReportViewer1.TabIndex = 0
         '
+        'dsFacturas
+        '
+        Me.dsFacturas.DataSetName = "dsFacturas"
+        Me.dsFacturas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'factura_cabBindingSource
+        '
+        Me.factura_cabBindingSource.DataMember = "factura_cab"
+        Me.factura_cabBindingSource.DataSource = Me.dsFacturas
+        '
         'factura_cabTableAdapter
         '
         Me.factura_cabTableAdapter.ClearBeforeFill = True
+        '
+        'factura_lineaBindingSource
+        '
+        Me.factura_lineaBindingSource.DataMember = "factura_linea"
+        Me.factura_lineaBindingSource.DataSource = Me.dsFacturas
         '
         'factura_lineaTableAdapter
         '
         Me.factura_lineaTableAdapter.ClearBeforeFill = True
         '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsFacturas
+        '
         'clientesTableAdapter
         '
         Me.clientesTableAdapter.ClearBeforeFill = True
         '
+        'vto_cobrosBindingSource
+        '
+        Me.vto_cobrosBindingSource.DataMember = "vto_cobros"
+        Me.vto_cobrosBindingSource.DataSource = Me.dsFacturas
+        '
         'vto_cobrosTableAdapter
         '
         Me.vto_cobrosTableAdapter.ClearBeforeFill = True
+        '
+        'formapagoBindingSource
+        '
+        Me.formapagoBindingSource.DataMember = "formapago"
+        Me.formapagoBindingSource.DataSource = Me.dsFacturas
+        '
+        'formapagoTableAdapter
+        '
+        Me.formapagoTableAdapter.ClearBeforeFill = True
         '
         'frFacturaManual
         '
@@ -1512,11 +1528,6 @@ Partial Class frFacturaManual
         Me.Name = "frFacturaManual"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FACTURACION MANUAL"
-        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
@@ -1535,6 +1546,12 @@ Partial Class frFacturaManual
         Me.TabPage1.ResumeLayout(False)
         Me.tabPresupuestos.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
+        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1671,8 +1688,10 @@ Partial Class frFacturaManual
     Friend WithEvents factura_lineaBindingSource As BindingSource
     Friend WithEvents clientesBindingSource As BindingSource
     Friend WithEvents vto_cobrosBindingSource As BindingSource
+    Friend WithEvents formapagoBindingSource As BindingSource
     Friend WithEvents factura_cabTableAdapter As dsFacturasTableAdapters.factura_cabTableAdapter
     Friend WithEvents factura_lineaTableAdapter As dsFacturasTableAdapters.factura_lineaTableAdapter
     Friend WithEvents clientesTableAdapter As dsFacturasTableAdapters.clientesTableAdapter
     Friend WithEvents vto_cobrosTableAdapter As dsFacturasTableAdapters.vto_cobrosTableAdapter
+    Friend WithEvents formapagoTableAdapter As dsFacturasTableAdapters.formapagoTableAdapter
 End Class

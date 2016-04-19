@@ -111,9 +111,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsAlbaranes.xsd</DependentUpon>
     </Compile>
-    <Compile Include="dsFacturas1.Designer.vb">
+    <Compile Include="dsFacturas.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>dsFacturas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsFacturas.vb">
       <DependentUpon>dsFacturas.xsd</DependentUpon>
     </Compile>
     <Compile Include="dsPedidos.Designer.vb">
@@ -415,8 +418,8 @@
     </None>
     <None Include="dsFacturas.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dsFacturas1.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>dsFacturas.Designer.vb</LastGenOutput>
     </None>
     <None Include="dsFacturas.xss">
       <DependentUpon>dsFacturas.xsd</DependentUpon>
@@ -452,7 +455,9 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="shadow_ClaveTemporal.pfx" />
   </ItemGroup>
   <ItemGroup>

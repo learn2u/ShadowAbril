@@ -20,6 +20,10 @@ Public Class frFacturaManual
     Public Shared newLinea As String = "N"
     Public Shared editNumber As String = "N"
     Public Shared artiLote As String
+    Public Shared numero_impresion As Integer
+    Public Shared codigo_cliente_impresion As Integer
+    Public Shared forma_pago_impresion As String
+
     Private Sub frFacturaManual_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
         grPlazos.Visible = False
@@ -2398,19 +2402,26 @@ Public Class frFacturaManual
     End Sub
 
     Private Sub cmdImprimir_Click(sender As Object, e As EventArgs) Handles cmdImprimir.Click
-        'numero_impresion = CInt(txtNumpres.Text)
-        'codigo_cliente_impresion = CInt(txNumcli.Text)
+        forma_pago_impresion = cbFormapago.Text
+        numero_impresion = CInt(txtNumpres.Text)
+        codigo_cliente_impresion = CInt(txNumcli.Text)
+
         tabPresupuestos.SelectedIndex = 2
 
 
         'Me.clientesTableAdapter.Fill(Me.dsFacturas.clientes, codigo_cliente_impresion)
-        Me.clientesTableAdapter.Fill(Me.dsFacturas.clientes)
+        Me.clientesTableAdapter.Fill(Me.dsFacturas.clientes, codigo_cliente_impresion)
         'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_cab' Puede moverla o quitarla según sea necesario.
-        Me.factura_cabTableAdapter.Fill(Me.dsFacturas.factura_cab)
+        Me.factura_cabTableAdapter.Fill(Me.dsFacturas.factura_cab, numero_impresion)
         'Me.albaran_cabTableAdapter.Fill(Me.dsAlbaranes.albaran_cab, numero_impresion)
         'TODO: esta línea de código carga datos en la tabla 'dsPresupuesto.presupuesto_linea' Puede moverla o quitarla según sea necesario.
-        Me.factura_lineaTableAdapter.Fill(Me.dsFacturas.factura_linea)
+        Me.factura_lineaTableAdapter.Fill(Me.dsFacturas.factura_linea, numero_impresion)
+
+        Me.vto_cobrosTableAdapter.Fill(Me.dsFacturas.vto_cobros, numero_impresion)
+
+        Me.formapagoTableAdapter.Fill(Me.dsFacturas.formapago, forma_pago_impresion)
         'Me.albaran_lineaTableAdapter.Fill(Me.dsAlbaranes.albaran_linea, numero_impresion)
+        ' Me.formapagoTableAdapter.Fill(Me.dsFacturas.formapago, forma_pago_impresion)
 
         'If cbSerie.Text = "S1" Then
         ' Me.ReportViewer1.Visible = True
@@ -2426,5 +2437,7 @@ Public Class frFacturaManual
         ' End If
     End Sub
 
+    Private Sub Panel4_Paint(sender As Object, e As PaintEventArgs) Handles Panel4.Paint
 
+    End Sub
 End Class

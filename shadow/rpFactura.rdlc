@@ -6,31 +6,31 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.27363cm</Width>
+              <Width>2.2664cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6.5509cm</Width>
+              <Width>6.33505cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1338cm</Width>
+              <Width>1.12657cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.51412cm</Width>
+              <Width>1.50689cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.32469cm</Width>
+              <Width>1.31746cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.64741cm</Width>
+              <Width>1.64018cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.77069cm</Width>
+              <Width>1.76346cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.02365cm</Width>
+              <Width>1.01642cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.78199cm</Width>
+              <Width>1.77476cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -699,24 +699,32 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatColumnHeaders>true</RepeatColumnHeaders>
+        <KeepTogether>true</KeepTogether>
         <DataSetName>dsLineas</DataSetName>
-        <Top>0.10583cm</Top>
+        <SortExpressions>
+          <SortExpression>
+            <Value>=Fields!linea.Value</Value>
+          </SortExpression>
+        </SortExpressions>
+        <Top>0.1374cm</Top>
+        <Left>0.06511cm</Left>
         <Height>1.2cm</Height>
-        <Width>19.02088cm</Width>
+        <Width>18.74715cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
         </Style>
       </Tablix>
-      <Tablix Name="Tablix3">
+      <Tablix Name="Tablix1">
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>2.84396cm</Width>
+              <Width>2.20852cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>3.02917cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -725,7 +733,7 @@
               <TablixCells>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox59">
+                    <Textbox Name="Textbox4">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -734,18 +742,20 @@
                             <TextRun>
                               <Value>VENCIMIENTOS</Value>
                               <Style>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox59</rd:DefaultName>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
+                          <Style>None</Style>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -772,7 +782,10 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!vencimiento.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                                <Format>dd/MM/yyyy</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -781,8 +794,7 @@
                       <rd:DefaultName>vencimiento</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
+                          <Style>None</Style>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -802,7 +814,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!importe.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -811,8 +825,7 @@
                       <rd:DefaultName>importe</rd:DefaultName>
                       <Style>
                         <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
+                          <Style>None</Style>
                         </Border>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -842,11 +855,12 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <KeepTogether>true</KeepTogether>
         <DataSetName>dsVencimientos</DataSetName>
-        <Top>1.77187cm</Top>
+        <Top>1.72546cm</Top>
         <Left>0.06511cm</Left>
         <Height>1.2cm</Height>
-        <Width>5.34396cm</Width>
+        <Width>5.23769cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -855,10 +869,10 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>1.25245in</Height>
+    <Height>1.15176in</Height>
     <Style />
   </Body>
-  <Width>7.64967in</Width>
+  <Width>7.48in</Width>
   <Page>
     <PageHeader>
       <Height>7.80287cm</Height>
@@ -1087,7 +1101,7 @@
           <Top>0.7112cm</Top>
           <Left>8.68468cm</Left>
           <Height>0.73229cm</Height>
-          <Width>10.37963cm</Width>
+          <Width>10.12758cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -1297,7 +1311,7 @@
           <Top>1.76099cm</Top>
           <Left>8.68468cm</Left>
           <Height>3.4575cm</Height>
-          <Width>10.37963cm</Width>
+          <Width>10.12758cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -1414,6 +1428,7 @@
     </PageHeader>
     <PageFooter>
       <Height>5.66795cm</Height>
+      <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
         <Textbox Name="Textbox26">
@@ -1651,9 +1666,9 @@
           </Paragraphs>
           <rd:DefaultName>Textbox26</rd:DefaultName>
           <Top>0.34439cm</Top>
-          <Left>3.45526cm</Left>
+          <Left>1.62963cm</Left>
           <Height>0.66646cm</Height>
-          <Width>3.0714cm</Width>
+          <Width>4.89703cm</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -1750,65 +1765,15 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>2.05669cm</Top>
+          <Top>1.97732cm</Top>
           <Left>0.06511cm</Left>
-          <Height>3.61126cm</Height>
-          <Width>18.9992cm</Width>
+          <Height>3.69064cm</Height>
+          <Width>18.74715cm</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
             </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="formapago">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=first(Fields!formapago.Value, "dsCabecera")</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>formapago</rd:DefaultName>
-          <Top>1.01085cm</Top>
-          <Left>3.45526cm</Left>
-          <Height>0.6cm</Height>
-          <Width>3.0714cm</Width>
-          <ZIndex>6</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
@@ -1823,7 +1788,9 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
               <TextRuns>
                 <TextRun>
                   <Value>=Sum(Fields!totalrecargo.Value, "dsCabecera")</Value>
-                  <Style />
+                  <Style>
+                    <Format>0.00'€'</Format>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1834,35 +1801,16 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
           <Left>9.59806cm</Left>
           <Height>0.6cm</Height>
           <Width>3.0714cm</Width>
-          <ZIndex>7</ZIndex>
+          <ZIndex>6</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="totaliva">
@@ -1873,7 +1821,9 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
               <TextRuns>
                 <TextRun>
                   <Value>=Sum(Fields!totaliva.Value, "dsCabecera")</Value>
-                  <Style />
+                  <Style>
+                    <Format>0.00'€'</Format>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1884,35 +1834,16 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
           <Left>12.66946cm</Left>
           <Height>0.6cm</Height>
           <Width>3.0714cm</Width>
-          <ZIndex>8</ZIndex>
+          <ZIndex>7</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="totalfactura">
@@ -1923,7 +1854,9 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
               <TextRuns>
                 <TextRun>
                   <Value>=Sum(Fields!totalfactura.Value, "dsCabecera")</Value>
-                  <Style />
+                  <Style>
+                    <Format>0.00'€'</Format>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1934,35 +1867,16 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
           <Left>15.74086cm</Left>
           <Height>0.6cm</Height>
           <Width>3.0714cm</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>Solid</Style>
             </Border>
-            <TopBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </TopBorder>
-            <BottomBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </BottomBorder>
-            <LeftBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </LeftBorder>
-            <RightBorder>
-              <Color>Black</Color>
-              <Style>Solid</Style>
-              <Width>1pt</Width>
-            </RightBorder>
             <PaddingLeft>2pt</PaddingLeft>
             <PaddingRight>2pt</PaddingRight>
             <PaddingTop>2pt</PaddingTop>
             <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
           </Style>
         </Textbox>
         <Textbox Name="Textbox69">
@@ -1972,8 +1886,10 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=round(Sum(Fields!importe.Value, "dsLineas"),2, MidpointRounding.AwayFromZero)</Value>
-                  <Style />
+                  <Value>=round(Sum(Fields!totalinea.Value, "dsLineas"),2, MidpointRounding.AwayFromZero)</Value>
+                  <Style>
+                    <Format>0.00'€'</Format>
+                  </Style>
                 </TextRun>
               </TextRuns>
               <Style />
@@ -1984,6 +1900,39 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
           <Left>6.52666cm</Left>
           <Height>0.6cm</Height>
           <Width>3.0714cm</Width>
+          <ZIndex>9</ZIndex>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
+          </Style>
+        </Textbox>
+        <Textbox Name="formapago">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!formapago.Value, "formapago")</Value>
+                  <Style>
+                    <FontSize>9pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>formapago</rd:DefaultName>
+          <Top>1.01085cm</Top>
+          <Left>1.62963cm</Left>
+          <Height>0.6cm</Height>
+          <Width>4.89703cm</Width>
           <ZIndex>10</ZIndex>
           <Style>
             <Border>
@@ -2220,6 +2169,30 @@ Tolsepro, S.L. Inscrita en el Registro Mercantil de Sevilla, tomo 5655, folio 91
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
         <rd:TableAdapterName>vto_cobrosTableAdapter</rd:TableAdapterName>
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="formapago">
+      <Query>
+        <DataSourceName>dsFacturas</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="formaID">
+          <DataField>formaID</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="formapago">
+          <DataField>formapago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>dsFacturas</rd:DataSetName>
+        <rd:SchemaPath>C:\shadow\ShadowAbril\shadow\dsFacturas.xsd</rd:SchemaPath>
+        <rd:TableName>formapago</rd:TableName>
+        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
+        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
+        <rd:TableAdapterName>formapagoTableAdapter</rd:TableAdapterName>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>

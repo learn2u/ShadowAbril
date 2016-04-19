@@ -142,7 +142,7 @@ Public Class frFacturaAlbaran
                                                     albaran_cab.serie
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID 
                                             WHERE albaran_cab.clienteID ='" & txCodcli.Text & "' 
-                                                AND albaran_cab.facturado ='N' AND serie = '1'", conexionmy)
+                                                AND albaran_cab.facturado ='N' AND serie = '1' ORDER BY albaran_cab.fecha DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -235,7 +235,7 @@ Public Class frFacturaAlbaran
                                                             albaran_cab.serie
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID 
                                             WHERE DATE(albaran_cab.fecha) BETWEEN '" & fec1.ToString("yyyy-MM-dd") & "' AND '" & fec2.ToString("yyyy-MM-dd") & "' 
-                                            AND albaran_cab.facturado ='N' AND albaran_cab.clienteID = '" & txCodcli.Text & "' AND albaran_cab.serie = '1'", conexionmy)
+                                            AND albaran_cab.facturado ='N' AND albaran_cab.clienteID = '" & txCodcli.Text & "' AND albaran_cab.serie = '1' ORDER BY albaran_cab.fecha DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -318,7 +318,7 @@ Public Class frFacturaAlbaran
                                                     albaran_cab.serie
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID 
                                             WHERE albaran_cab.num_albaran BETWEEN '" & txAlbaD.Text & "' AND '" & txAlbaH.Text & "' 
-                                            AND albaran_cab.facturado ='N' AND albaran_cab.clienteID = '" & txCodcli.Text & "' AND albaran_cab.serie = '1'", conexionmy)
+                                            AND albaran_cab.facturado ='N' AND albaran_cab.clienteID = '" & txCodcli.Text & "' AND albaran_cab.serie = '1' ORDER BY albaran_cab.fecha DESC ", conexionmy)
 
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -613,7 +613,7 @@ Public Class frFacturaAlbaran
         Dim cmd As New MySqlCommand
         cmd.CommandType = System.Data.CommandType.Text
 
-        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNumero.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgente.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
+        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNumero.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgente.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalIF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
         cmd.Connection = conexionmy
         cmd.ExecuteNonQuery()
 

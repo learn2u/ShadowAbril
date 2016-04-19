@@ -2282,7 +2282,7 @@ Public Class frAlbaran
                                                     albaran_cab.serie, 
                                                     clientes.clienteID,
                                                     clientes.agenteID
-                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = 1 ORDER BY albaran_cab.num_albaran", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -2931,7 +2931,7 @@ Public Class frAlbaran
                                                     albaran_cab.serie, 
                                                     clientes.clienteID,
                                                     clientes.agenteID
-                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = '1' AND albaran_cab.clienteID = '" + txCodcli.Text + "' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = '1' AND albaran_cab.clienteID = '" + txCodcli.Text + "' ORDER BY albaran_cab.fecha DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -3177,7 +3177,7 @@ Public Class frAlbaran
         Dim cmd As New MySqlCommand
         cmd.CommandType = System.Data.CommandType.Text
 
-        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNFac.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgenteF.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
+        cmd.CommandText = "INSERT INTO factura_cab (num_factura, serie, clienteID, envioID, empresaID, agenteID, usuarioID, fecha, fechapago, observaciones, totalbruto, totaldto, totaliva, totalrecargo, totalfactura, manual, eliminado, formapago, pagado) VALUES (" + txNFac.Text + " , '1' , " + txCodcli.Text + ", " + txCodcli.Text + ", " + vEmpresa + ", " + txAgenteF.Text + ", " + vCodUser + ", '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vFecha.ToString("yyyy-MM-dd") + "', '" + vObserva + "', '" + vTotalBF + "', '" + vTotalDF + "', '" + vTotalIF + "', '" + vTotalRF + "', '" + vTotalF + "', 'N', 'N', 1, 'N')"
         cmd.Connection = conexionmy
         cmd.ExecuteNonQuery()
 

@@ -206,6 +206,7 @@ Public Class frPresupuestos
     End Sub
     Public Sub recalcularTotales()
         Dim totalLinea As Decimal = 0
+        Dim netoLinea As Decimal = 0
         Dim dtoLinea As Decimal = 0
         Dim ivaLinea As Decimal = 0
         Dim reclinea As Decimal = 0
@@ -215,6 +216,7 @@ Public Class frPresupuestos
             Try
                 For Each row2 As DataGridViewRow In dgLineasPres1.Rows
                     totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                    netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(10).Value), 2, MidpointRounding.AwayFromZero)
                     dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
                 Next
             Catch ex As Exception
@@ -227,6 +229,7 @@ Public Class frPresupuestos
                 For Each row2 As DataGridViewRow In dgLineasPres2.Rows
                     'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
                     totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                    netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
                     dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
                 Next
             Catch ex As Exception
@@ -248,9 +251,9 @@ Public Class frPresupuestos
                 txImpDto.Text = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
             If (totalLinea - dtoLinea) < 1 Then
-                txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("0.00")
+                txImponible.Text = netoLinea.ToString("0.00")
             Else
-                txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
+                txImponible.Text = netoLinea.ToString("#,###.00")
             End If
 
             'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
@@ -270,9 +273,9 @@ Public Class frPresupuestos
                 txImpIva.Text = Math.Round(ivaLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
             If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
-                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("0.00")
+                txTotalAlbaran.Text = Math.Round((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea), 2, MidpointRounding.AwayFromZero).ToString("0.00")
             Else
-                txTotalAlbaran.Text = (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea).ToString("#,###.00")
+                txTotalAlbaran.Text = Math.Round((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
             End If
         Catch ex As Exception
             MsgBox("Se ha producido un error en el recálculo de totales del presupuesto (Err_2009). Revise los datos")

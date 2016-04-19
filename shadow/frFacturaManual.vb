@@ -282,6 +282,7 @@ Public Class frFacturaManual
     End Sub
     Public Sub recalcularTotales()
         Dim totalLinea As Decimal = 0
+        Dim netoLinea As Decimal = 0
         Dim dtoLinea As Decimal = 0
         Dim ivaLinea As Decimal = 0
         Dim reclinea As Decimal = 0
@@ -289,12 +290,14 @@ Public Class frFacturaManual
         If flagEdit = "N" Then
             For Each row2 As DataGridViewRow In dgLineasPres1.Rows
                 totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(10).Value), 2, MidpointRounding.AwayFromZero)
                 dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
             Next
         Else
             For Each row2 As DataGridViewRow In dgLineasPres2.Rows
                 'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
                 totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(10).Value), 2, MidpointRounding.AwayFromZero)
                 dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
             Next
         End If
@@ -310,9 +313,9 @@ Public Class frFacturaManual
             txImpDto.Text = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
         End If
         If (totalLinea - dtoLinea) < 1 Then
-            txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("0.00")
+            txImponible.Text = netoLinea.ToString("0.00")
         Else
-            txImponible.Text = Math.Round((totalLinea - dtoLinea), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
+            txImponible.Text = netoLinea.ToString("#,###.00")
         End If
 
         'ivaLinea = (Decimal.Parse(txImponible.Text) * Decimal.Parse(txIva.Text)) / 100
@@ -332,9 +335,9 @@ Public Class frFacturaManual
             txImpIva.Text = Math.Round(ivaLinea, 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
         End If
         If (Decimal.Parse(txImponible.Text) + ivaLinea + reclinea) < 1 Then
-            txTotalAlbaran.Text = Math.Round(((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea)), 2, MidpointRounding.AwayFromZero).ToString("0.00")
+            txTotalAlbaran.Text = Math.Round((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea), 2, MidpointRounding.AwayFromZero).ToString("0.00")
         Else
-            txTotalAlbaran.Text = Math.Round(((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea)), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
+            txTotalAlbaran.Text = Math.Round((Decimal.Parse(txImponible.Text) + ivaLinea + reclinea), 2, MidpointRounding.AwayFromZero).ToString("#,###.00")
         End If
 
     End Sub

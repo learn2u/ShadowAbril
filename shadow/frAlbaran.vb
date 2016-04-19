@@ -1675,7 +1675,7 @@ Public Class frAlbaran
 
             'Borro la cabecera y las lineas del presupuesto
 
-            Dim cmdEliminar As New MySqlCommand("UPDATE albaran_cab SET facturado = 'S' WHERE num_albaran = '" + txNumpresBk.Text + "'", conexionmy)
+            Dim cmdEliminar As New MySqlCommand("UPDATE albaran_cab SET facturado = 'S', num_factura = '" + txtNumpres.Text + "' WHERE num_albaran = '" + txNumpresBk.Text + "'", conexionmy)
             Try
                 cmdEliminar.ExecuteNonQuery()
             Catch ex As Exception
@@ -3235,7 +3235,7 @@ Public Class frAlbaran
 
         Dim cmdupdate As New MySqlCommand
         cmdupdate.CommandType = System.Data.CommandType.Text
-        cmdupdate.CommandText = "UPDATE albaran_cab SET facturado = 'S' WHERE num_albaran = '" & nAlb & "'"
+        cmdupdate.CommandText = "UPDATE albaran_cab SET facturado = 'S', num_factura = '" + txNFac.Text + "' WHERE num_albaran = '" & nAlb & "'"
         cmdupdate.Connection = conexionmy
         cmdupdate.ExecuteNonQuery()
 

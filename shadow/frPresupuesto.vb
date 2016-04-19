@@ -1375,7 +1375,7 @@ Public Class frPresupuestos
 
             'Borro la cabecera y las lineas del presupuesto
 
-            Dim cmdEliminar As New MySqlCommand("UPDATE presupuesto_cab SET estado = 'D' WHERE num_presupuesto = '" + txNumpresBk.Text + "'", conexionmy)
+            Dim cmdEliminar As New MySqlCommand("UPDATE presupuesto_cab SET estado = 'D', num_pedido = '" + txtNumpres.Text + "' WHERE num_presupuesto = '" + txNumpresBk.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
 
 
@@ -1514,11 +1514,9 @@ Public Class frPresupuestos
 
             'Borro la cabecera y las lineas del presupuesto
 
-            Dim cmdEliminar As New MySqlCommand("UPDATE presupuesto_cab SET estado = 'B' WHERE num_presupuesto = '" + txNumpresBk.Text + "'", conexionmy)
+            Dim cmdEliminar As New MySqlCommand("UPDATE presupuesto_cab SET estado = 'B', num_albaran = '" + txtNumpres.Text + "' WHERE num_presupuesto = '" + txNumpresBk.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
 
-            'Dim cmdEliminarLineas As New MySqlCommand("DELETE FROM presupuesto_linea WHERE num_presupuesto = '" + txNumpresBk.Text + "'", conexionmy)
-            'cmdEliminarLineas.ExecuteNonQuery()
 
             conexionmy.Close()
             deshabilitarBotones()

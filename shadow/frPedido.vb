@@ -1614,7 +1614,7 @@ Public Class frPedido
 
             'Borro la cabecera y las lineas del presupuesto
 
-            Dim cmdEliminar As New MySqlCommand("UPDATE pedido_cab SET estado = 'B' WHERE num_pedido = '" + txNumpresBk.Text + "'", conexionmy)
+            Dim cmdEliminar As New MySqlCommand("UPDATE pedido_cab SET estado = 'B', num_albaran = '" + txtNumpres.Text + "' WHERE num_pedido = '" + txNumpresBk.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
 
 
@@ -1742,7 +1742,7 @@ Public Class frPedido
 
             'Borro la cabecera y las lineas del presupuesto
 
-            Dim cmdEliminar As New MySqlCommand("UPDATE pedido_cab SET estado = 'F' WHERE num_pedido = '" + txNumpresBk.Text + "'", conexionmy)
+            Dim cmdEliminar As New MySqlCommand("UPDATE pedido_cab SET estado = 'F', num_factura = '" + txtNumpres.Text + "' WHERE num_pedido = '" + txNumpresBk.Text + "'", conexionmy)
             cmdEliminar.ExecuteNonQuery()
 
             conexionmy.Close()

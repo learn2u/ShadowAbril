@@ -495,7 +495,7 @@ Public Class frFacturaAlbaran
 
         Dim cmdupdate As New MySqlCommand
         cmdupdate.CommandType = System.Data.CommandType.Text
-        cmdupdate.CommandText = "UPDATE albaran_cab SET facturado = 'S' WHERE num_albaran = '" & nAlb & "'"
+        cmdupdate.CommandText = "UPDATE albaran_cab SET facturado = 'S', num_factura = '" + txNumero.Text + "' WHERE num_albaran = '" & nAlb & "'"
         cmdupdate.Connection = conexionmy
         cmdupdate.ExecuteNonQuery()
 

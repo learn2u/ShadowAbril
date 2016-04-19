@@ -229,7 +229,7 @@ Public Class frPresupuestos
                 For Each row2 As DataGridViewRow In dgLineasPres2.Rows
                     'Math.Round(numero, 2, MidpointRounding.AwayFromZero)
                     totalLinea = Math.Round(totalLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
-                    netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero)
+                    netoLinea = Math.Round(netoLinea, 2, MidpointRounding.AwayFromZero) + Math.Round(Decimal.Parse(row2.Cells(10).Value), 2, MidpointRounding.AwayFromZero)
                     dtoLinea = Math.Round(dtoLinea, 2, MidpointRounding.AwayFromZero) + (Math.Round(Decimal.Parse(row2.Cells(9).Value), 2, MidpointRounding.AwayFromZero) * Math.Round(Decimal.Parse(row2.Cells(8).Value), 2, MidpointRounding.AwayFromZero)) / 100
                 Next
             Catch ex As Exception

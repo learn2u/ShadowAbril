@@ -2285,7 +2285,7 @@ Public Class frAlbaran
                                                     albaran_cab.serie, 
                                                     clientes.clienteID,
                                                     clientes.agenteID
-                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = 1 ORDER BY albaran_cab.num_albaran", conexionmy)
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = 1 ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -2934,7 +2934,7 @@ Public Class frAlbaran
                                                     albaran_cab.serie, 
                                                     clientes.clienteID,
                                                     clientes.agenteID
-                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = '1' AND albaran_cab.clienteID = '" + txCodcli.Text + "' ORDER BY albaran_cab.fecha DESC", conexionmy)
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE facturado = 'N' AND serie = '1' AND albaran_cab.clienteID = '" + txCodcli.Text + "' ORDER BY albaran_cab.num_albaran ASC", conexionmy)
 
         Dim readermy As MySqlDataReader
         Dim dtable As New DataTable
@@ -3050,7 +3050,7 @@ Public Class frAlbaran
                 Dim contador As Integer
                 cargoNumeroF()
                 For contador = 0 To selectedRowCount - 1
-                    albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                    'albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
                     numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
                     'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
                     guardoDatosAlbaran(numAlb)

@@ -194,14 +194,22 @@ Public Class frFacturaAlbaran
 
         Dim numAlb As Integer
         Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
-        Dim albaranes(selectedRowCount) As Integer
+        Dim albaranes(selectedRowCount - 1) As Integer
 
         If selectedRowCount > 0 Then
             Dim contador As Integer
-            cargoNumero()
             For contador = 0 To selectedRowCount - 1
+                'sortAlba.Add(New ordenSeleccion() With {.numAlbaSelec = dgAlbaranes.SelectedRows(contador).Cells(0).Value})
                 albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
-                numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+            Next
+            Array.Sort(albaranes)
+        End If
+
+        If albaranes.Count > 0 Then
+            cargoNumero()
+            For index As Integer = 0 To albaranes.GetUpperBound(0)
+                'albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                numAlb = albaranes(index)
                 'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
                 guardoDatosAlbaran(numAlb)
                 'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán

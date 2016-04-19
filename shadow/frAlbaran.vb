@@ -34,7 +34,6 @@ Public Class frAlbaran
     Public Shared vTotalFactura As Decimal = 0
     Public Shared albaFactu As New List(Of albaranFactura)
 
-
     Private Sub frAlbaran_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         deshabilitarBotones()
 
@@ -2996,6 +2995,8 @@ Public Class frAlbaran
         dgAlbaranes.Visible = True
 
         conexionmy.Close()
+        btFacturarSelec.Enabled = True
+        btFacturarTodos.Enabled = True
     End Sub
     Public Sub cargoNumeroF()
 
@@ -3044,14 +3045,21 @@ Public Class frAlbaran
         If respuesta = vbYes Then
             Dim numAlb As Integer
             Dim selectedRowCount As Integer = dgAlbaranes.Rows.GetRowCount(DataGridViewElementStates.Selected)
-            Dim albaranes(selectedRowCount) As Integer
+            Dim albaranes(selectedRowCount - 1) As Integer
 
             If selectedRowCount > 0 Then
                 Dim contador As Integer
-                cargoNumeroF()
                 For contador = 0 To selectedRowCount - 1
-                    'albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
-                    numAlb = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                    'sortAlba.Add(New ordenSeleccion() With {.numAlbaSelec = dgAlbaranes.SelectedRows(contador).Cells(0).Value})
+                    albaranes(contador) = dgAlbaranes.SelectedRows(contador).Cells(0).Value
+                Next
+                Array.Sort(albaranes)
+            End If
+
+            If albaranes.Count > 0 Then
+                cargoNumeroF()
+                For index As Integer = 0 To albaranes.GetUpperBound(0)
+                    numAlb = albaranes(index)
                     'guardoDatosAlbaran - Guardo las cabeceras de los albaranes
                     guardoDatosAlbaran(numAlb)
                     'facturoAlbaran - Grabo la linea de resumen y llamo a graboLineas para guardar las líneas de cada albarán
@@ -3063,6 +3071,9 @@ Public Class frAlbaran
 
             MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
             'Me.Close()
+            btFacturarSelec.Enabled = False
+            btFacturarTodos.Enabled = False
+            cargoAlbNoFactu()
         End If
     End Sub
     Public Sub graboLineas(nAlba As Integer)

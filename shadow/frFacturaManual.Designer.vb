@@ -44,6 +44,12 @@ Partial Class frFacturaManual
         Dim ReportDataSource3 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource4 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
         Dim ReportDataSource5 As Microsoft.Reporting.WinForms.ReportDataSource = New Microsoft.Reporting.WinForms.ReportDataSource()
+        Me.factura_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.dsFacturas = New shadow.dsFacturas()
+        Me.factura_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.vto_cobrosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.formapagoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.cbSerie = New System.Windows.Forms.ComboBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txObserva = New System.Windows.Forms.TextBox()
@@ -97,6 +103,8 @@ Partial Class frFacturaManual
         Me.fecha = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.concepto = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.importe = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.formapago = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.fechapago = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.dtpFechaPago = New System.Windows.Forms.DateTimePicker()
         Me.txManual = New System.Windows.Forms.TextBox()
@@ -171,17 +179,17 @@ Partial Class frFacturaManual
         Me.tabPresupuestos = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.ReportViewer1 = New Microsoft.Reporting.WinForms.ReportViewer()
-        Me.dsFacturas = New shadow.dsFacturas()
-        Me.factura_cabBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.factura_cabTableAdapter = New shadow.dsFacturasTableAdapters.factura_cabTableAdapter()
-        Me.factura_lineaBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.factura_lineaTableAdapter = New shadow.dsFacturasTableAdapters.factura_lineaTableAdapter()
-        Me.clientesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.clientesTableAdapter = New shadow.dsFacturasTableAdapters.clientesTableAdapter()
-        Me.vto_cobrosBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.vto_cobrosTableAdapter = New shadow.dsFacturasTableAdapters.vto_cobrosTableAdapter()
-        Me.formapagoBindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.formapagoTableAdapter = New shadow.dsFacturasTableAdapters.formapagoTableAdapter()
+        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -195,13 +203,37 @@ Partial Class frFacturaManual
         Me.TabPage1.SuspendLayout()
         Me.tabPresupuestos.SuspendLayout()
         Me.TabPage3.SuspendLayout()
-        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'factura_cabBindingSource
+        '
+        Me.factura_cabBindingSource.DataMember = "factura_cab"
+        Me.factura_cabBindingSource.DataSource = Me.dsFacturas
+        '
+        'dsFacturas
+        '
+        Me.dsFacturas.DataSetName = "dsFacturas"
+        Me.dsFacturas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'factura_lineaBindingSource
+        '
+        Me.factura_lineaBindingSource.DataMember = "factura_linea"
+        Me.factura_lineaBindingSource.DataSource = Me.dsFacturas
+        '
+        'clientesBindingSource
+        '
+        Me.clientesBindingSource.DataMember = "clientes"
+        Me.clientesBindingSource.DataSource = Me.dsFacturas
+        '
+        'vto_cobrosBindingSource
+        '
+        Me.vto_cobrosBindingSource.DataMember = "vto_cobros"
+        Me.vto_cobrosBindingSource.DataSource = Me.dsFacturas
+        '
+        'formapagoBindingSource
+        '
+        Me.formapagoBindingSource.DataMember = "formapago"
+        Me.formapagoBindingSource.DataSource = Me.dsFacturas
         '
         'cbSerie
         '
@@ -675,15 +707,15 @@ Partial Class frFacturaManual
         '
         'grPlazos
         '
-        Me.grPlazos.BackColor = System.Drawing.Color.White
+        Me.grPlazos.BackColor = System.Drawing.Color.Moccasin
         Me.grPlazos.Controls.Add(Me.btActualizar)
         Me.grPlazos.Controls.Add(Me.txPendiente)
         Me.grPlazos.Controls.Add(Me.Label14)
         Me.grPlazos.Controls.Add(Me.Button1)
         Me.grPlazos.Controls.Add(Me.dgPlazos)
-        Me.grPlazos.Location = New System.Drawing.Point(697, 156)
+        Me.grPlazos.Location = New System.Drawing.Point(463, 156)
         Me.grPlazos.Name = "grPlazos"
-        Me.grPlazos.Size = New System.Drawing.Size(510, 164)
+        Me.grPlazos.Size = New System.Drawing.Size(744, 206)
         Me.grPlazos.TabIndex = 115
         Me.grPlazos.TabStop = False
         Me.grPlazos.Text = "VENCIMIENTOS Y PLAZOS"
@@ -729,11 +761,12 @@ Partial Class frFacturaManual
         'dgPlazos
         '
         Me.dgPlazos.AllowUserToAddRows = False
+        Me.dgPlazos.AllowUserToDeleteRows = False
         Me.dgPlazos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgPlazos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.fecha, Me.concepto, Me.importe, Me.Column12})
-        Me.dgPlazos.Location = New System.Drawing.Point(10, 41)
+        Me.dgPlazos.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.fecha, Me.concepto, Me.importe, Me.formapago, Me.fechapago, Me.Column12})
+        Me.dgPlazos.Location = New System.Drawing.Point(13, 41)
         Me.dgPlazos.Name = "dgPlazos"
-        Me.dgPlazos.Size = New System.Drawing.Size(493, 117)
+        Me.dgPlazos.Size = New System.Drawing.Size(717, 140)
         Me.dgPlazos.TabIndex = 121
         '
         'fecha
@@ -746,7 +779,7 @@ Partial Class frFacturaManual
         '
         Me.concepto.HeaderText = "CONCEPTO"
         Me.concepto.Name = "concepto"
-        Me.concepto.Width = 255
+        Me.concepto.Width = 200
         '
         'importe
         '
@@ -755,6 +788,18 @@ Partial Class frFacturaManual
         Me.importe.HeaderText = "IMPORTE"
         Me.importe.Name = "importe"
         Me.importe.Width = 70
+        '
+        'formapago
+        '
+        Me.formapago.HeaderText = "FORMA PAGO"
+        Me.formapago.Name = "formapago"
+        Me.formapago.Width = 200
+        '
+        'fechapago
+        '
+        Me.fechapago.HeaderText = "F.PAGO"
+        Me.fechapago.Name = "fechapago"
+        Me.fechapago.Width = 75
         '
         'Column12
         '
@@ -812,7 +857,7 @@ Partial Class frFacturaManual
         Me.cmdMostrarAgente.FlatAppearance.BorderSize = 0
         Me.cmdMostrarAgente.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMostrarAgente.Image = CType(resources.GetObject("cmdMostrarAgente.Image"), System.Drawing.Image)
-        Me.cmdMostrarAgente.Location = New System.Drawing.Point(1172, 59)
+        Me.cmdMostrarAgente.Location = New System.Drawing.Point(1019, 59)
         Me.cmdMostrarAgente.Name = "cmdMostrarAgente"
         Me.cmdMostrarAgente.Size = New System.Drawing.Size(21, 19)
         Me.cmdMostrarAgente.TabIndex = 113
@@ -828,7 +873,7 @@ Partial Class frFacturaManual
         '
         'btRecalcular
         '
-        Me.btRecalcular.Location = New System.Drawing.Point(1026, 58)
+        Me.btRecalcular.Location = New System.Drawing.Point(1061, 57)
         Me.btRecalcular.Name = "btRecalcular"
         Me.btRecalcular.Size = New System.Drawing.Size(132, 23)
         Me.btRecalcular.TabIndex = 111
@@ -1468,51 +1513,21 @@ Partial Class frFacturaManual
         Me.ReportViewer1.Size = New System.Drawing.Size(1207, 533)
         Me.ReportViewer1.TabIndex = 0
         '
-        'dsFacturas
-        '
-        Me.dsFacturas.DataSetName = "dsFacturas"
-        Me.dsFacturas.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'factura_cabBindingSource
-        '
-        Me.factura_cabBindingSource.DataMember = "factura_cab"
-        Me.factura_cabBindingSource.DataSource = Me.dsFacturas
-        '
         'factura_cabTableAdapter
         '
         Me.factura_cabTableAdapter.ClearBeforeFill = True
-        '
-        'factura_lineaBindingSource
-        '
-        Me.factura_lineaBindingSource.DataMember = "factura_linea"
-        Me.factura_lineaBindingSource.DataSource = Me.dsFacturas
         '
         'factura_lineaTableAdapter
         '
         Me.factura_lineaTableAdapter.ClearBeforeFill = True
         '
-        'clientesBindingSource
-        '
-        Me.clientesBindingSource.DataMember = "clientes"
-        Me.clientesBindingSource.DataSource = Me.dsFacturas
-        '
         'clientesTableAdapter
         '
         Me.clientesTableAdapter.ClearBeforeFill = True
         '
-        'vto_cobrosBindingSource
-        '
-        Me.vto_cobrosBindingSource.DataMember = "vto_cobros"
-        Me.vto_cobrosBindingSource.DataSource = Me.dsFacturas
-        '
         'vto_cobrosTableAdapter
         '
         Me.vto_cobrosTableAdapter.ClearBeforeFill = True
-        '
-        'formapagoBindingSource
-        '
-        Me.formapagoBindingSource.DataMember = "formapago"
-        Me.formapagoBindingSource.DataSource = Me.dsFacturas
         '
         'formapagoTableAdapter
         '
@@ -1528,6 +1543,12 @@ Partial Class frFacturaManual
         Me.Name = "frFacturaManual"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "FACTURACION MANUAL"
+        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
@@ -1546,12 +1567,6 @@ Partial Class frFacturaManual
         Me.TabPage1.ResumeLayout(False)
         Me.tabPresupuestos.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
-        CType(Me.dsFacturas, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.factura_cabBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.factura_lineaBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.clientesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.vto_cobrosBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.formapagoBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1669,10 +1684,6 @@ Partial Class frFacturaManual
     Friend WithEvents dgPlazos As DataGridView
     Friend WithEvents Button1 As Button
     Friend WithEvents ckPagado As CheckBox
-    Friend WithEvents Column12 As DataGridViewTextBoxColumn
-    Friend WithEvents importe As DataGridViewTextBoxColumn
-    Friend WithEvents concepto As DataGridViewTextBoxColumn
-    Friend WithEvents fecha As DataGridViewTextBoxColumn
     Friend WithEvents txPendiente As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents btActualizar As Button
@@ -1694,4 +1705,10 @@ Partial Class frFacturaManual
     Friend WithEvents clientesTableAdapter As dsFacturasTableAdapters.clientesTableAdapter
     Friend WithEvents vto_cobrosTableAdapter As dsFacturasTableAdapters.vto_cobrosTableAdapter
     Friend WithEvents formapagoTableAdapter As dsFacturasTableAdapters.formapagoTableAdapter
+    Friend WithEvents fecha As DataGridViewTextBoxColumn
+    Friend WithEvents concepto As DataGridViewTextBoxColumn
+    Friend WithEvents importe As DataGridViewTextBoxColumn
+    Friend WithEvents formapago As DataGridViewTextBoxColumn
+    Friend WithEvents fechapago As DataGridViewTextBoxColumn
+    Friend WithEvents Column12 As DataGridViewTextBoxColumn
 End Class

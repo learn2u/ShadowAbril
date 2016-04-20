@@ -298,6 +298,8 @@ Public Class launcher
         End If
         conexionmy.Close()
         cargoRecargo()
+        documentoPase = False
+        nFraPase = 0
     End Sub
 
     Private Sub RecalcularTotalesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RecalcularTotalesToolStripMenuItem.Click

@@ -25,4 +25,6 @@
     Public newMdiProveedor As New frProveedor()
     Public newMdiArticulos As New frArticulos()
     Public newMdiGasto As New frGastos()
+    Public nFraPase As String = ""
+    Public documentoPase As Boolean = False
 End Module

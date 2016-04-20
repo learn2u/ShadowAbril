@@ -220,8 +220,10 @@ Public Class frFacturaAlbaran
         End If
 
         MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+        nFraPase = txNumero.Text
+        documentoPase = True
         Me.Close()
-
+        pasoDocumento()
     End Sub
     Public Sub cargoAlbaranFecha()
         If txCodcli.Text = "" Then
@@ -398,7 +400,10 @@ Public Class frFacturaAlbaran
             sumoLineas(numAlb)
         End If
         MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
+        nFraPase = txNumero.Text
+        documentoPase = True
         Me.Close()
+        pasoDocumento()
     End Sub
 
     Private Sub txCliente_TextChanged(sender As Object, e As EventArgs) Handles txCliente.TextChanged
@@ -633,5 +638,11 @@ Public Class frFacturaAlbaran
         albaFactu.Clear()
         launcher.FacturarAlbaranesToolStripMenuItem.Enabled = True
 
+    End Sub
+    Public Sub pasoDocumento()
+        newMdiFacturaManual = New frFacturaManual
+        newMdiFacturaManual.MdiParent = launcher
+        newMdiFacturaManual.Dock = DockStyle.Fill
+        newMdiFacturaManual.Show()
     End Sub
 End Class

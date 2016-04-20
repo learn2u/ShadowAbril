@@ -339,7 +339,9 @@ Public Class frVerClientes
             Me.Close()
             newMdiFacturaManual.recalcularDescuentos()
             cargoEnvios()
+            frFacturaManual.flagFormaPago = "N"
             cargoFormapagoCliente()
+            frFacturaManual.flagFormaPago = "S"
         End If
 
     End Sub
@@ -404,7 +406,9 @@ Public Class frVerClientes
                 Me.Close()
                 newMdiFacturaManual.recalcularDescuentos()
                 cargoEnvios()
+                frFacturaManual.flagFormaPago = "N"
                 cargoFormapagoCliente()
+                frFacturaManual.flagFormaPago = "S"
             End If
         End If
     End Sub

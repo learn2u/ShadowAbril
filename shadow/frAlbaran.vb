@@ -3035,7 +3035,10 @@ Public Class frAlbaran
                 sumoLineas(numAlb)
             End If
             MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
-            'Me.Close()
+            nFraPase = txNFac.Text
+            documentoPase = True
+            pasoDocumento()
+            Me.Close()
         End If
     End Sub
 
@@ -3070,10 +3073,14 @@ Public Class frAlbaran
             End If
 
             MsgBox("La factura de los albaranes seleccionados se ha realizado correctamente")
-            'Me.Close()
+
             btFacturarSelec.Enabled = False
             btFacturarTodos.Enabled = False
             cargoAlbNoFactu()
+            nFraPase = txNFac.Text
+            documentoPase = True
+            pasoDocumento()
+            Me.Close()
         End If
     End Sub
     Public Sub graboLineas(nAlba As Integer)
@@ -3244,5 +3251,11 @@ Public Class frAlbaran
 
         conexionmy.Close()
 
+    End Sub
+    Public Sub pasoDocumento()
+        newMdiFacturaManual = New frFacturaManual
+        newMdiFacturaManual.MdiParent = launcher
+        newMdiFacturaManual.Dock = DockStyle.Fill
+        newMdiFacturaManual.Show()
     End Sub
 End Class

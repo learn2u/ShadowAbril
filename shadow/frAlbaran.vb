@@ -741,6 +741,7 @@ Public Class frAlbaran
 
             deshabilitarBotonesLight()
             'limpiarFormulario()
+            lineas = 0
             cmdNuevo.Enabled = True
             cargoTodosAlbaranes()
             'tabPresupuestos.SelectTab(0)
@@ -946,6 +947,7 @@ Public Class frAlbaran
             cmdNuevo.Enabled = True
             cargoTodosAlbaranes()
             'tabPresupuestos.SelectTab(0)
+            lineas = 0
             flagEdit = "N"
         End If
     End Sub
@@ -2625,33 +2627,62 @@ Public Class frAlbaran
     Private Sub txCliente_TextChanged(sender As Object, e As EventArgs) Handles txCliente.TextChanged
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+        If rbNofacturados.Checked = True Then
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
                                                     albaran_cab.referencia,
                                                     albaran_cab.fecha, 
                                                     clientes.nombre, 
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.eliminado, 
+                                                    albaran_cab.facturado, 
+                                                    clientes.clienteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
+
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de clientes (Err_1162). Revise los datos")
+                Exit Sub
+            End Try
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgAlbaranes.DataSource = bind
+        Else
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.facturado, 
                                                     clientes.clienteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
 
-        Dim readermy As MySqlDataReader
-        Dim dtable As New DataTable
-        Dim bind As New BindingSource()
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de clientes (Err_1162). Revise los datos")
+                Exit Sub
+            End Try
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
 
-        Try
-            readermy = consultamy.ExecuteReader
-        Catch ex As Exception
-            MsgBox("Se ha producido un error en el filtro de clientes (Err_1162). Revise los datos")
-            Exit Sub
-        End Try
+            bind.DataSource = dtable
 
-        dtable.Load(readermy, LoadOption.OverwriteChanges)
+            dgAlbaranes.DataSource = bind
+        End If
 
-        bind.DataSource = dtable
 
-        dgAlbaranes.DataSource = bind
+
         dgAlbaranes.EnableHeadersVisualStyles = False
         Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
         styCabeceras.BackColor = Color.Beige
@@ -2697,33 +2728,64 @@ Public Class frAlbaran
     Private Sub txNumero_TextChanged(sender As Object, e As EventArgs) Handles txNumero.TextChanged
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+        If rbNofacturados.Checked = True Then
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
                                                     albaran_cab.referencia,
                                                     albaran_cab.fecha, 
                                                     clientes.nombre, 
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.eliminado, 
+                                                    albaran_cab.facturado, 
+                                                    clientes.clienteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.num_albaran LIKE '" & txNumero.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
+
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de números de albarán (Err_1163). Revise los datos")
+                Exit Sub
+            End Try
+
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgAlbaranes.DataSource = bind
+        Else
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.facturado, 
                                                     clientes.clienteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.num_albaran LIKE '" & txNumero.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
-        Dim readermy As MySqlDataReader
-        Dim dtable As New DataTable
-        Dim bind As New BindingSource()
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
 
-        Try
-            readermy = consultamy.ExecuteReader
-        Catch ex As Exception
-            MsgBox("Se ha producido un error en el filtro de números de albarán (Err_1163). Revise los datos")
-            Exit Sub
-        End Try
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de números de albarán (Err_1163). Revise los datos")
+                Exit Sub
+            End Try
 
-        dtable.Load(readermy, LoadOption.OverwriteChanges)
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
 
-        bind.DataSource = dtable
+            bind.DataSource = dtable
 
-        dgAlbaranes.DataSource = bind
+            dgAlbaranes.DataSource = bind
+        End If
+
         dgAlbaranes.EnableHeadersVisualStyles = False
         Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
         styCabeceras.BackColor = Color.Beige
@@ -2769,33 +2831,64 @@ Public Class frAlbaran
     Private Sub txReferencia_TextChanged(sender As Object, e As EventArgs) Handles txReferencia.TextChanged
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+        If rbNofacturados.Checked = True Then
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
                                                     albaran_cab.referencia,
                                                     albaran_cab.fecha, 
                                                     clientes.nombre, 
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.eliminado, 
+                                                    albaran_cab.facturado, 
+                                                    clientes.clienteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
+
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de referencias en el albarán (Err_1164). Revise los datos")
+                Exit Sub
+            End Try
+
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgAlbaranes.DataSource = bind
+        Else
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.facturado, 
                                                     clientes.clienteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
-        Dim readermy As MySqlDataReader
-        Dim dtable As New DataTable
-        Dim bind As New BindingSource()
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
 
-        Try
-            readermy = consultamy.ExecuteReader
-        Catch ex As Exception
-            MsgBox("Se ha producido un error en el filtro de referencias en el albarán (Err_1164). Revise los datos")
-            Exit Sub
-        End Try
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro de referencias en el albarán (Err_1164). Revise los datos")
+                Exit Sub
+            End Try
 
-        dtable.Load(readermy, LoadOption.OverwriteChanges)
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
 
-        bind.DataSource = dtable
+            bind.DataSource = dtable
 
-        dgAlbaranes.DataSource = bind
+            dgAlbaranes.DataSource = bind
+        End If
+
         dgAlbaranes.EnableHeadersVisualStyles = False
         Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
         styCabeceras.BackColor = Color.Beige
@@ -2841,33 +2934,64 @@ Public Class frAlbaran
     Private Sub txGeneral_TextChanged(sender As Object, e As EventArgs) Handles txGeneral.TextChanged
         Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos + "; Convert Zero Datetime=True")
         conexionmy.Open()
-        Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+        If rbNofacturados.Checked = True Then
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
                                                     albaran_cab.referencia,
                                                     albaran_cab.fecha, 
                                                     clientes.nombre, 
                                                     albaran_cab.totalbruto, 
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
-                                                    albaran_cab.eliminado, 
+                                                    albaran_cab.facturado, 
+                                                    clientes.clienteID
+                                            FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
+
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
+
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro general de albaranes (Err_1166). Revise los datos")
+                Exit Sub
+            End Try
+
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
+
+            bind.DataSource = dtable
+
+            dgAlbaranes.DataSource = bind
+        Else
+            Dim consultamy As New MySqlCommand("SELECT albaran_cab.num_albaran, 
+                                                    albaran_cab.referencia,
+                                                    albaran_cab.fecha, 
+                                                    clientes.nombre, 
+                                                    albaran_cab.totalbruto, 
+                                                    albaran_cab.totalalbaran, 
+                                                    albaran_cab.clienteID,
+                                                    albaran_cab.facturado, 
                                                     clientes.clienteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
-        Dim readermy As MySqlDataReader
-        Dim dtable As New DataTable
-        Dim bind As New BindingSource()
+            Dim readermy As MySqlDataReader
+            Dim dtable As New DataTable
+            Dim bind As New BindingSource()
 
-        Try
-            readermy = consultamy.ExecuteReader
-        Catch ex As Exception
-            MsgBox("Se ha producido un error en el filtro general de albaranes (Err_1166). Revise los datos")
-            Exit Sub
-        End Try
+            Try
+                readermy = consultamy.ExecuteReader
+            Catch ex As Exception
+                MsgBox("Se ha producido un error en el filtro general de albaranes (Err_1166). Revise los datos")
+                Exit Sub
+            End Try
 
-        dtable.Load(readermy, LoadOption.OverwriteChanges)
+            dtable.Load(readermy, LoadOption.OverwriteChanges)
 
-        bind.DataSource = dtable
+            bind.DataSource = dtable
 
-        dgAlbaranes.DataSource = bind
+            dgAlbaranes.DataSource = bind
+        End If
+
         dgAlbaranes.EnableHeadersVisualStyles = False
         Dim styCabeceras As DataGridViewCellStyle = New DataGridViewCellStyle()
         styCabeceras.BackColor = Color.Beige

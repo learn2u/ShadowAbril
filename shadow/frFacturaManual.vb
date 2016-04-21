@@ -629,12 +629,12 @@ Public Class frFacturaManual
             recalcularPlazos()
             grabarVencimientos()
 
-            deshabilitarBotones()
-            limpiarFormulario()
+            deshabilitarBotonesLight()
+            'limpiarFormulario()
             lineas = 0
             cmdNuevo.Enabled = True
             cargoTodasFacturas()
-            tabPresupuestos.SelectTab(0)
+            'tabPresupuestos.SelectTab(0)
         Else
 
             Dim conexionmy As New MySqlConnection("server=" + vServidor + "; User ID=" + vUsuario + "; database=" + vBasedatos)
@@ -792,11 +792,11 @@ Public Class frFacturaManual
             lineasEdit.Clear()
 
 
-            deshabilitarBotones()
-            limpiarFormulario()
+            deshabilitarBotonesLight()
+            'limpiarFormulario()
             cmdNuevo.Enabled = True
             cargoTodasFacturas()
-            tabPresupuestos.SelectTab(0)
+            'tabPresupuestos.SelectTab(0)
             lineas = 0
             flagEdit = "N"
         End If
@@ -1820,6 +1820,9 @@ Public Class frFacturaManual
 
             Dim cmdEliminarLineas As New MySqlCommand("DELETE FROM factura_linea WHERE num_factura = '" + txtNumpres.Text + "'", conexionmy)
             cmdEliminarLineas.ExecuteNonQuery()
+
+            Dim cmdEliminarVtos As New MySqlCommand("DELETE FROM vto_cobros WHERE documentoID = '" + txtNumpres.Text + "'", conexionmy)
+            cmdEliminarVtos.ExecuteNonQuery()
 
             conexionmy.Close()
             deshabilitarBotones()

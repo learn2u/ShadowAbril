@@ -745,7 +745,7 @@
     <Height>0.62745in</Height>
     <Style />
   </Body>
-  <Width>7.48in</Width>
+  <Width>7.50577in</Width>
   <Page>
     <PageHeader>
       <Height>3.2785cm</Height>
@@ -1037,119 +1037,6 @@
       <Height>1.99024cm</Height>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
-        <Textbox Name="totaliva">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!totaliva.Value, "dsAlbaranCab")</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>0.00'€';(0.00'€')</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>totaliva</rd:DefaultName>
-          <Top>0.99793cm</Top>
-          <Left>14.02565cm</Left>
-          <Height>0.67938cm</Height>
-          <Width>2.32547cm</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
-          </Style>
-        </Textbox>
-        <Textbox Name="totaldto">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!totalbruto.Value, "dsAlbaranCab")-First(Fields!totaldto.Value, "dsAlbaranCab")</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>0.00'€';(0.00'€')</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>totaldto</rd:DefaultName>
-          <Top>1.01085cm</Top>
-          <Left>8.44514cm</Left>
-          <Height>0.66646cm</Height>
-          <Width>3.1104cm</Width>
-          <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
-          </Style>
-        </Textbox>
-        <Textbox Name="totalrecargo">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!totalrecargo.Value, "dsAlbaranCab")</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>0.00'€';(0.00'€')</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>totalrecargo</rd:DefaultName>
-          <Top>1.02378cm</Top>
-          <Left>11.6261cm</Left>
-          <Height>0.66645cm</Height>
-          <Width>2.32547cm</Width>
-          <ZIndex>2</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-            <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
-          </Style>
-        </Textbox>
         <Textbox Name="totalpresupuesto">
           <CanGrow>true</CanGrow>
           <KeepTogether>true</KeepTogether>
@@ -1157,12 +1044,13 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=First(Fields!totalalbaran.Value, "dsAlbaranCab")</Value>
+                  <Value>=round(Sum(Fields!totalinea.Value, "dsAlbaranLin"),2, MidpointRounding.AwayFromZero)</Value>
                   <Style>
                     <FontFamily>Comic Sans MS</FontFamily>
                     <FontSize>9pt</FontSize>
                     <FontWeight>Bold</FontWeight>
-                    <Format>0.00'€';(0.00'€')</Format>
+                    <Format>0.00'€'</Format>
+                    <rd:FormatSymbolCulture>es-ES</rd:FormatSymbolCulture>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1173,10 +1061,9 @@
           </Paragraphs>
           <rd:DefaultName>totalpresupuesto</rd:DefaultName>
           <Top>0.99792cm</Top>
-          <Left>16.42168cm</Left>
+          <Left>16.45696cm</Left>
           <Height>0.67938cm</Height>
           <Width>2.32547cm</Width>
-          <ZIndex>3</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1213,188 +1100,7 @@
           <Left>16.45696cm</Left>
           <Height>0.65353cm</Height>
           <Width>2.32547cm</Width>
-          <ZIndex>4</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox27">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>IVA</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.33147cm</Top>
-          <Left>14.02565cm</Left>
-          <Height>0.67938cm</Height>
-          <Width>2.32547cm</Width>
-          <ZIndex>5</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox28">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>R.E.</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.35732cm</Top>
-          <Left>11.6261cm</Left>
-          <Height>0.65353cm</Height>
-          <Width>2.32547cm</Width>
-          <ZIndex>6</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox29">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>B. IMPONIBLE</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.34439cm</Top>
-          <Left>8.51569cm</Left>
-          <Height>0.66646cm</Height>
-          <Width>3.03985cm</Width>
-          <ZIndex>7</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox30">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>BULTOS</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox26</rd:DefaultName>
-          <Top>0.35732cm</Top>
-          <Left>6.11967cm</Left>
-          <Height>0.66646cm</Height>
-          <Width>2.32547cm</Width>
-          <ZIndex>8</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="totaldto2">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>=First(Fields!bultos.Value, "dsAlbaranCab")</Value>
-                  <Style>
-                    <FontFamily>Comic Sans MS</FontFamily>
-                    <FontSize>9pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <Format>0.00;(0.00)</Format>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style>
-                <TextAlign>Center</TextAlign>
-              </Style>
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>totaldto</rd:DefaultName>
-          <Top>1.02378cm</Top>
-          <Left>6.11967cm</Left>
-          <Height>0.66646cm</Height>
-          <Width>2.32547cm</Width>
-          <ZIndex>9</ZIndex>
+          <ZIndex>1</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>

@@ -2636,7 +2636,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -2662,7 +2664,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE clientes.nombre LIKE'%" & txCliente.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
             Dim readermy As MySqlDataReader
             Dim dtable As New DataTable
@@ -2719,6 +2723,9 @@ Public Class frAlbaran
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 
@@ -2737,7 +2744,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.num_albaran LIKE '" & txNumero.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -2765,7 +2774,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.num_albaran LIKE '" & txNumero.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -2822,6 +2833,9 @@ Public Class frAlbaran
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 
@@ -2840,7 +2854,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -2868,7 +2884,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -2925,6 +2943,9 @@ Public Class frAlbaran
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 
@@ -2943,7 +2964,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' AND facturado = 'N' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -2971,7 +2994,9 @@ Public Class frAlbaran
                                                     albaran_cab.totalalbaran, 
                                                     albaran_cab.clienteID,
                                                     albaran_cab.facturado, 
-                                                    clientes.clienteID
+                                                    albaran_cab.serie, 
+                                                    clientes.clienteID,
+                                                    clientes.agenteID
                                             FROM albaran_cab INNER JOIN clientes ON albaran_cab.clienteID=clientes.clienteID WHERE albaran_cab.referencia LIKE'%" & txReferencia.Text & "%' ORDER BY albaran_cab.num_albaran DESC", conexionmy)
 
             Dim readermy As MySqlDataReader
@@ -3028,6 +3053,9 @@ Public Class frAlbaran
         dgAlbaranes.Columns(6).Visible = False
         dgAlbaranes.Columns(7).Visible = False
         dgAlbaranes.Columns(8).Visible = False
+        dgAlbaranes.Columns(9).Visible = False
+        dgAlbaranes.Columns(10).Name = "Column7"
+        dgAlbaranes.Columns(10).Visible = False
         dgAlbaranes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgAlbaranes.Visible = True
 

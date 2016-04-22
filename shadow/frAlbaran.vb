@@ -3228,6 +3228,16 @@ Public Class frAlbaran
 
             btFacturarSelec.Enabled = False
             btFacturarTodos.Enabled = False
+            vTotalBruto = 0
+            vTotalDto = 0
+            vTotalIva = 0
+            vTotalRecargo = 0
+            vTotalAlbaran = 0
+            vTotalBrutoFac = 0
+            vTotalDtoFac = 0
+            vTotalIvaFac = 0
+            vTotalRecargoFac = 0
+            vTotalFactura = 0
             cargoAlbNoFactu()
             nFraPase = txNFac.Text
             documentoPase = True
@@ -3355,6 +3365,17 @@ Public Class frAlbaran
         cmd.ExecuteNonQuery()
 
         conexionmy.Close()
+        vTotalBF = ""
+        vTotalDF = ""
+        vTotalIF = ""
+        vTotalRF = ""
+        vTotalF = 0
+        vTotalBrutoFac = 0
+        vTotalDtoFac = 0
+        vTotalIvaFac = 0
+        vTotalRecargoFac = 0
+        vTotalFactura = 0
+        albaFactu.Clear()
 
     End Sub
     Public Sub facturoAlbaran(nAlb As Integer)

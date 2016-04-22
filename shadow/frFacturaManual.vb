@@ -506,6 +506,7 @@ Public Class frFacturaManual
             dgLineasPres1.Rows.Clear()
         End If
         lineas = 0
+        lineasEdit.Clear()
         tabPresupuestos.SelectTab(0)
     End Sub
 

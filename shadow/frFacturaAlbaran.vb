@@ -631,6 +631,7 @@ Public Class frFacturaAlbaran
         cmd.ExecuteNonQuery()
 
         conexionmy.Close()
+        albaFactu.Clear()
 
     End Sub
 

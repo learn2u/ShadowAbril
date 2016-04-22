@@ -765,30 +765,35 @@ Public Class frFacturaManual
             Next
 
             conexionmy.Close()
+            If txManual.Text = "S" Then
+                'MsgBox("Actualizo stock")
+                If lineasEdit.Count > 0 Then
+                    For Each itemlineas As lineasEditadas In lineasEdit
+                        If itemlineas.esLote = "N" Then
+                            Try
+                                aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
+                                descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
+                            Catch ex As Exception
+                                MsgBox("Se ha producido un error en la actualización de stocks (Err_1060). Revise los datos")
+                                Exit Sub
+                            End Try
 
-            If lineasEdit.Count > 0 Then
-                For Each itemlineas As lineasEditadas In lineasEdit
-                    If itemlineas.esLote = "N" Then
-                        Try
-                            aumentarStock(itemlineas.codigoArt, itemlineas.cantAntes)
-                            descontarStock(itemlineas.codigoArt, itemlineas.cantDespues)
-                        Catch ex As Exception
-                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1060). Revise los datos")
-                            Exit Sub
-                        End Try
-
-                    Else
-                        Try
-                            'vLote = row.Cells(11).Value
-                            aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
-                            descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
-                        Catch ex As Exception
-                            MsgBox("Se ha producido un error en la actualización de stocks (Err_1061). Revise los datos")
-                            Exit Sub
-                        End Try
-                    End If
-                Next
+                        Else
+                            Try
+                                'vLote = row.Cells(11).Value
+                                aumentarStockLote(itemlineas.codigoArt, itemlineas.cantAntes)
+                                descontarStockLote(itemlineas.codigoArt, itemlineas.cantDespues)
+                            Catch ex As Exception
+                                MsgBox("Se ha producido un error en la actualización de stocks (Err_1061). Revise los datos")
+                                Exit Sub
+                            End Try
+                        End If
+                    Next
+                End If
+            Else
+                'MsgBox("No Actualizo stock")
             End If
+
 
             lineasEdit.Clear()
 
